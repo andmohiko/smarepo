@@ -1,1 +1,6 @@
 export * from './Auth'
+export * from './Match'
+export * from './Profile'
+export * from './PublicMatch'
+export * from './PrivateMatch'
+export * from './User'
