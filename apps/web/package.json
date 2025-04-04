@@ -1,5 +1,5 @@
 {
-  "name": "@firebase-monorepo/web",
+  "name": "@smarepo/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -22,6 +22,7 @@
     "@mantine/hooks": "^7.17.3",
     "@mantine/notifications": "^7.17.3",
     "@sentry/nextjs": "^9.10.1",
+    "@smarepo/common": "workspace:*",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.13",
     "firebase": "^11.5.0",

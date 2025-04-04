@@ -1,5 +1,5 @@
 {
-  "name": "@firebase-monorepo/functions",
+  "name": "@smarepo/functions",
   "version": "0.1.0",
   "private": true,
   "scripts": {
