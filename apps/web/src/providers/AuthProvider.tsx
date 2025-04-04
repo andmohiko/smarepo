@@ -21,7 +21,7 @@ import {
 import { auth, serverTimestamp } from '~/lib/firebase'
 import { errorMessage } from '~/utils/errorMessage'
 
-const nonAuthPaths = ['/new']
+const nonAuthPaths = ['/i/new']
 
 const isNonAuthPath = (path: string) => {
   return nonAuthPaths.some((p) => path.startsWith(p))
