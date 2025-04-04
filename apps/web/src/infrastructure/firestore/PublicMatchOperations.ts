@@ -24,7 +24,7 @@ const dateColumns = ['createdAt', 'updatedAt'] as const satisfies Array<string>
 
 export const subscribePublicMatchesOperation = (
   userId: string,
-  setter: (matches: Array<PublicMatch> | null | undefined) => void,
+  setter: (matches: Array<PublicMatch>) => void,
 ): Unsubscribe => {
   const unsubscribe = onSnapshot(
     query(collection(db, publicMatchCollection), where('userId', '==', userId)),
