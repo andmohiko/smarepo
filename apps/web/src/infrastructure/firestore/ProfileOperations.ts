@@ -6,7 +6,7 @@ import type {
   UpdateProfileDto,
 } from '@smarepo/common'
 import type { Unsubscribe } from 'firebase/firestore'
-import { doc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore'
+import { doc, getDoc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore'
 
 import { db } from '~/lib/firebase'
 import { convertDate } from '~/utils/convertDate'
@@ -48,4 +48,11 @@ export const updateUserOperation = async (
   dto: UpdateProfileDto,
 ): Promise<void> => {
   await updateDoc(doc(db, profileCollection, userId), dto)
+}
+
+export const isExistsProfileOperation = async (
+  userId: string,
+): Promise<boolean> => {
+  const docSnap = await getDoc(doc(db, profileCollection, userId))
+  return docSnap.exists()
 }
