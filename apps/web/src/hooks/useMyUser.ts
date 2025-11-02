@@ -2,7 +2,7 @@ import type { User } from '@smarepo/common'
 import { useEffect, useState } from 'react'
 
 import { subscribeUserOperation } from '~/infrastructure/firestore/UserOperations'
-import { useFirebaseAuthContext } from '~/providers/AuthProvider'
+import { useFirebaseAuthContext } from '~/providers/FirebaseAuthProvider'
 import { useToast } from '~/hooks/useToast'
 import { errorMessage } from '~/utils/errorMessage'
 

@@ -2,7 +2,7 @@ import type { Profile } from '@smarepo/common'
 import { useEffect, useState } from 'react'
 
 import { subscribeProfileOperation } from '~/infrastructure/firestore/ProfileOperations'
-import { useFirebaseAuthContext } from '~/providers/AuthProvider'
+import { useFirebaseAuthContext } from '~/providers/FirebaseAuthProvider'
 import { useToast } from '~/hooks/useToast'
 import { errorMessage } from '~/utils/errorMessage'
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { PublicMatch } from '@smarepo/common'
 
-import { useFirebaseAuthContext } from '~/providers/AuthProvider'
+import { useFirebaseAuthContext } from '~/providers/FirebaseAuthProvider'
 import { useToast } from '~/hooks/useToast'
 import { subscribePublicMatchesOperation } from '~/infrastructure/firestore/PublicMatchOperations'
 import { errorMessage } from '~/utils/errorMessage'
