@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router'
+
 import type { RegisterInputType } from '~/features/register/types'
 import { createProfileOperation } from '~/infrastructure/firestore/ProfileOperations'
 import { serverTimestamp } from '~/lib/firebase'
@@ -5,6 +7,7 @@ import { useFirebaseAuthContext } from '~/providers/FirebaseAuthProvider'
 
 export const useCreateProfileMutation = () => {
   const { uid } = useFirebaseAuthContext()
+  const { push } = useRouter()
   const createProfile = async (data: RegisterInputType) => {
     if (!uid) {
       throw new Error('ユーザーが存在しません')
@@ -28,6 +31,8 @@ export const useCreateProfileMutation = () => {
       },
       xId: data.xId,
     })
+
+    push('/')
   }
 
   return { createProfile }

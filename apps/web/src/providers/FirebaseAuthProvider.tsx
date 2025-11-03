@@ -69,8 +69,14 @@ const FirebaseAuthProvider = ({
         return
       }
 
+      // ユーザー登録済みの人が登録画面にいる場合はトップ画面へ飛ばす
+      if (pathname === '/i/register' && user) {
+        push('/')
+        return
+      }
+
       if (isAuthPath && !user) {
-        push('/login')
+        push('/i/new')
         return
       }
 
