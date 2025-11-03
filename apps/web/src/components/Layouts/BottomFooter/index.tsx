@@ -1,0 +1,85 @@
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { AiOutlineUser } from 'react-icons/ai'
+import { IoAnalyticsOutline } from 'react-icons/io5'
+import { RiSwordLine } from 'react-icons/ri'
+
+import styles from './style.module.scss'
+
+import { useMyProfile } from '~/hooks/useMyProfile'
+
+export const BottomFooter = (): React.ReactNode => {
+  const { pathname } = useRouter()
+  const [profile] = useMyProfile()
+  const footerItems: Array<NavigationItemProps> = [
+    {
+      href: '/',
+      label: 'オンライン戦績',
+      icon: <RiSwordLine size={24} />,
+      isCurrent: pathname === '/',
+      isDisabled: false,
+    },
+    {
+      href: '/i/decks',
+      label: '分析',
+      icon: <IoAnalyticsOutline size={24} />,
+      isCurrent: pathname === '/i/decks',
+      isDisabled: false,
+    },
+    {
+      href: '/i/mypage',
+      label: 'マイページ',
+      icon: <AiOutlineUser size={24} />,
+      isCurrent: pathname === `/${profile?.username}`,
+      isDisabled: false,
+    },
+  ]
+
+  return (
+    <nav className={styles.bottomFooter}>
+      {footerItems.map((item) => (
+        <NavigationItem key={item.href} {...item} />
+      ))}
+    </nav>
+  )
+}
+
+type NavigationItemProps = {
+  href: string
+  label: string
+  icon: React.ReactNode
+  isCurrent: boolean
+  isDisabled: boolean
+}
+
+const NavigationItem = ({
+  href,
+  label,
+  icon,
+  isCurrent,
+  isDisabled,
+}: NavigationItemProps): React.ReactNode => {
+  return (
+    <Link
+      className={styles.navigationItem}
+      href={href}
+      style={{
+        color: isCurrent ? '#0593b9' : undefined,
+        textDecoration: 'none',
+      }}
+    >
+      {icon}
+      <span className={styles.label}>{label}</span>
+
+      {isDisabled && (
+        <div className={styles.disabled}>
+          <p className={styles.comingSoon}>
+            coming
+            <br />
+            soon
+          </p>
+        </div>
+      )}
+    </Link>
+  )
+}

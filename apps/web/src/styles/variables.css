@@ -1,20 +1,41 @@
 :root {
-  /* Brand Colors */
-  --color-primary: #579aff;
+  /* Base colors */
+  --color-base: #ffffff;
+  --color-primary: #69a5ff;
+  --color-primaryLight: #4bc1e6;
+  --color-primaryDark: #0593b9;
+  --color-error: #ef5252;
+  --color-errorLight: #ffdbdb;
+  --color-success: #74cd6d;
+  --color-successLight: #c2f2be;
+  --color-warning: #f2bc2f;
+  --color-warningLight: #f2ebad;
+  --color-info: #53abc7;
+  --color-infoLight: #d6eff8;
 
-  /* Background Colors */
-  --color-bg-white: #ffffff;
-
-  /* Text Colors */
-  --color-text-black: #2e3542;
+  /* Base color shades */
+  --color-white: #ffffff;
+  --color-black: #000000;
   --color-text-white: #ffffff;
+  --color-text-black: #171923;
+  --color-text-gray: #4a5568;
 
-  /* Backgrounds */
-  --bg-white0: #ffffff;
+  /* Gray shades */
+  --color-gray50: #f7fafc;
+  --color-gray100: #edf2f7;
+  --color-gray200: #e2e8f0;
+  --color-gray300: #cbd5e0;
+  --color-gray400: #a0aec0;
+  --color-gray500: #718096;
+  --color-gray600: #4a5568;
+  --color-gray700: #2d3748;
+  --color-gray800: #1a202c;
+  --color-gray900: #171923;
 
-  /* Border Colors */
-  --color-border-gray0: #aeb7ce;
+  /* Cyan shades */
+  --color-cyanLight: #edfdfd;
+  --color-cyan: #9decf9;
+  --color-cyanDark: #00b5d8;
 
-  /* Base Colors */
-  --color-base-white: #ffffff;
+  --color-link: #228be6;
 }

@@ -1,15 +1,15 @@
 import type { NextPage } from 'next'
 
-import { SimpleLayout } from '~/components/Layouts/SimpleLayout'
+import { DefaultLayout } from '~/components/Layouts/DefaultLayout'
 
 const IndexPage: NextPage = () => {
   return (
-    <SimpleLayout>
+    <DefaultLayout>
       <h1 className="text-4xl font-bold">テンプレート</h1>
       <p>だんらく</p>
       <span>すぱん</span>
       <span>すぱーん</span>
-    </SimpleLayout>
+    </DefaultLayout>
   )
 }
 
