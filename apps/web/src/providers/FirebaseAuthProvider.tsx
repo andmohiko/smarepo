@@ -106,7 +106,7 @@ const FirebaseAuthProvider = ({
         const hasProfile = await isExistsProfileOperation(uid)
         // プロフィールがないならプロフィール作成画面へ
         if (!hasProfile) {
-          push('/register')
+          push('/i/register')
           return
         }
 
