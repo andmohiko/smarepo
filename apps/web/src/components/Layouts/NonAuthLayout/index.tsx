@@ -4,6 +4,7 @@ import { FixedHeader } from '~/components/Layouts/FixedHeader'
 import { LoadingContentOverlay } from '~/components/Base/Loading'
 import { useLoadingContext } from '~/providers/LoadingProvider'
 import { PageHead } from '~/components/Base/PageHead'
+import { LoginFooter } from '~/components/Layouts/LoginFooter'
 
 type Props = {
   children?: React.ReactNode
@@ -26,6 +27,12 @@ export const NonAuthLayout = ({
 
       {isLoading && <LoadingContentOverlay />}
       <main className={styles.main}>{children}</main>
+
+      <div className={styles.footerWrapper}>
+        <div className={styles.spWindow}>
+          <LoginFooter />
+        </div>
+      </div>
     </div>
   )
 }

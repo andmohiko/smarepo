@@ -1,0 +1,14 @@
+.loginFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-top: 1px solid var(--color-gray200);
+  background-color: var(--color-gray50);
+  padding: 24px 16px;
+
+  .login {
+    font-size: 13px;
+    color: var(--color-link);
+    text-decoration: underline;
+  }
+}
