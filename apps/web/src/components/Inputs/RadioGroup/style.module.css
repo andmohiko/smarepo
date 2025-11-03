@@ -1,0 +1,12 @@
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.radio {
+  padding: 12px 0;
+}
+
+.radioButton {
+  border: 1px solid var(--color-text-black);
+}
