@@ -1,9 +1,6 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // match /{document=**} {
-    //   allow read, write;
-    // }
     function requestData() {
       return request.resource.data;
     }
@@ -13,45 +10,65 @@ service cloud.firestore {
     function isUser(userId) {
       return request.auth.uid == userId;
     }
+
+    function isValidProfileSchema(requestData) {
+      return requestData.size() == 11
+        && 'createdAt' in requestData && requestData.createdAt is timestamp
+        && 'displayName' in requestData && requestData.displayName is string
+        && 'friendCode' in requestData && requestData.friendCode is string
+        && 'isPrivateProfile' in requestData && requestData.isPrivateProfile is bool
+        && 'mainFighter' in requestData && requestData.mainFighter is string
+        && 'profileImageUrl' in requestData && requestData.profileImageUrl is string
+        && 'selfIntroduction' in requestData && requestData.selfIntroduction is string
+        && 'updatedAt' in requestData && requestData.updatedAt is timestamp
+        && 'username' in requestData && requestData.username is string
+        && 'voiceChat' in requestData && requestData.voiceChat is map
+        && 'xId' in requestData && requestData.xId is string;
+    }
+
     match /authUsers/{authId} {
       allow read;
       allow create: if isSignedIn()
-      								&& isUser(authId)
-      								&& 'createdAt' in requestData() && requestData().createdAt is timestamp
-                      && 'userId' in requestData() && requestData().userId is string
-                      && 'loginMethod' in requestData() && requestData().loginMethod is string;
+                    && isUser(authId)
+                    && 'createdAt' in requestData() && requestData().createdAt is timestamp
+                    && 'userId' in requestData() && requestData().userId is string
+                    && 'loginMethod' in requestData() && requestData().loginMethod is string;
     }
+
+    match /profiles/{profileId} {
+      allow read;
+      allow create: if isSignedIn() && isUser(profileId) && isValidProfileSchema(requestData());
+      allow update: if isSignedIn() && isUser(profileId) && isValidProfileSchema(requestData());
+    }
+
     match /users/{userId} {
       allow read;
       allow create: if isSignedIn()
-      								&& 'createdAt' in requestData() && requestData().createdAt is timestamp
-                      && 'updatedAt' in requestData() && requestData().updatedAt is timestamp
-                      && 'authId' in requestData() && requestData().authId is string
-                      && 'userOriginalId' in requestData() && requestData().userOriginalId is string
-                      && 'username' in requestData() && requestData().username is string;
+                    && 'createdAt' in requestData() && requestData().createdAt is timestamp
+                    && 'updatedAt' in requestData() && requestData().updatedAt is timestamp;
       allow update: if isSignedIn()
-      								&& 'updatedAt' in requestData() && requestData().updatedAt is timestamp;
+                    && 'updatedAt' in requestData() && requestData().updatedAt is timestamp;
     }
     match /records/{recordId} {
       allow read;
     	allow create: if isSignedIn()
-                      && 'createdAt' in requestData() && requestData().createdAt is timestamp
-                      && 'updatedAt' in requestData() && requestData().updatedAt is timestamp
-                      && 'userId' in requestData() && requestData().userId is string
-                      && 'userOriginalId' in requestData() && requestData().userOriginalId is string
-                      && 'roomType' in requestData() && requestData().roomType is string
-                      && 'fighter' in requestData() && requestData().fighter is string
-                      && 'fighterId' in requestData() && requestData().fighterId is string
-                      && 'opponent' in requestData() && requestData().opponent is string
-                      && 'opponentId' in requestData() && requestData().opponentId is string
-                      && 'result' in requestData() && requestData().result is bool;
+                    && 'createdAt' in requestData() && requestData().createdAt is timestamp
+                    && 'updatedAt' in requestData() && requestData().updatedAt is timestamp
+                    && 'userId' in requestData() && requestData().userId is string
+                    && 'userOriginalId' in requestData() && requestData().userOriginalId is string
+                    && 'roomType' in requestData() && requestData().roomType is string
+                    && 'fighter' in requestData() && requestData().fighter is string
+                    && 'fighterId' in requestData() && requestData().fighterId is string
+                    && 'opponent' in requestData() && requestData().opponent is string
+                    && 'opponentId' in requestData() && requestData().opponentId is string
+                    && 'result' in requestData() && requestData().result is bool;
       allow update: if isSignedIn()
-                      && 'updatedAt' in requestData() && requestData().updatedAt is timestamp
-                      && 'fighter' in requestData() && requestData().fighter is string
-                      && 'fighterId' in requestData() && requestData().fighterId is string
-                      && 'opponent' in requestData() && requestData().opponent is string
-                      && 'opponentId' in requestData() && requestData().opponentId is string
-                      && 'result' in requestData() && requestData().result is bool;
+                    && 'updatedAt' in requestData() && requestData().updatedAt is timestamp
+                    && 'fighter' in requestData() && requestData().fighter is string
+                    && 'fighterId' in requestData() && requestData().fighterId is string
+                    && 'opponent' in requestData() && requestData().opponent is string
+                    && 'opponentId' in requestData() && requestData().opponentId is string
+                    && 'result' in requestData() && requestData().result is bool;
       allow delete: if isSignedIn();
     }
     match /versions/{version} {

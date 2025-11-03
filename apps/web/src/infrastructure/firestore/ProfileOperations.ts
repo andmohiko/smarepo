@@ -2,7 +2,7 @@ import { profileCollection } from '@smarepo/common'
 import type {
   CreateProfileDto,
   Profile,
-  Uid,
+  ProfileId,
   UpdateProfileDto,
 } from '@smarepo/common'
 import type { Unsubscribe } from 'firebase/firestore'
@@ -36,18 +36,19 @@ export const subscribeProfileOperation = (
   return unsubscribe
 }
 
-export const createUserOperation = async (
-  userId: Uid,
+export const createProfileOperation = async (
+  profileId: ProfileId,
   dto: CreateProfileDto,
 ): Promise<void> => {
-  await setDoc(doc(db, profileCollection, userId), dto)
+  console.log('createProfileOperation', profileId, dto)
+  await setDoc(doc(db, profileCollection, profileId), dto)
 }
 
-export const updateUserOperation = async (
-  userId: string,
+export const updateProfileOperation = async (
+  profileId: ProfileId,
   dto: UpdateProfileDto,
 ): Promise<void> => {
-  await updateDoc(doc(db, profileCollection, userId), dto)
+  await updateDoc(doc(db, profileCollection, profileId), dto)
 }
 
 export const isExistsProfileOperation = async (

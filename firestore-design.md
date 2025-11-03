@@ -1,14 +1,42 @@
 # firestore 設計
 
-- [users](#users)
+- [matches](#matches)
+- [profiles](#profiles)
 - [records](#records)
+- [users](#users)
+
+## profiles
+
+### 概要
+
+- ユーザーのプロフィール一覧
+- usersコレクションは個人情報を含むため、公開してよい情報だけをprofilesコレクションに保存する
+- ID: userId
+
+### 詳細
+
+- createdAt: Timestamp 作成時刻
+- displayName: String 表示名（ユーザー名）
+- friendCode: String Switchのフレンドコード
+- isPrivateProfile: Boolean プロフィールを非公開にするかどうか
+- mainFighter: String メインファイターのID
+- profileImageUrl: String プロフィール画像のURL
+- selfIntroduction
+- updatedAt: Timestamp 更新時刻
+- username: String ユーザーID
+- voiceChat: Map ボイスチャット
+  - discord: Boolean
+  - line: Boolean
+  - nintendoOnline: Boolean
+  - listenOnly: Boolean
+- xId: String XのID
 
 ## users
 
 ### 概要
 
 - ユーザ
-- ID: userId
+- ID: Firebase AuthのUid
 
 ### 詳細
 
@@ -36,17 +64,15 @@
   - skype: Boolean
   - listenOnly: Boolean
   - ng: Boolean
-<!-- - playStyle: map
-  - 
-  tournament/oneOnOne
+  <!-- - playStyle: map
+  - tournament/oneOnOne
   - items: String on/off -->
-<!-- - privateSettings: Map
+  <!-- - privateSettings: Map
   - isPrivate: Boolean
   - showProfile: Boolean
   - showLatestGlobalSmashPower: Boolean
   - showWinningRate: Boolean
   - showAnalytics: Boolean -->
-
 
 ## records
 
