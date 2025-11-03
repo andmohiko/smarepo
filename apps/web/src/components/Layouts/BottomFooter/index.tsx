@@ -4,7 +4,7 @@ import { AiOutlineUser } from 'react-icons/ai'
 import { IoAnalyticsOutline } from 'react-icons/io5'
 import { RiSwordLine } from 'react-icons/ri'
 
-import styles from './style.module.scss'
+import styles from './style.module.css'
 
 import { useMyProfile } from '~/hooks/useMyProfile'
 
@@ -20,11 +20,11 @@ export const BottomFooter = (): React.ReactNode => {
       isDisabled: false,
     },
     {
-      href: '/i/decks',
+      href: '/i/analytics',
       label: '分析',
       icon: <IoAnalyticsOutline size={24} />,
-      isCurrent: pathname === '/i/decks',
-      isDisabled: false,
+      isCurrent: pathname === '/i/analytics',
+      isDisabled: true,
     },
     {
       href: '/i/mypage',
