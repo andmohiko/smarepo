@@ -5,7 +5,7 @@ import { SimpleLayout } from '~/components/Layouts/SimpleLayout'
 const IndexPage: NextPage = () => {
   return (
     <SimpleLayout>
-      <h1>テンプレート</h1>
+      <h1 className="text-4xl font-bold">テンプレート</h1>
       <p>だんらく</p>
       <span>すぱん</span>
       <span>すぱーん</span>

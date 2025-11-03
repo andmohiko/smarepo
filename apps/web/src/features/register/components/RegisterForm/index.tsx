@@ -1,29 +1,101 @@
+import { Controller, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+
 import styles from './style.module.css'
 
+import { useCreateProfileMutation } from '~/features/register/hooks/useCreateProfileMutation'
 import { FlexBox } from '~/components/Base/FlexBox'
 import { BasicButton } from '~/components/Buttons/BasicButton'
-import { RadioGroup } from '~/components/Inputs/RadioGroup'
 import { TextInput } from '~/components/Inputs/TextInput'
+import {
+  registerSchema,
+  type RegisterInputType,
+} from '~/features/register/types'
+import { useLoadingContext } from '~/providers/LoadingProvider'
+import { useToast } from '~/hooks/useToast'
+import { errorMessage } from '~/utils/errorMessage'
 
 export const RegisterForm = (): React.ReactNode => {
+  const { startLoading, stopLoading } = useLoadingContext()
+  const { showErrorToast, showSuccessToast } = useToast()
+  const { createProfile } = useCreateProfileMutation()
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterInputType>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      displayName: '',
+      username: '',
+      xId: '',
+    },
+  })
+
+  const onSubmit = async (data: RegisterInputType) => {
+    try {
+      startLoading()
+      await createProfile(data)
+      showSuccessToast('ユーザー登録が完了しました')
+    } catch (e) {
+      showErrorToast(errorMessage(e))
+    } finally {
+      stopLoading()
+    }
+  }
+
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <FlexBox gap={16} align="stretch">
-        <TextInput label="ユーザーID" placeHolder="5~15字の英数字で！" />
-        <TextInput label="ユーザー名" placeHolder="日本語でOK🙆‍♀️" />
-        <TextInput label="X ID" placeHolder="twitter" leftSection="@" />
-        {/* メインファイターを選ぶ */}
-        {/* プロフィール公開 */}
-        <RadioGroup
-          label="プロフィール公開"
-          options={[
-            { label: '公開', value: 'public' },
-            { label: '非公開', value: 'private' },
-          ]}
+        <Controller
+          control={control}
+          name="username"
+          render={({ field }) => (
+            <TextInput
+              label="ユーザーID"
+              placeHolder="5~15字の英数字で！"
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={errors.username?.message}
+            />
+          )}
         />
+        <Controller
+          control={control}
+          name="displayName"
+          render={({ field }) => (
+            <TextInput
+              label="ユーザー名"
+              placeHolder="日本語でOK🙆‍♀️"
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={errors.displayName?.message}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="xId"
+          render={({ field }) => (
+            <TextInput
+              label="X ID"
+              placeHolder="twitter"
+              leftSection="@"
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={errors.xId?.message}
+            />
+          )}
+        />
+        {/* メインファイターを選ぶ */}
       </FlexBox>
       <FlexBox gap={16} align="stretch">
-        <BasicButton>登録</BasicButton>
+        <BasicButton type="submit" disabled={isSubmitting}>
+          登録
+        </BasicButton>
         <BasicButton importance="tertiary">
           他のGoogleアカウントを使用
         </BasicButton>

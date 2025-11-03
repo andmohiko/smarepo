@@ -18,11 +18,12 @@ export type Profile = {
   createdAt: Date
   displayName: string
   friendCode: string
+  isPrivateProfile: boolean
   mainFighter: string
-  profileImagePath: string
+  profileImageUrl: string
   selfIntroduction: string
   updatedAt: Date
-  username: Date
+  username: string
   voiceChat: VoiceChat
   xId: string
 }
