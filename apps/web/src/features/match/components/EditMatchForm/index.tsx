@@ -10,6 +10,9 @@ import type { EditPublicMatchInputType } from '~/features/match/types'
 import { editPublicMatchSchema } from '~/features/match/types'
 import { useToast } from '~/hooks/useToast'
 import { ResultInput } from '~/features/match/components/ResultInput'
+import { FighterSelectorInput } from '~/components/Inputs/FighterSelectorInput'
+import { CheckboxInput } from '~/components/Inputs/Checkboxes'
+import { NumberInput } from '~/components/Inputs/NumberInput'
 
 type Props = {
   onClose: () => void
@@ -22,7 +25,6 @@ export const EditMatchForm = ({
 }: Props): React.ReactElement => {
   const { showErrorToast } = useToast()
   const {
-    register,
     control,
     handleSubmit,
     formState: { errors, isSubmitting, isValid },
@@ -40,13 +42,12 @@ export const EditMatchForm = ({
       : {
           isContinuedMatch: false,
           isElite: false,
-          globalSmashPower: 0,
-          myFighterId: '',
-          opponentFighterId: '',
+          globalSmashPower: undefined,
+          myFighterId: undefined,
+          opponentFighterId: undefined,
           result: undefined,
         },
   })
-  const matchResultOptions: Array<Result> = ['WIN', 'LOSE', 'DRAW']
 
   const onSubmit = async (data: EditPublicMatchInputType) => {
     try {
@@ -68,34 +69,76 @@ export const EditMatchForm = ({
         <Controller
           name="myFighterId"
           control={control}
-          render={({ field }) => <>ファイター選択</>}
+          render={({ field }) => (
+            <FighterSelectorInput
+              label="自分のファイター"
+              value={field.value}
+              onChange={field.onChange}
+              error={errors.myFighterId?.message}
+            />
+          )}
         />
         <Controller
           name="opponentFighterId"
           control={control}
-          render={({ field }) => <>ファイター選択</>}
+          render={({ field }) => (
+            <FighterSelectorInput
+              label="相手のファイター"
+              value={field.value}
+              onChange={field.onChange}
+              error={errors.opponentFighterId?.message}
+            />
+          )}
         />
         <Controller
           name="result"
           control={control}
           render={({ field }) => (
-            <ResultInput value={field.value} onChange={field.onChange} />
+            <ResultInput
+              value={field.value}
+              onChange={field.onChange}
+              error={errors.result?.message}
+            />
           )}
         />
-        <Controller
-          name="isContinuedMatch"
-          control={control}
-          render={({ field }) => <>続きから</>}
-        />
-        <Controller
-          name="isElite"
-          control={control}
-          render={({ field }) => <>エリート</>}
-        />
+        <FlexBox direction="row" justify="flex-start" gap={32}>
+          <Controller
+            name="isElite"
+            control={control}
+            render={({ field }) => (
+              <CheckboxInput
+                label="VIPマッチ"
+                value={field.value}
+                onChange={field.onChange}
+              />
+            )}
+          />
+          <Controller
+            name="isContinuedMatch"
+            control={control}
+            render={({ field }) => (
+              <CheckboxInput
+                label="連戦だった"
+                value={field.value}
+                onChange={field.onChange}
+              />
+            )}
+          />
+        </FlexBox>
         <Controller
           name="globalSmashPower"
           control={control}
-          render={({ field }) => <>グローバルスマッシュパワー</>}
+          render={({ field }) => (
+            <NumberInput
+              label="世界戦闘力"
+              value={field.value}
+              onChange={field.onChange}
+              placeHolder="1429"
+              rightSection={<>万</>}
+              width="150px"
+              error={errors.globalSmashPower?.message}
+            />
+          )}
         />
       </FlexBox>
       <BasicButton type="submit" disabled={!isValid} loading={isSubmitting}>
