@@ -3,7 +3,7 @@
   --color-base: #ffffff;
   --color-primary: #69a5ff;
   --color-primaryLight: #4bc1e6;
-  --color-primaryDark: #0593b9;
+  --color-primaryDark: #1451ad;
   --color-error: #ef5252;
   --color-errorLight: #ffdbdb;
   --color-success: #74cd6d;
@@ -38,4 +38,7 @@
   --color-cyanDark: #00b5d8;
 
   --color-link: #228be6;
+
+  --color-win: #0000ff;
+  --color-lose: #ff0000;
 }

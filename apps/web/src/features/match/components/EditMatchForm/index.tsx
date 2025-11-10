@@ -1,6 +1,6 @@
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import type { PublicMatch, Result } from '@smarepo/common'
+import type { PublicMatch } from '@smarepo/common'
 
 import styles from './style.module.scss'
 
