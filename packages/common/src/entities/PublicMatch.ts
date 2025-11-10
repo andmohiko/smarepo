@@ -13,7 +13,7 @@ export type PublicMatch = {
   createdAt: Date
   isContinuedMatch: boolean
   isElite: boolean
-  globalSmashPower: number
+  globalSmashPower: number | null
   myFighterId: string
   opponentFighterId: string
   result: Result

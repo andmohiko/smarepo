@@ -24,19 +24,19 @@ import { LabelText } from '~/components/Typography/LabelText'
  * @param onChange - ファイターが選択された際のコールバック関数
  */
 type Props = {
-  iconSize?: string
   label?: string
   isShowName?: boolean
   value?: FighterId | undefined
   onChange?: (fighterId: FighterId) => void
+  error?: React.ReactNode
 }
 
 export const FighterSelectorInput = ({
-  iconSize = '32px',
   value,
   label,
   isShowName = false,
   onChange,
+  error,
 }: Props): React.ReactElement => {
   /**
    * ファイターが選択された際のハンドラ
@@ -53,6 +53,7 @@ export const FighterSelectorInput = ({
   return (
     <div className={styles.fighterSelectorInput}>
       {label && <LabelText weight="bold">{label}</LabelText>}
+      {error && <p className={styles.error}>{error}</p>}
       <div className={styles.fighterSelector}>
         {fightersIds.map((fighterId) => (
           <div key={fighterId} className={styles.fighterIcon}>

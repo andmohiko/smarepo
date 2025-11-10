@@ -13,6 +13,7 @@ import { ResultInput } from '~/features/match/components/ResultInput'
 import { FighterSelectorInput } from '~/components/Inputs/FighterSelectorInput'
 import { CheckboxInput } from '~/components/Inputs/Checkboxes'
 import { NumberInput } from '~/components/Inputs/NumberInput'
+import { useCreatePublicMatchMutation } from '~/features/match/hooks/useCreatePublicMatchMutation'
 
 type Props = {
   onClose: () => void
@@ -23,6 +24,7 @@ export const EditMatchForm = ({
   onClose,
   defaultValues,
 }: Props): React.ReactElement => {
+  const { createPublicMatch } = useCreatePublicMatchMutation()
   const { showErrorToast } = useToast()
   const {
     control,
@@ -34,7 +36,7 @@ export const EditMatchForm = ({
       ? {
           isContinuedMatch: defaultValues.isContinuedMatch,
           isElite: defaultValues.isElite,
-          globalSmashPower: defaultValues.globalSmashPower,
+          globalSmashPower: defaultValues.globalSmashPower ?? undefined,
           myFighterId: defaultValues.myFighterId,
           opponentFighterId: defaultValues.opponentFighterId,
           result: defaultValues.result,
@@ -51,12 +53,16 @@ export const EditMatchForm = ({
 
   const onSubmit = async (data: EditPublicMatchInputType) => {
     try {
-      console.log('data', data)
-      // if (defaultValues) {
-      //   await updatePublicMatch(defaultValues.publicMatchId, data)
-      // } else {
-      //   await createPublicMatch(data)
-      // }
+      if (!data.myFighterId || !data.opponentFighterId || !data.result) {
+        return
+      }
+      if (defaultValues) {
+        // await updatePublicMatch(defaultValues.publicMatchId, data)
+        // eslint-disable-next-line no-console
+        console.log('todo')
+      } else {
+        await createPublicMatch(data)
+      }
       onClose()
     } catch {
       showErrorToast('戦績の作成に失敗しました')

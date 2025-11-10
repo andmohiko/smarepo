@@ -26,6 +26,19 @@ service cloud.firestore {
         && 'xId' in requestData && requestData.xId is string;
     }
 
+    function isValidPublicMatchSchema(requestData) {
+      return requestData.size() == 9
+        && 'createdAt' in requestData && requestData.createdAt is timestamp
+        && 'isContinuedMatch' in requestData && requestData.isContinuedMatch is bool
+        && 'isElite' in requestData && requestData.isElite is bool
+        && 'globalSmashPower' in requestData && (requestData.globalSmashPower is number || requestData.globalSmashPower == null)
+        && 'myFighterId' in requestData && requestData.myFighterId is string
+        && 'opponentFighterId' in requestData && requestData.opponentFighterId is string
+        && 'result' in requestData && requestData.result is string
+        && 'updatedAt' in requestData && requestData.updatedAt is timestamp
+        && 'userId' in requestData && requestData.userId is string;
+    }
+
     match /authUsers/{authId} {
       allow read;
       allow create: if isSignedIn()
@@ -39,6 +52,13 @@ service cloud.firestore {
       allow read;
       allow create: if isSignedIn() && isUser(profileId) && isValidProfileSchema(requestData());
       allow update: if isSignedIn() && isUser(profileId) && isValidProfileSchema(requestData());
+    }
+
+    match /publicMatches/{publicMatchId} {
+      allow read;
+      allow create: if isSignedIn() && isUser(requestData().userId) && isValidPublicMatchSchema(requestData());
+      allow update: if isSignedIn() && isUser(requestData().userId) && isValidPublicMatchSchema(requestData());
+      allow delete: if isSignedIn() && isUser(requestData().userId);
     }
 
     match /users/{userId} {
