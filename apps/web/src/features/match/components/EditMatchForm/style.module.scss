@@ -1,0 +1,17 @@
+.editMatchForm {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  .addDeckTag {
+    font-size: 11px;
+    color: var(--color-primary);
+  }
+}
+
+.mantineAccordionContent {
+  padding: 4px 0;
+}
+.mantineAccordionControl {
+  padding-left: 0;
+}
