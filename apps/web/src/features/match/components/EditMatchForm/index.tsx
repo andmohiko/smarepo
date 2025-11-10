@@ -9,6 +9,7 @@ import { BasicButton } from '~/components/Buttons/BasicButton'
 import type { EditPublicMatchInputType } from '~/features/match/types'
 import { editPublicMatchSchema } from '~/features/match/types'
 import { useToast } from '~/hooks/useToast'
+import { ResultInput } from '~/features/match/components/ResultInput'
 
 type Props = {
   onClose: () => void
@@ -42,7 +43,7 @@ export const EditMatchForm = ({
           globalSmashPower: 0,
           myFighterId: '',
           opponentFighterId: '',
-          result: 'WIN',
+          result: undefined,
         },
   })
   const matchResultOptions: Array<Result> = ['WIN', 'LOSE', 'DRAW']
@@ -77,7 +78,9 @@ export const EditMatchForm = ({
         <Controller
           name="result"
           control={control}
-          render={({ field }) => <>結果選択</>}
+          render={({ field }) => (
+            <ResultInput value={field.value} onChange={field.onChange} />
+          )}
         />
         <Controller
           name="isContinuedMatch"

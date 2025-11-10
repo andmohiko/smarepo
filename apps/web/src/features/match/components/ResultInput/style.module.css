@@ -1,0 +1,43 @@
+.resultInput {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+
+  & > .resultButton {
+    padding: 16px 32px;
+    border-radius: 100px;
+    background-color: var(--color-white);
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  & > .winButton {
+    border: 1px solid var(--color-win);
+    color: var(--color-win);
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  & > .loseButton {
+    border: 1px solid var(--color-lose);
+    color: var(--color-lose);
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  & > .winSelected {
+    background-color: var(--color-win);
+    color: var(--color-white);
+  }
+
+  & > .loseSelected {
+    background-color: var(--color-lose);
+    color: var(--color-white);
+  }
+}
