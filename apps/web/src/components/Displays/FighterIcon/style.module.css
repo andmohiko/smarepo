@@ -1,0 +1,29 @@
+.fighterIcon {
+  margin: 0 auto;
+  padding: 2px;
+
+  &.selected {
+    background-color: var(--color-primaryDark);
+    border-radius: 20%;
+  }
+
+  &._sm {
+    width: 48px;
+    height: 48px;
+  }
+
+  &._md {
+    width: 64px;
+    height: 64px;
+  }
+
+  &._lg {
+    width: 96px;
+    height: 96px;
+  }
+
+  &._100% {
+    width: 100%;
+    height: 100%;
+  }
+}
