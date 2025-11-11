@@ -14,6 +14,7 @@ import { FighterSelectorInput } from '~/components/Inputs/FighterSelectorInput'
 import { CheckboxInput } from '~/components/Inputs/Checkboxes'
 import { NumberInput } from '~/components/Inputs/NumberInput'
 import { useCreatePublicMatchMutation } from '~/features/match/hooks/useCreatePublicMatchMutation'
+import { useUpdatePublicMatchMutation } from '~/features/match/hooks/useUpdatePublicMatchMutation'
 
 type Props = {
   onClose: () => void
@@ -25,6 +26,7 @@ export const EditMatchForm = ({
   defaultValues,
 }: Props): React.ReactElement => {
   const { createPublicMatch } = useCreatePublicMatchMutation()
+  const { updatePublicMatch } = useUpdatePublicMatchMutation()
   const { showErrorToast } = useToast()
   const {
     control,
@@ -57,9 +59,7 @@ export const EditMatchForm = ({
         return
       }
       if (defaultValues) {
-        // await updatePublicMatch(defaultValues.publicMatchId, data)
-        // eslint-disable-next-line no-console
-        console.log('todo')
+        await updatePublicMatch(defaultValues.publicMatchId, data)
       } else {
         await createPublicMatch(data)
       }

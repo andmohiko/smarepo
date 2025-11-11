@@ -9,10 +9,10 @@ import { IconButton } from '~/components/Buttons/IconButton'
 
 type Props = {
   match: PublicMatch
-  onClick?: () => void
+  onEdit?: () => void
 }
 
-export const MatchListCard = ({ match, onClick }: Props): React.ReactNode => {
+export const MatchListCard = ({ match, onEdit }: Props): React.ReactNode => {
   return (
     <div className={styles.matchListCard}>
       <div className={styles.matchListCardContent}>
@@ -22,7 +22,7 @@ export const MatchListCard = ({ match, onClick }: Props): React.ReactNode => {
         <IconButton
           icon={<FaEdit size={20} />}
           importance="tertiary"
-          onClick={onClick}
+          onClick={onEdit}
         />
       </div>
     </div>

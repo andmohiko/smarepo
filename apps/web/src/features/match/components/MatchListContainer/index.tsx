@@ -38,6 +38,11 @@ export const MatchListContainer = (): React.ReactElement => {
     )
   }
 
+  const onEdit = (match: PublicMatch) => {
+    setCurrentMatch(match)
+    editModalHandlers.open()
+  }
+
   return (
     <div className={styles.matchListContainer}>
       {isLoading && <LoadingAnimation />}
@@ -59,7 +64,7 @@ export const MatchListContainer = (): React.ReactElement => {
                     </BaseText>
                   </FlexBox>
                 )}
-                <MatchListCard match={match} />
+                <MatchListCard match={match} onEdit={() => onEdit(match)} />
               </Fragment>
             ))}
           </FlexBox>
@@ -76,6 +81,7 @@ export const MatchListContainer = (): React.ReactElement => {
       <EditMatchModal
         isOpen={isOpenEditModal}
         onClose={editModalHandlers.close}
+        match={currentMatch}
       />
     </div>
   )
