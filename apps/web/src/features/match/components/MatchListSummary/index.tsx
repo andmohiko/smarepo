@@ -1,6 +1,6 @@
 import type { PublicMatch } from '@smarepo/common'
 
-import styles from './style.module.scss'
+import styles from './style.module.css'
 
 import { BorderLine } from '~/components/Base/BorderLine'
 import { ResultText } from '~/components/Typography/ResultText'

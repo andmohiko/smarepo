@@ -1,0 +1,14 @@
+.matchListContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+
+  .addMatchButtonContainer {
+    position: fixed;
+    bottom: 32px;
+    transform: translateY(-50%);
+  }
+}

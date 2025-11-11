@@ -8,18 +8,18 @@
   }
 
   &._sm {
-    width: 48px;
-    height: 48px;
+    width: 32px;
+    height: 32px;
   }
 
   &._md {
-    width: 64px;
-    height: 64px;
+    width: 40px;
+    height: 40px;
   }
 
   &._lg {
-    width: 96px;
-    height: 96px;
+    width: 64px;
+    height: 64px;
   }
 
   &._100% {
