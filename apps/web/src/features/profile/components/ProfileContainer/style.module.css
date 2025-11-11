@@ -1,0 +1,10 @@
+.profileImage {
+  width: 132px;
+  height: 132px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.fighterIconContainer {
+  padding-top: 4px;
+}
