@@ -5,7 +5,6 @@ import type { FighterId, Profile } from '@smarepo/common'
 import styles from './style.module.css'
 
 import { FlexBox } from '~/components/Base/FlexBox'
-import { BaseText } from '~/components/Typography/BaseText'
 import { DisplayItem } from '~/components/Displays/DisplayItem'
 import { BasicButton } from '~/components/Buttons/BasicButton'
 import {
@@ -50,7 +49,7 @@ export const ProfileContainer = ({
           size="sm"
         >{`@${profile.xId}`}</ParagraphText>
       </FlexBox>
-      <BaseText>{profile.selfIntroduction}</BaseText>
+      <ParagraphText>{profile.selfIntroduction}</ParagraphText>
       <FlexBox gap={8} align="flex-start">
         <DisplayItem
           label="メインファイター"

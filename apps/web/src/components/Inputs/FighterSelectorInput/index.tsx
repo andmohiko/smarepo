@@ -52,7 +52,11 @@ export const FighterSelectorInput = ({
 
   return (
     <div className={styles.fighterSelectorInput}>
-      {label && <LabelText weight="bold">{label}</LabelText>}
+      {label && (
+        <div className={styles.label}>
+          <LabelText weight="bold">{label}</LabelText>
+        </div>
+      )}
       {error && <p className={styles.error}>{error}</p>}
       <div className={styles.fighterSelector}>
         {fightersIds.map((fighterId) => (

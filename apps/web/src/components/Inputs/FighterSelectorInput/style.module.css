@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: column;
 
+  .label {
+    margin-bottom: 8px;
+  }
+
   .fighterSelector {
     display: grid;
     grid-template-columns: repeat(8, 1fr);

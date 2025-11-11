@@ -2,6 +2,8 @@ import { TextInput as MantineTextInput } from '@mantine/core'
 
 import styles from './style.module.css'
 
+import { LabelText } from '~/components/Typography/LabelText'
+
 type Props = {
   label?: React.ReactNode
   description?: React.ReactNode
@@ -25,7 +27,7 @@ export const TextInput = ({
 }: Props): React.ReactNode => {
   return (
     <MantineTextInput
-      label={label}
+      label={<LabelText weight="bold">{label}</LabelText>}
       description={description}
       placeholder={placeHolder}
       value={value}

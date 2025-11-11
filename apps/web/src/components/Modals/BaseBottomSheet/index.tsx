@@ -2,7 +2,7 @@ import { Modal, ScrollArea } from '@mantine/core'
 
 import styles from './style.module.css'
 
-import { BaseText } from '~/components/Typography/BaseText'
+import { HeadingText } from '~/components/Typography/HeadingText'
 
 type Props = {
   children: React.ReactNode
@@ -19,11 +19,7 @@ export const BaseBottomSheet = ({
 }: Props) => {
   return (
     <Modal
-      title={
-        <BaseText weight="bold" size="xl">
-          {title}
-        </BaseText>
-      }
+      title={<HeadingText size="sm">{title}</HeadingText>}
       opened={isOpen}
       onClose={onClose}
       withCloseButton

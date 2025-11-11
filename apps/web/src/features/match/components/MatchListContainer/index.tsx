@@ -11,12 +11,12 @@ import { MatchListCard } from '~/features/match/components/MatchListCard'
 import { FlexBox } from '~/components/Base/FlexBox'
 import { LoadingAnimation } from '~/components/Base/Loading'
 import { useToast } from '~/hooks/useToast'
-import { BaseText } from '~/components/Typography/BaseText'
 import { isSameDay } from '~/utils/date'
 import { usePublicMatches } from '~/hooks/usePublicMatches'
 import { AddMatchButton } from '~/components/Buttons/AddMatchButton'
 import { EditMatchModal } from '~/features/match/components/EditMatchModal'
 import { MatchListHeader } from '~/features/match/components/MatchListHeader'
+import { LabelText } from '~/components/Typography/LabelText'
 
 export const MatchListContainer = (): React.ReactElement => {
   const { showErrorToast } = useToast()
@@ -59,9 +59,9 @@ export const MatchListContainer = (): React.ReactElement => {
                 {/* 日付が変わったタイミングで日付を表示する */}
                 {isShowDate(i) && (
                   <FlexBox pl={0} align="stretch" pt={16}>
-                    <BaseText color="gray" weight="bold" size="lg">
+                    <LabelText color="gray" weight="bold" size="md">
                       {dayjs(match.createdAt).format('MM/DD')}
-                    </BaseText>
+                    </LabelText>
                   </FlexBox>
                 )}
                 <MatchListCard match={match} onEdit={() => onEdit(match)} />

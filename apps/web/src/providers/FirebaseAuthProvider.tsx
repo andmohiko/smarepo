@@ -12,6 +12,7 @@ import {
 } from 'react'
 
 import { LoadingCover } from '~/components/Base/Loading'
+import { useMyProfile } from '~/hooks/useMyProfile'
 import { useToast } from '~/hooks/useToast'
 import { isExistsProfileOperation } from '~/infrastructure/firestore/ProfileOperations'
 import {
@@ -52,6 +53,7 @@ const FirebaseAuthProvider = ({
   const [uid, setUid] = useState<string | null | undefined>(undefined)
   const { pathname, push } = useRouter()
   const { showErrorToast } = useToast()
+  const [myProfile] = useMyProfile()
 
   const isAuthPath = useMemo(() => !isNonAuthPath(pathname), [pathname])
 
@@ -70,7 +72,7 @@ const FirebaseAuthProvider = ({
       }
 
       // ユーザー登録済みの人が登録画面にいる場合はトップ画面へ飛ばす
-      if (pathname === '/i/register' && user) {
+      if (pathname === '/i/register' && myProfile) {
         push('/')
         return
       }
