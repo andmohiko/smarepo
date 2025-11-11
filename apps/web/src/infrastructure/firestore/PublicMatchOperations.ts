@@ -12,6 +12,7 @@ import {
   deleteDoc,
   doc,
   onSnapshot,
+  orderBy,
   query,
   updateDoc,
   where,
@@ -27,7 +28,11 @@ export const subscribePublicMatchesOperation = (
   setter: (matches: Array<PublicMatch>) => void,
 ): Unsubscribe => {
   const unsubscribe = onSnapshot(
-    query(collection(db, publicMatchCollection), where('userId', '==', userId)),
+    query(
+      collection(db, publicMatchCollection),
+      where('userId', '==', userId),
+      orderBy('createdAt', 'desc'),
+    ),
     (snapshot) => {
       const publicMatches = snapshot.docs.map((doc) => {
         const data = doc.data()
