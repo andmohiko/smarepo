@@ -6,7 +6,7 @@ import { EditMatchForm } from '~/features/match/components/EditMatchForm'
 type Props = {
   isOpen: boolean
   onClose: () => void
-  match?: PublicMatch
+  match: PublicMatch | null
 }
 
 export const EditMatchModal = ({
@@ -20,7 +20,7 @@ export const EditMatchModal = ({
       isOpen={isOpen}
       onClose={onClose}
     >
-      <EditMatchForm onClose={onClose} defaultValues={match} />
+      <EditMatchForm onClose={onClose} defaultValues={match ?? undefined} />
     </BaseBottomSheet>
   )
 }
