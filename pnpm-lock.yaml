@@ -36,10 +36,10 @@ importers:
         specifier: ^7.2.1
         version: 7.3.0
       firebase-admin:
-        specifier: ^13.2.0
+        specifier: ^13.4.0
         version: 13.6.0
       firebase-functions:
-        specifier: ^6.3.2
+        specifier: ^6.4.0
         version: 6.6.0(firebase-admin@13.6.0)
     devDependencies:
       '@babel/cli':
@@ -69,6 +69,9 @@ importers:
       babel-plugin-module-resolver:
         specifier: ^5.0.2
         version: 5.0.2
+      source-map-support:
+        specifier: ^0.5.21
+        version: 0.5.21
       tsup:
         specifier: ^8.5.0
         version: 8.5.1(postcss@8.5.6)(typescript@5.3.3)(yaml@2.8.1)
