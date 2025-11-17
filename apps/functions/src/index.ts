@@ -1,7 +1,9 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+import 'source-map-support/register'
+
 import * as functions from 'firebase-functions/v1'
 
 import router from './router'
+import { onCreatePublicMatch } from './triggers/onCreatePublicMatch'
 
 const cors = require('cors')({ origin: true })
 const express = require('express')
@@ -14,6 +16,7 @@ app.use(cors)
 app.use(router)
 
 // triggers
+export { onCreatePublicMatch }
 
 // API
 exports.api = functions

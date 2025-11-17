@@ -30,11 +30,11 @@ export type CreatePublicMatchDto = Omit<
 }
 
 export type UpdatePublicMatchDto = {
-  isContinuedMatch?: boolean
-  isElite?: boolean
-  globalSmashPower?: number | null
-  myFighterId?: string
-  opponentFighterId?: string
-  result?: Result
+  isContinuedMatch?: PublicMatch['isContinuedMatch']
+  isElite?: PublicMatch['isElite']
+  globalSmashPower?: PublicMatch['globalSmashPower']
+  myFighterId?: PublicMatch['myFighterId']
+  opponentFighterId?: PublicMatch['opponentFighterId']
+  result?: PublicMatch['result']
   updatedAt: FieldValue
 }
