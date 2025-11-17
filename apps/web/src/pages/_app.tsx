@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app'
+import 'react-image-crop/dist/ReactCrop.css'
 
 import { PageHead } from '~/components/Base/PageHead'
 import { Providers } from '~/providers'
