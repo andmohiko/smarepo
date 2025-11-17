@@ -1,10 +1,11 @@
 import type { FighterId } from '@smarepo/common'
 import { fighters } from '@smarepo/common'
-
-import styles from './style.module.css'
-
+import { useState } from 'react'
+import { FlexBox } from '~/components/Base/FlexBox'
+import { UnstyledButton } from '~/components/Buttons/UnstyledButton'
 import { FighterIcon } from '~/components/Displays/FighterIcon'
 import { LabelText } from '~/components/Typography/LabelText'
+import styles from './style.module.css'
 
 /**
  * ファイター選択コンポーネント
@@ -26,6 +27,9 @@ import { LabelText } from '~/components/Typography/LabelText'
 type Props = {
   label?: string
   isShowName?: boolean
+  isShowRecentFightersButton?: boolean
+  isSelectFromRecentFighters?: boolean
+  recentFighters?: FighterId[]
   value?: FighterId | undefined
   onChange?: (fighterId: FighterId) => void
   error?: React.ReactNode
@@ -35,9 +39,15 @@ export const FighterSelectorInput = ({
   value,
   label,
   isShowName = false,
+  isShowRecentFightersButton = false,
+  isSelectFromRecentFighters = false,
+  recentFighters = [],
   onChange,
   error,
-}: Props): React.ReactElement => {
+}: Props): React.ReactNode => {
+  const [isShowRecent, setIsShowRecent] = useState<boolean>(
+    isSelectFromRecentFighters,
+  )
   /**
    * ファイターが選択された際のハンドラ
    * 内部状態を更新し、親コンポーネントに通知
@@ -48,14 +58,25 @@ export const FighterSelectorInput = ({
     onChange?.(fighterId)
   }
 
-  const fightersIds = Object.keys(fighters).sort((a, b) => a.localeCompare(b))
+  const fightersIds = isShowRecent
+    ? recentFighters
+    : Object.keys(fighters).sort((a, b) => a.localeCompare(b))
 
   return (
     <div className={styles.fighterSelectorInput}>
       {label && (
-        <div className={styles.label}>
+        <FlexBox direction="row" justify="space-between" mb={8}>
           <LabelText weight="bold">{label}</LabelText>
-        </div>
+          {isShowRecentFightersButton && (
+            <UnstyledButton onClick={() => setIsShowRecent(!isShowRecent)}>
+              <span className={styles.recentFightersButtonText}>
+                {isShowRecent
+                  ? '全ファイターから選ぶ'
+                  : '最近使ったファイターから選ぶ'}
+              </span>
+            </UnstyledButton>
+          )}
+        </FlexBox>
       )}
       {error && <p className={styles.error}>{error}</p>}
       <div className={styles.fighterSelector}>

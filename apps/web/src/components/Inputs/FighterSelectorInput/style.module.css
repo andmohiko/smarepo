@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: column;
 
-  .label {
-    margin-bottom: 8px;
+  .recentFightersButtonText {
+    color: var(--color-blue);
+    font-weight: bold;
   }
 
   .fighterSelector {

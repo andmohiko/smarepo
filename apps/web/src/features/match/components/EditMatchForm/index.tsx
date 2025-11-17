@@ -1,20 +1,20 @@
-import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import type { PublicMatch } from '@smarepo/common'
-
-import styles from './style.module.scss'
-
+import type { FighterId, PublicMatch } from '@smarepo/common'
+import { Controller, useForm } from 'react-hook-form'
 import { FlexBox } from '~/components/Base/FlexBox'
 import { BasicButton } from '~/components/Buttons/BasicButton'
-import type { EditPublicMatchInputType } from '~/features/match/types'
-import { editPublicMatchSchema } from '~/features/match/types'
-import { useToast } from '~/hooks/useToast'
-import { ResultInput } from '~/features/match/components/ResultInput'
-import { FighterSelectorInput } from '~/components/Inputs/FighterSelectorInput'
 import { CheckboxInput } from '~/components/Inputs/Checkboxes'
+import { FighterSelectorInput } from '~/components/Inputs/FighterSelectorInput'
 import { NumberInput } from '~/components/Inputs/NumberInput'
+import { ResultInput } from '~/features/match/components/ResultInput'
 import { useCreatePublicMatchMutation } from '~/features/match/hooks/useCreatePublicMatchMutation'
 import { useUpdatePublicMatchMutation } from '~/features/match/hooks/useUpdatePublicMatchMutation'
+import type { EditPublicMatchInputType } from '~/features/match/types'
+import { editPublicMatchSchema } from '~/features/match/types'
+import { usePublicMatches } from '~/hooks/usePublicMatches'
+import { useToast } from '~/hooks/useToast'
+import { unique } from '~/utils/array'
+import styles from './style.module.scss'
 
 type Props = {
   onClose: () => void
@@ -25,6 +25,10 @@ export const EditMatchForm = ({
   onClose,
   defaultValues,
 }: Props): React.ReactElement => {
+  const [publicMatches] = usePublicMatches()
+  const recentFighters = unique<FighterId>(
+    publicMatches.map((match) => match.myFighterId),
+  )
   const { createPublicMatch } = useCreatePublicMatchMutation()
   const { updatePublicMatch } = useUpdatePublicMatchMutation()
   const { showErrorToast } = useToast()
@@ -81,6 +85,9 @@ export const EditMatchForm = ({
               value={field.value}
               onChange={field.onChange}
               error={errors.myFighterId?.message}
+              isSelectFromRecentFighters={true}
+              isShowRecentFightersButton
+              recentFighters={recentFighters}
             />
           )}
         />
