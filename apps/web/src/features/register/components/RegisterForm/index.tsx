@@ -14,8 +14,14 @@ import {
 import { useLoadingContext } from '~/providers/LoadingProvider'
 import { useToast } from '~/hooks/useToast'
 import { errorMessage } from '~/utils/errorMessage'
+import { FighterSelectorInput } from '~/components/Inputs/FighterSelectorInput'
+import { useFirebaseAuthContext } from '~/providers/FirebaseAuthProvider'
+import { ProfileImageInput } from '~/components/Inputs/ProfileImageInput'
+import { useRouter } from 'next/router'
 
 export const RegisterForm = (): React.ReactNode => {
+  const { push } = useRouter()
+  const { uid } = useFirebaseAuthContext()
   const { startLoading, stopLoading } = useLoadingContext()
   const { showErrorToast, showSuccessToast } = useToast()
   const { createProfile } = useCreateProfileMutation()
@@ -29,6 +35,8 @@ export const RegisterForm = (): React.ReactNode => {
       displayName: '',
       username: '',
       xId: '',
+      profileImageUrl: '',
+      mainFighter: '',
     },
   })
 
@@ -37,6 +45,7 @@ export const RegisterForm = (): React.ReactNode => {
       startLoading()
       await createProfile(data)
       showSuccessToast('ユーザー登録が完了しました')
+      push('/')
     } catch (e) {
       showErrorToast(errorMessage(e))
     } finally {
@@ -47,6 +56,19 @@ export const RegisterForm = (): React.ReactNode => {
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <FlexBox gap={16} align="stretch">
+        <Controller
+          control={control}
+          name="profileImageUrl"
+          render={({ field }) => (
+            <ProfileImageInput
+              label="プロフィール画像"
+              value={field.value}
+              onChange={field.onChange}
+              error={errors.profileImageUrl?.message}
+              storagePath={`/images/users/${uid}`}
+            />
+          )}
+        />
         <Controller
           control={control}
           name="username"
@@ -90,7 +112,18 @@ export const RegisterForm = (): React.ReactNode => {
             />
           )}
         />
-        {/* メインファイターを選ぶ */}
+        <Controller
+          control={control}
+          name="mainFighter"
+          render={({ field }) => (
+            <FighterSelectorInput
+              label="メインファイター"
+              value={field.value}
+              onChange={field.onChange}
+              error={errors.mainFighter?.message}
+            />
+          )}
+        />
       </FlexBox>
       <FlexBox gap={16} align="stretch">
         <BasicButton type="submit" disabled={isSubmitting}>

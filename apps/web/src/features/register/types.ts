@@ -9,6 +9,8 @@ export const registerSchema = z.object({
     .min(5)
     .max(15),
   xId: z.string().min(1).max(15),
+  profileImageUrl: z.string().min(1),
+  mainFighter: z.string().min(1),
 })
 
 export type RegisterInputType = z.infer<typeof registerSchema>

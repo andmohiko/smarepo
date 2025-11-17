@@ -1,3 +1,4 @@
+import { FighterId } from '@smarepo/common'
 import { useRouter } from 'next/router'
 
 import type { RegisterInputType } from '~/features/register/types'
@@ -18,8 +19,8 @@ export const useCreateProfileMutation = () => {
       displayName: data.displayName,
       friendCode: '',
       isPrivateProfile: false,
-      mainFighter: '',
-      profileImageUrl: '',
+      mainFighter: data.mainFighter as FighterId,
+      profileImageUrl: data.profileImageUrl,
       selfIntroduction: '',
       updatedAt: serverTimestamp,
       username: data.username,
