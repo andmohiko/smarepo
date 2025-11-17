@@ -7,13 +7,21 @@
 
   .matchListHeaderContent {
     width: 100%;
-    max-width: 320px;
 
     display: grid;
     align-items: center;
     justify-content: center;
     justify-items: center;
-    grid-template-columns: 100px 80px 100px 100px;
+    grid-template-columns: 100px 80px 80px 100px;
     gap: 8px;
+
+    .result {
+      justify-self: center;
+
+      @media (max-width: 480px) {
+        justify-self: flex-end;
+        padding-right: 16px;
+      }
+    }
   }
 }

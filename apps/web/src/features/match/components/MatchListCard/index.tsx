@@ -16,14 +16,18 @@ export const MatchListCard = ({ match, onEdit }: Props): React.ReactNode => {
   return (
     <div className={styles.matchListCard}>
       <div className={styles.matchListCardContent}>
-        <ResultText result={match.result} size="lg" />
+        <div className={styles.result}>
+          <ResultText result={match.result} size="lg" />
+        </div>
         <FighterIcon fighterId={match.myFighterId} size="md" />
         <FighterIcon fighterId={match.opponentFighterId} size="md" />
-        <IconButton
-          icon={<FaEdit size={20} />}
-          importance="tertiary"
-          onClick={onEdit}
-        />
+        <div className={styles.action}>
+          <IconButton
+            icon={<FaEdit size={20} />}
+            importance="tertiary"
+            onClick={onEdit}
+          />
+        </div>
       </div>
     </div>
   )

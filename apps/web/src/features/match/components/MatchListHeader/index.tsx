@@ -6,7 +6,9 @@ export const MatchListHeader = (): React.ReactNode => {
   return (
     <div className={styles.matchListHeader}>
       <div className={styles.matchListHeaderContent}>
-        <LabelText size="sm">勝敗</LabelText>
+        <div className={styles.result}>
+          <LabelText size="sm">勝敗</LabelText>
+        </div>
         <LabelText size="sm">自分</LabelText>
         <LabelText size="sm">相手</LabelText>
         <div />

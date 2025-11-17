@@ -58,7 +58,7 @@ export const MatchListContainer = (): React.ReactElement => {
               <Fragment key={match.publicMatchId}>
                 {/* 日付が変わったタイミングで日付を表示する */}
                 {isShowDate(i) && (
-                  <FlexBox pl={0} align="stretch" pt={16}>
+                  <FlexBox pl={16} align="stretch" pt={16}>
                     <LabelText color="gray" weight="bold" size="md">
                       {dayjs(match.createdAt).format('MM/DD')}
                     </LabelText>

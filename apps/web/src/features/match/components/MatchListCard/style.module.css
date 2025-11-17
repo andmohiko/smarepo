@@ -7,13 +7,13 @@
 
   .matchListCardContent {
     width: 100%;
-    max-width: 320px;
 
     display: grid;
     align-items: center;
     justify-content: center;
     justify-items: center;
-    grid-template-columns: 100px 80px 100px 100px;
+    grid-template-areas: result myFighter opponentFighter action;
+    grid-template-columns: 100px 80px 80px 100px;
     gap: 8px;
 
     &:last-child {
@@ -22,6 +22,16 @@
 
     .result {
       justify-self: center;
+
+      @media (max-width: 480px) {
+        justify-self: flex-end;
+        padding-right: 16px;
+      }
+    }
+
+    .action {
+      padding-right: 48px;
+      justify-self: flex-end;
     }
   }
 }
