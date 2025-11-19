@@ -1,10 +1,8 @@
 import { useRouter } from 'next/router'
 import { FaChevronLeft } from 'react-icons/fa6'
 import { IoSettingsOutline } from 'react-icons/io5'
-
-import styles from './style.module.css'
-
 import { IconButton } from '~/components/Buttons/IconButton'
+import styles from './style.module.css'
 
 type Props = {
   title: string
