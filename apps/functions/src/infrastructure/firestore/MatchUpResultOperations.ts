@@ -7,7 +7,7 @@ import {
   type UserId,
   userCollection,
 } from '@smarepo/common'
-import type { DocumentData } from 'firebase-admin/firestore'
+import type { DocumentData, WriteBatch } from 'firebase-admin/firestore'
 
 import { db } from '~/lib/firebase'
 import { convertDate } from '~/utils/convertDate'
@@ -55,6 +55,21 @@ export const createMatchUpResultOperation = async (
     .add(dto)
 }
 
+export const createMatchUpResultByBatchOperation = (
+  batch: WriteBatch,
+  userId: UserId,
+  dto: CreateMatchUpResultDto,
+): void => {
+  batch.set(
+    db
+      .collection(userCollection)
+      .doc(userId)
+      .collection(matchUpResultCollection)
+      .doc(),
+    dto,
+  )
+}
+
 export const updateMatchUpResultOperation = async (
   userId: UserId,
   matchUpResultId: MatchUpResultId,
@@ -66,4 +81,20 @@ export const updateMatchUpResultOperation = async (
     .collection(matchUpResultCollection)
     .doc(matchUpResultId)
     .update(dto)
+}
+
+export const updateMatchUpResultByBatchOperation = (
+  batch: WriteBatch,
+  userId: UserId,
+  matchUpResultId: MatchUpResultId,
+  dto: UpdateMatchUpResultDto,
+): void => {
+  batch.update(
+    db
+      .collection(userCollection)
+      .doc(userId)
+      .collection(matchUpResultCollection)
+      .doc(matchUpResultId),
+    dto,
+  )
 }

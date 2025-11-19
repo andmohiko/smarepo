@@ -1,22 +1,20 @@
-import { Fragment, useState } from 'react'
 import { useDisclosure } from '@mantine/hooks'
-import dayjs from 'dayjs'
 import type { PublicMatch } from '@smarepo/common'
-
-import styles from './style.module.css'
-
-import { MatchEmpty } from '~/features/match/components/MatchEmpty'
-import { MatchListSummary } from '~/features/match/components/MatchListSummary'
-import { MatchListCard } from '~/features/match/components/MatchListCard'
+import dayjs from 'dayjs'
+import { Fragment, useState } from 'react'
 import { FlexBox } from '~/components/Base/FlexBox'
 import { LoadingAnimation } from '~/components/Base/Loading'
+import { AddMatchButton } from '~/components/Buttons/AddMatchButton'
+import { LabelText } from '~/components/Typography/LabelText'
+import { EditMatchModal } from '~/features/match/components/EditMatchModal'
+import { MatchEmpty } from '~/features/match/components/MatchEmpty'
+import { MatchListCard } from '~/features/match/components/MatchListCard'
+import { MatchListHeader } from '~/features/match/components/MatchListHeader'
+import { MatchListSummary } from '~/features/match/components/MatchListSummary'
+import { usePublicMatches } from '~/hooks/usePublicMatches'
 import { useToast } from '~/hooks/useToast'
 import { isSameDay } from '~/utils/date'
-import { usePublicMatches } from '~/hooks/usePublicMatches'
-import { AddMatchButton } from '~/components/Buttons/AddMatchButton'
-import { EditMatchModal } from '~/features/match/components/EditMatchModal'
-import { MatchListHeader } from '~/features/match/components/MatchListHeader'
-import { LabelText } from '~/components/Typography/LabelText'
+import styles from './style.module.css'
 
 export const MatchListContainer = (): React.ReactElement => {
   const { showErrorToast } = useToast()
@@ -36,6 +34,11 @@ export const MatchListContainer = (): React.ReactElement => {
         new Date(matches[i - 1].createdAt),
       )
     )
+  }
+
+  const onCloseModel = () => {
+    setCurrentMatch(null)
+    editModalHandlers.close()
   }
 
   const onEdit = (match: PublicMatch) => {
@@ -80,7 +83,7 @@ export const MatchListContainer = (): React.ReactElement => {
 
       <EditMatchModal
         isOpen={isOpenEditModal}
-        onClose={editModalHandlers.close}
+        onClose={onCloseModel}
         match={currentMatch}
       />
     </div>

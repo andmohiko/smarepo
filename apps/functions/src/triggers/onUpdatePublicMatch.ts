@@ -5,13 +5,13 @@
  * @param {functions.EventContext} context - イベントのコンテキスト情報
  * @throws {Error} 戦績が見つからない場合にエラーをスロー
  */
-import { onDocumentCreated } from 'firebase-functions/v2/firestore'
+import { onDocumentUpdated } from 'firebase-functions/v2/firestore'
 
 import { convertPublicMatchForSnapOperation } from '~/infrastructure/firestore/PublicMatchOperations'
-import { saveMatchUpResult } from '~/services/createMatchUpResultService'
+import { saveMatchUpResult } from '~/services/updateMatchUpResultService'
 import { triggerOnce } from '~/utils/triggerOnce'
 
-export const onCreatePublicMatch = onDocumentCreated(
+export const onUpdatePublicMatch = onDocumentUpdated(
   '/publicMatches/{publicMatchId}',
   triggerOnce('publicMatch', async (event) => {
     try {
@@ -21,16 +21,28 @@ export const onCreatePublicMatch = onDocumentCreated(
         throw new Error(`作成されたデータが存在しません: ${publicMatchId}`)
       }
 
-      const publicMatch = convertPublicMatchForSnapOperation(
+      const previousPublicMatch = convertPublicMatchForSnapOperation(
         publicMatchId,
-        event.data.data(),
+        event.data.before.data(),
+      )
+      const newPublicMatch = convertPublicMatchForSnapOperation(
+        publicMatchId,
+        event.data.after.data(),
       )
 
-      if (!publicMatch) {
+      if (!previousPublicMatch || !newPublicMatch) {
         throw new Error(`戦績データが存在しません: ${publicMatchId}`)
       }
 
-      await saveMatchUpResult(publicMatch)
+      // 更新された戦績のファイターまたは勝敗が変わっていた場合、マッチアップ結果を更新
+      if (
+        previousPublicMatch.myFighterId !== newPublicMatch.myFighterId ||
+        previousPublicMatch.opponentFighterId !==
+          newPublicMatch.opponentFighterId ||
+        previousPublicMatch.result !== newPublicMatch.result
+      ) {
+        await saveMatchUpResult(previousPublicMatch, newPublicMatch)
+      }
     } catch (error) {
       console.error('戦績作成時のエラー:', error)
       throw error
