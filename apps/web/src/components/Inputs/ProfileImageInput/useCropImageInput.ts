@@ -115,13 +115,17 @@ export const useCropImageInput = (
 
   useEffect(() => {
     if (fileData instanceof File) {
-      uncroppedImageUrl && URL.revokeObjectURL(uncroppedImageUrl)
-      setUncroppedImageUrl(URL.createObjectURL(fileData))
+      const objectUrl = URL.createObjectURL(fileData)
+      setUncroppedImageUrl(objectUrl)
       handlers.open()
-    } else {
-      setUncroppedImageUrl(undefined)
+
+      // クリーンアップ関数でObjectURLを解放
+      return () => {
+        URL.revokeObjectURL(objectUrl)
+      }
     }
-  }, [fileData, uncroppedImageUrl, handlers.open])
+    setUncroppedImageUrl(undefined)
+  }, [fileData, handlers.open])
 
   const remove = useCallback(() => {
     setFile('')
