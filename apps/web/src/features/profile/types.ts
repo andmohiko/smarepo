@@ -1,33 +1,71 @@
 import { z } from 'zod'
+import { auth } from '~/lib/firebase'
 
-export const editProfileSchema = z.object({
-  displayName: z.string().min(1).max(30),
-  // SW-1234-1234-1234のフォーマット
-  friendCode: z
-    .string()
-    .min(17)
-    .max(17)
-    .regex(/^SW-\d{4}-\d{4}-\d{4}$/)
-    .optional(),
-  isPrivateProfile: z.boolean(),
-  mainFighter: z.string().min(1),
-  mainPlayingTime: z.string().min(1),
-  profileImageUrl: z.string().min(1),
-  selfIntroduction: z.string().min(1).max(1000).optional(),
-  smashMateMaxRating: z.number().min(0).max(5000).optional(),
-  // アルファベットと数字とアンダースコアのみ
-  username: z
-    .string()
-    .regex(/^[a-zA-Z0-9_]+$/)
-    .min(5)
-    .max(15),
-  voiceChat: z.object({
-    discord: z.boolean(),
-    line: z.boolean(),
-    nintendoOnline: z.boolean(),
-    listenOnly: z.boolean(),
-  }),
-  xId: z.string().min(1).max(15),
-})
+export const editProfileSchema = (currentUsername: string) =>
+  z
+    .object({
+      displayName: z.string().min(1).max(30),
+      // SW-1234-1234-1234のフォーマット
+      friendCode: z
+        .string()
+        .min(17)
+        .max(17)
+        .regex(/^SW-\d{4}-\d{4}-\d{4}$/)
+        .optional(),
+      isPrivateProfile: z.boolean(),
+      mainFighter: z.string().min(1),
+      mainPlayingTime: z.string().min(1),
+      profileImageUrl: z.string().min(1),
+      selfIntroduction: z.string().min(1).max(1000).optional(),
+      smashMateMaxRating: z.number().min(0).max(5000).optional(),
+      // アルファベットと数字とアンダースコアのみ
+      username: z
+        .string()
+        .regex(/^[a-zA-Z0-9_]+$/, {
+          message:
+            'ユーザー名は英数字とアンダースコア( _ )のみで入力してください',
+        })
+        .min(5, { message: 'ユーザー名は5文字以上で入力してください' })
+        .max(15, { message: 'ユーザー名は15文字以内で入力してください' }),
+      voiceChat: z.object({
+        discord: z.boolean(),
+        line: z.boolean(),
+        nintendoOnline: z.boolean(),
+        listenOnly: z.boolean(),
+      }),
+      xId: z.string().min(1).max(15),
+    })
+    .refine(
+      async (data) => {
+        if (data.username === currentUsername) {
+          return true
+        }
+        // 認証トークンを取得する
+        const currentUser = auth.currentUser
+        if (!currentUser) {
+          return false
+        }
+        const token = await currentUser.getIdToken()
 
-export type EditProfileInputType = z.infer<typeof editProfileSchema>
+        // APIを呼び出してユーザー名が有効かどうかを取得する
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/username`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ username: data.username }),
+          },
+        )
+        const { isValid } = await response.json()
+        return isValid
+      },
+      {
+        message: 'ユーザー名が使用できません',
+        path: ['username'],
+      },
+    )
+
+export type EditProfileInputType = z.infer<ReturnType<typeof editProfileSchema>>

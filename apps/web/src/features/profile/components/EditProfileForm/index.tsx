@@ -37,7 +37,8 @@ export const EditProfileForm = ({ defaultValues }: Props): React.ReactNode => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<EditProfileInputType>({
-    resolver: zodResolver(editProfileSchema),
+    resolver: zodResolver(editProfileSchema(defaultValues.username)),
+    mode: 'all',
     defaultValues: {
       displayName: defaultValues.displayName,
       friendCode: defaultValues.friendCode ?? undefined,
