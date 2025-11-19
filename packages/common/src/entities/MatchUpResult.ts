@@ -12,7 +12,9 @@ export type MatchUpResult = {
   loses: number
   matches: number
   myFighterId: string
+  myFighterName: string
   opponentFighterId: string
+  opponentFighterName: string
   updatedAt: Date
   wins: number
 }

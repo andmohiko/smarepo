@@ -20,8 +20,10 @@ export type Profile = {
   friendCode: string | null
   isPrivateProfile: boolean
   mainFighter: string
+  mainPlayingTime: string
   profileImageUrl: string
   selfIntroduction: string | null
+  smashMateMaxRating: number | null
   updatedAt: Date
   username: string
   voiceChat: VoiceChat
@@ -41,8 +43,10 @@ export type UpdateProfileDto = {
   friendCode: Profile['friendCode']
   isPrivateProfile: Profile['isPrivateProfile']
   mainFighter: Profile['mainFighter']
+  mainPlayingTime: Profile['mainPlayingTime']
   profileImageUrl: Profile['profileImageUrl']
   selfIntroduction: Profile['selfIntroduction']
+  smashMateMaxRating: Profile['smashMateMaxRating']
   updatedAt: FieldValue
   username: Profile['username']
   voiceChat: Profile['voiceChat']

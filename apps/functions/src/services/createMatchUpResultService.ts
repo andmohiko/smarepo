@@ -57,7 +57,9 @@ const createMatchUpResult = async (publicMatch: PublicMatch) => {
     loses: 0,
     matches: 1,
     myFighterId: publicMatch.myFighterId,
+    myFighterName: publicMatch.myFighterName,
     opponentFighterId: publicMatch.opponentFighterId,
+    opponentFighterName: publicMatch.opponentFighterName,
     updatedAt: serverTimestamp,
     wins: 0,
   }

@@ -12,14 +12,16 @@ service cloud.firestore {
     }
 
     function isValidProfileSchema(requestData) {
-      return requestData.size() == 11
+      return requestData.size() == 13
         && 'createdAt' in requestData && requestData.createdAt is timestamp
         && 'displayName' in requestData && requestData.displayName is string
         && 'friendCode' in requestData && requestData.friendCode is string
         && 'isPrivateProfile' in requestData && requestData.isPrivateProfile is bool
         && 'mainFighter' in requestData && requestData.mainFighter is string
+        && 'mainPlayingTime' in requestData && requestData.mainPlayingTime is string
         && 'profileImageUrl' in requestData && requestData.profileImageUrl is string
         && 'selfIntroduction' in requestData && requestData.selfIntroduction is string
+        && 'smashMateMaxRating' in requestData && (requestData.smashMateMaxRating is number || requestData.smashMateMaxRating == null)
         && 'updatedAt' in requestData && requestData.updatedAt is timestamp
         && 'username' in requestData && requestData.username is string
         && 'voiceChat' in requestData && requestData.voiceChat is map
@@ -42,13 +44,11 @@ service cloud.firestore {
         && 'userId' in requestData && requestData.userId is string;
     }
 
-    match /authUsers/{authId} {
-      allow read;
-      allow create: if isSignedIn()
-                    && isUser(authId)
-                    && 'createdAt' in requestData() && requestData().createdAt is timestamp
-                    && 'userId' in requestData() && requestData().userId is string
-                    && 'loginMethod' in requestData() && requestData().loginMethod is string;
+    function isValidUserSchema(requestData) {
+      return requestData.size() == 3
+        && 'createdAt' in requestData && requestData.createdAt is timestamp
+        && 'email' in requestData && requestData.email is string
+        && 'updatedAt' in requestData && requestData.updatedAt is timestamp;
     }
 
     match /profiles/{profileId} {
@@ -66,36 +66,12 @@ service cloud.firestore {
 
     match /users/{userId} {
       allow read;
-      allow create: if isSignedIn()
-                    && 'createdAt' in requestData() && requestData().createdAt is timestamp
-                    && 'updatedAt' in requestData() && requestData().updatedAt is timestamp;
-      allow update: if isSignedIn()
-                    && 'updatedAt' in requestData() && requestData().updatedAt is timestamp;
-    }
-    match /records/{recordId} {
-      allow read;
-    	allow create: if isSignedIn()
-                    && 'createdAt' in requestData() && requestData().createdAt is timestamp
-                    && 'updatedAt' in requestData() && requestData().updatedAt is timestamp
-                    && 'userId' in requestData() && requestData().userId is string
-                    && 'userOriginalId' in requestData() && requestData().userOriginalId is string
-                    && 'roomType' in requestData() && requestData().roomType is string
-                    && 'fighter' in requestData() && requestData().fighter is string
-                    && 'fighterId' in requestData() && requestData().fighterId is string
-                    && 'opponent' in requestData() && requestData().opponent is string
-                    && 'opponentId' in requestData() && requestData().opponentId is string
-                    && 'result' in requestData() && requestData().result is bool;
-      allow update: if isSignedIn()
-                    && 'updatedAt' in requestData() && requestData().updatedAt is timestamp
-                    && 'fighter' in requestData() && requestData().fighter is string
-                    && 'fighterId' in requestData() && requestData().fighterId is string
-                    && 'opponent' in requestData() && requestData().opponent is string
-                    && 'opponentId' in requestData() && requestData().opponentId is string
-                    && 'result' in requestData() && requestData().result is bool;
-      allow delete: if isSignedIn();
-    }
-    match /versions/{version} {
-      allow read;
+      allow create: if isSignedIn() && isUser(userId) && isValidUserSchema(requestData());
+      allow update: if isSignedIn() && isUser(userId) && isValidUserSchema(requestData());
+
+      match /matchUpResults/{matchUpResultId} {
+        allow read: if isSignedIn() && isUser(userId);
+      }
     }
   }
 }

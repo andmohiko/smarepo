@@ -20,8 +20,10 @@ export const useCreateProfileMutation = () => {
       friendCode: '',
       isPrivateProfile: false,
       mainFighter: data.mainFighter as FighterId,
+      mainPlayingTime: '',
       profileImageUrl: data.profileImageUrl,
       selfIntroduction: '',
+      smashMateMaxRating: null,
       updatedAt: serverTimestamp,
       username: data.username,
       voiceChat: {
