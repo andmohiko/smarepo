@@ -27,7 +27,7 @@ service cloud.firestore {
     }
 
     function isValidPublicMatchSchema(requestData) {
-      return requestData.size() == 9
+      return requestData.size() == 10
         && 'createdAt' in requestData && requestData.createdAt is timestamp
         && 'isContinuedMatch' in requestData && requestData.isContinuedMatch is bool
         && 'isElite' in requestData && requestData.isElite is bool
@@ -35,6 +35,7 @@ service cloud.firestore {
         && 'myFighterId' in requestData && requestData.myFighterId is string
         && 'opponentFighterId' in requestData && requestData.opponentFighterId is string
         && 'result' in requestData && requestData.result is string
+        && 'stage' in requestData && (requestData.stage is string || requestData.stage == null)
         && 'updatedAt' in requestData && requestData.updatedAt is timestamp
         && 'userId' in requestData && requestData.userId is string;
     }

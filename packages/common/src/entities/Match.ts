@@ -8,3 +8,16 @@ export const resultLabel: Record<Result, string> = {
   LOSE: '負け',
   DRAW: '引き分け',
 }
+
+export const onlineStageEnum = z.enum([
+  'BATTLEFIELD',
+  'SMALL_BATTLEFIELD',
+  'FINAL_DESTINATION',
+])
+export type OnlineStage = z.infer<typeof onlineStageEnum>
+
+export const onlineStageOptions: Record<OnlineStage, string> = {
+  BATTLEFIELD: '戦場',
+  SMALL_BATTLEFIELD: '小戦場',
+  FINAL_DESTINATION: '終点',
+}

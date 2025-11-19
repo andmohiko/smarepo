@@ -1,12 +1,8 @@
 import type { PublicMatchId } from '@smarepo/common'
-
-import {
-  createPublicMatchOperation,
-  updatePublicMatchOperation,
-} from '~/infrastructure/firestore/PublicMatchOperations'
+import type { EditPublicMatchInputType } from '~/features/match/types'
+import { updatePublicMatchOperation } from '~/infrastructure/firestore/PublicMatchOperations'
 import { serverTimestamp } from '~/lib/firebase'
 import { useFirebaseAuthContext } from '~/providers/FirebaseAuthProvider'
-import type { EditPublicMatchInputType } from '~/features/match/types'
 
 export const useUpdatePublicMatchMutation = () => {
   const { uid } = useFirebaseAuthContext()
@@ -28,8 +24,8 @@ export const useUpdatePublicMatchMutation = () => {
       myFighterId: data.myFighterId!,
       opponentFighterId: data.opponentFighterId!,
       result: data.result!,
+      stage: data.stage ? data.stage : null,
       updatedAt: serverTimestamp,
-      userId: uid,
     })
   }
 

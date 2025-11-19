@@ -3,10 +3,12 @@ import type { FighterId, PublicMatch } from '@smarepo/common'
 import { Controller, useForm } from 'react-hook-form'
 import { FlexBox } from '~/components/Base/FlexBox'
 import { BasicButton } from '~/components/Buttons/BasicButton'
+import { Accordion } from '~/components/Displays/Accordion'
 import { CheckboxInput } from '~/components/Inputs/Checkboxes'
 import { FighterSelectorInput } from '~/components/Inputs/FighterSelectorInput'
 import { NumberInput } from '~/components/Inputs/NumberInput'
 import { ResultInput } from '~/features/match/components/ResultInput'
+import { StageSelector } from '~/features/match/components/StageSelector'
 import { useCreatePublicMatchMutation } from '~/features/match/hooks/useCreatePublicMatchMutation'
 import { useUpdatePublicMatchMutation } from '~/features/match/hooks/useUpdatePublicMatchMutation'
 import type { EditPublicMatchInputType } from '~/features/match/types'
@@ -14,7 +16,7 @@ import { editPublicMatchSchema } from '~/features/match/types'
 import { usePublicMatches } from '~/hooks/usePublicMatches'
 import { useToast } from '~/hooks/useToast'
 import { unique } from '~/utils/array'
-import styles from './style.module.scss'
+import styles from './style.module.css'
 
 type Props = {
   onClose: () => void
@@ -46,6 +48,7 @@ export const EditMatchForm = ({
           myFighterId: defaultValues.myFighterId,
           opponentFighterId: defaultValues.opponentFighterId,
           result: defaultValues.result,
+          stage: defaultValues.stage ?? undefined,
         }
       : {
           isContinuedMatch: false,
@@ -54,6 +57,7 @@ export const EditMatchForm = ({
           myFighterId: undefined,
           opponentFighterId: undefined,
           result: undefined,
+          stage: undefined,
         },
   })
 
@@ -75,7 +79,7 @@ export const EditMatchForm = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.editMatchForm}>
-      <FlexBox gap={32} align="stretch">
+      <div className={styles.editMatchFormContent}>
         <Controller
           name="myFighterId"
           control={control}
@@ -114,49 +118,74 @@ export const EditMatchForm = ({
             />
           )}
         />
-        <FlexBox direction="row" justify="flex-start" gap={32}>
-          <Controller
-            name="isElite"
-            control={control}
-            render={({ field }) => (
-              <CheckboxInput
-                label="VIPマッチ"
-                value={field.value}
-                onChange={field.onChange}
-              />
-            )}
-          />
-          <Controller
-            name="isContinuedMatch"
-            control={control}
-            render={({ field }) => (
-              <CheckboxInput
-                label="連戦だった"
-                value={field.value}
-                onChange={field.onChange}
-              />
-            )}
-          />
-        </FlexBox>
-        <Controller
-          name="globalSmashPower"
-          control={control}
-          render={({ field }) => (
-            <NumberInput
-              label="世界戦闘力"
-              value={field.value}
-              onChange={field.onChange}
-              placeHolder="1429"
-              rightSection={<>万</>}
-              width="150px"
-              error={errors.globalSmashPower?.message}
-            />
-          )}
+        <Accordion
+          items={[
+            {
+              value: 'details',
+              label: '詳しく入力する',
+              children: (
+                <div className={styles.editMatchFormDetails}>
+                  <FlexBox direction="row" justify="flex-start" gap={32}>
+                    <Controller
+                      name="isElite"
+                      control={control}
+                      render={({ field }) => (
+                        <CheckboxInput
+                          label="VIPマッチ"
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
+                      )}
+                    />
+                    <Controller
+                      name="isContinuedMatch"
+                      control={control}
+                      render={({ field }) => (
+                        <CheckboxInput
+                          label="連戦だった"
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
+                      )}
+                    />
+                  </FlexBox>
+                  <Controller
+                    name="stage"
+                    control={control}
+                    render={({ field }) => (
+                      <StageSelector
+                        value={field.value}
+                        onChange={field.onChange}
+                        error={errors.stage?.message}
+                      />
+                    )}
+                  />
+                  <Controller
+                    name="globalSmashPower"
+                    control={control}
+                    render={({ field }) => (
+                      <NumberInput
+                        label="世界戦闘力"
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeHolder="1429"
+                        rightSection={<>万</>}
+                        width="150px"
+                        error={errors.globalSmashPower?.message}
+                      />
+                    )}
+                  />
+                </div>
+              ),
+            },
+          ]}
         />
-      </FlexBox>
-      <BasicButton type="submit" disabled={!isValid} loading={isSubmitting}>
-        保存
-      </BasicButton>
+      </div>
+      <div className={styles.editMatchFormFooter}>
+        <BasicButton type="submit" disabled={!isValid} loading={isSubmitting}>
+          保存
+        </BasicButton>
+      </div>
     </form>
   )
 }

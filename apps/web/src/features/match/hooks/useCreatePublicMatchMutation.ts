@@ -1,7 +1,7 @@
+import type { EditPublicMatchInputType } from '~/features/match/types'
 import { createPublicMatchOperation } from '~/infrastructure/firestore/PublicMatchOperations'
 import { serverTimestamp } from '~/lib/firebase'
 import { useFirebaseAuthContext } from '~/providers/FirebaseAuthProvider'
-import type { EditPublicMatchInputType } from '~/features/match/types'
 
 export const useCreatePublicMatchMutation = () => {
   const { uid } = useFirebaseAuthContext()
@@ -21,6 +21,7 @@ export const useCreatePublicMatchMutation = () => {
       myFighterId: data.myFighterId!,
       opponentFighterId: data.opponentFighterId!,
       result: data.result!,
+      stage: data.stage ? data.stage : null,
       updatedAt: serverTimestamp,
       userId: uid,
     })

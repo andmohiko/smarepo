@@ -1,8 +1,7 @@
 import type { FieldValue } from 'firebase/firestore'
-
-import type { UserId } from './User'
 import type { DocId } from './Auth'
-import type { Result } from './Match'
+import type { OnlineStage, Result } from './Match'
+import type { UserId } from './User'
 
 export const publicMatchCollection = 'publicMatches' as const
 
@@ -17,6 +16,7 @@ export type PublicMatch = {
   myFighterId: string
   opponentFighterId: string
   result: Result
+  stage: OnlineStage | null
   updatedAt: Date
   userId: UserId
 }
@@ -36,5 +36,6 @@ export type UpdatePublicMatchDto = {
   myFighterId?: PublicMatch['myFighterId']
   opponentFighterId?: PublicMatch['opponentFighterId']
   result?: PublicMatch['result']
+  stage?: PublicMatch['stage']
   updatedAt: FieldValue
 }
