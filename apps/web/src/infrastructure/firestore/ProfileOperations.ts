@@ -1,10 +1,10 @@
-import { profileCollection } from '@smarepo/common'
 import type {
   CreateProfileDto,
   Profile,
   ProfileId,
   UpdateProfileDto,
 } from '@smarepo/common'
+import { profileCollection } from '@smarepo/common'
 import type { Unsubscribe } from 'firebase/firestore'
 import { doc, getDoc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore'
 
@@ -40,7 +40,6 @@ export const createProfileOperation = async (
   profileId: ProfileId,
   dto: CreateProfileDto,
 ): Promise<void> => {
-  console.log('createProfileOperation', profileId, dto)
   await setDoc(doc(db, profileCollection, profileId), dto)
 }
 

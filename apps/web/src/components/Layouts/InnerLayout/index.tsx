@@ -1,11 +1,9 @@
 import type { ReactElement, ReactNode } from 'react'
-
-import styles from './style.module.css'
-
 import { LoadingContentOverlay } from '~/components/Base/Loading'
-import { useLoadingContext } from '~/providers/LoadingProvider'
-import { FixedHeader } from '~/components/Layouts/FixedHeader'
 import { PageHead } from '~/components/Base/PageHead'
+import { FixedHeader } from '~/components/Layouts/FixedHeader'
+import { useLoadingContext } from '~/providers/LoadingProvider'
+import styles from './style.module.css'
 
 type Props = {
   children?: ReactNode

@@ -1,4 +1,4 @@
-import { FighterId } from '@smarepo/common'
+import type { FighterId } from '@smarepo/common'
 import { useRouter } from 'next/router'
 
 import type { RegisterInputType } from '~/features/register/types'

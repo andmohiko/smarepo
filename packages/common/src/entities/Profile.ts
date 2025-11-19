@@ -17,11 +17,11 @@ export type Profile = {
   profileId: ProfileId
   createdAt: Date
   displayName: string
-  friendCode: string
+  friendCode: string | null
   isPrivateProfile: boolean
   mainFighter: string
   profileImageUrl: string
-  selfIntroduction: string
+  selfIntroduction: string | null
   updatedAt: Date
   username: string
   voiceChat: VoiceChat
@@ -37,5 +37,14 @@ export type CreateProfileDto = Omit<
 }
 
 export type UpdateProfileDto = {
+  displayName: Profile['displayName']
+  friendCode: Profile['friendCode']
+  isPrivateProfile: Profile['isPrivateProfile']
+  mainFighter: Profile['mainFighter']
+  profileImageUrl: Profile['profileImageUrl']
+  selfIntroduction: Profile['selfIntroduction']
   updatedAt: FieldValue
+  username: Profile['username']
+  voiceChat: Profile['voiceChat']
+  xId: Profile['xId']
 }

@@ -1,23 +1,21 @@
-import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-
-import styles from './style.module.css'
-
-import { useCreateProfileMutation } from '~/features/register/hooks/useCreateProfileMutation'
+import { useRouter } from 'next/router'
+import { Controller, useForm } from 'react-hook-form'
 import { FlexBox } from '~/components/Base/FlexBox'
 import { BasicButton } from '~/components/Buttons/BasicButton'
-import { TextInput } from '~/components/Inputs/TextInput'
-import {
-  registerSchema,
-  type RegisterInputType,
-} from '~/features/register/types'
-import { useLoadingContext } from '~/providers/LoadingProvider'
-import { useToast } from '~/hooks/useToast'
-import { errorMessage } from '~/utils/errorMessage'
 import { FighterSelectorInput } from '~/components/Inputs/FighterSelectorInput'
-import { useFirebaseAuthContext } from '~/providers/FirebaseAuthProvider'
 import { ProfileImageInput } from '~/components/Inputs/ProfileImageInput'
-import { useRouter } from 'next/router'
+import { TextInput } from '~/components/Inputs/TextInput'
+import { useCreateProfileMutation } from '~/features/register/hooks/useCreateProfileMutation'
+import {
+  type RegisterInputType,
+  registerSchema,
+} from '~/features/register/types'
+import { useToast } from '~/hooks/useToast'
+import { useFirebaseAuthContext } from '~/providers/FirebaseAuthProvider'
+import { useLoadingContext } from '~/providers/LoadingProvider'
+import { errorMessage } from '~/utils/errorMessage'
+import styles from './style.module.css'
 
 export const RegisterForm = (): React.ReactNode => {
   const { push } = useRouter()

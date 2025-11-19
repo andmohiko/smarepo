@@ -1,19 +1,17 @@
-/* eslint-disable @next/next/no-img-element */
-import { FaXTwitter } from 'react-icons/fa6'
 import type { FighterId, Profile } from '@smarepo/common'
-
-import styles from './style.module.css'
-
+import Image from 'next/image'
+import { FaXTwitter } from 'react-icons/fa6'
 import { FlexBox } from '~/components/Base/FlexBox'
-import { DisplayItem } from '~/components/Displays/DisplayItem'
 import { BasicButton } from '~/components/Buttons/BasicButton'
+import { DisplayItem } from '~/components/Displays/DisplayItem'
+import { FighterIcon } from '~/components/Displays/FighterIcon'
 import {
   SkeletonCircle,
   SkeletonRectangle,
 } from '~/components/Displays/Skeleton'
-import { FighterIcon } from '~/components/Displays/FighterIcon'
 import { HeadingText } from '~/components/Typography/HeadingText'
 import { ParagraphText } from '~/components/Typography/ParagraphText'
+import styles from './style.module.css'
 
 type Props = {
   profile: Profile
@@ -23,14 +21,18 @@ type Props = {
 export const ProfileContainer = ({
   profile,
   isMyPage = false,
-}: Props): React.ReactElement => {
+}: Props): React.ReactNode => {
   return (
     <FlexBox gap={16} py={16} align="flex-start">
       <FlexBox direction="row" justify="space-between">
-        <img
+        <Image
           src={profile.profileImageUrl}
           alt={profile.displayName}
           className={styles.profileImage}
+          width={132}
+          height={132}
+          priority
+          unoptimized
         />
         {isMyPage && (
           <BasicButton href="/i/edit" importance="secondary" size="sm">
