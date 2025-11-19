@@ -6,12 +6,43 @@ import type {
 } from '@smarepo/common'
 import { profileCollection } from '@smarepo/common'
 import type { Unsubscribe } from 'firebase/firestore'
-import { doc, getDoc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore'
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  limit,
+  onSnapshot,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from 'firebase/firestore'
 
 import { db } from '~/lib/firebase'
 import { convertDate } from '~/utils/convertDate'
 
 const dateColumns = ['createdAt', 'updatedAt'] as const satisfies Array<string>
+
+export const fetchProfileByUsernameOperation = async (
+  username: Profile['username'],
+): Promise<Profile | null> => {
+  const snapshot = await getDocs(
+    query(
+      collection(db, profileCollection),
+      where('username', '==', username),
+      limit(1),
+    ),
+  )
+  if (snapshot.size === 0) {
+    return null
+  }
+  const data = snapshot.docs[0].data()
+  return {
+    profileId: snapshot.docs[0].id,
+    ...convertDate(data, dateColumns),
+  } as Profile
+}
 
 export const subscribeProfileOperation = (
   profileId: string,
