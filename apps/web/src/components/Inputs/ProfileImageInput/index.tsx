@@ -1,5 +1,5 @@
 /** biome-ignore-all lint/performance/noImgElement: <explanation> todo */
-import { CloseButton, Image, LoadingOverlay, Overlay } from '@mantine/core'
+import { CloseButton, LoadingOverlay, Overlay } from '@mantine/core'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 import { notifications } from '@mantine/notifications'
 import { useRef } from 'react'
@@ -127,7 +127,7 @@ export const ImagePreview = ({
   onRemove,
 }: ImagePreviewProps): React.ReactElement => (
   <div className={styles.imagePreview}>
-    <Image src={file} alt="" className={styles.image} />
+    <img src={file} alt="" className={styles.image} />
     <CloseButton
       size="lg"
       variant="subtle"
