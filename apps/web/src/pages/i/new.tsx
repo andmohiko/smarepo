@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
-
-import { NewContainer } from '~/features/new/components/NewContainer'
 import { NonAuthLayout } from '~/components/Layouts/NonAuthLayout'
+import { NewContainer } from '~/features/new/components/NewContainer'
 
 const NewPage: NextPage = () => {
   return (

@@ -1,21 +1,18 @@
-/* eslint-disable @next/next/no-img-element */
-import { LoadingOverlay, Image, CloseButton, Overlay } from '@mantine/core'
+/** biome-ignore-all lint/performance/noImgElement: <explanation> todo */
+import { CloseButton, Image, LoadingOverlay, Overlay } from '@mantine/core'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 import { notifications } from '@mantine/notifications'
+import { useRef } from 'react'
 import { AiOutlineUpload } from 'react-icons/ai'
 import { BiErrorCircle } from 'react-icons/bi'
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md'
 import { RxCross1 } from 'react-icons/rx'
-// eslint-disable-next-line import/no-named-as-default
 import ReactCrop from 'react-image-crop'
-import { useEffect, useRef, useState } from 'react'
-
-import styles from './style.module.css'
-import { useCropImageInput, type FileObject } from './useCropImageInput'
-
 import { FlexBox } from '~/components/Base/FlexBox'
 import { ActionModal } from '~/components/Modals/ActionModal'
 import { LabelText } from '~/components/Typography/LabelText'
+import styles from './style.module.css'
+import { type FileObject, useCropImageInput } from './useCropImageInput'
 
 type Props = {
   value: FileObject | undefined

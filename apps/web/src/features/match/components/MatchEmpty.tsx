@@ -1,5 +1,5 @@
-import { RiSwordLine } from 'react-icons/ri'
 import { useDisclosure } from '@mantine/hooks'
+import { RiSwordLine } from 'react-icons/ri'
 
 import { BasicButton } from '~/components/Buttons/BasicButton'
 import { EmptyState } from '~/components/Displays/EmptyState'
@@ -17,7 +17,7 @@ export const MatchEmpty = (): React.ReactNode => {
         action={<BasicButton onClick={handlers.open}>戦績を追加</BasicButton>}
       />
 
-      <EditMatchModal isOpen={isOpen} onClose={handlers.close} />
+      <EditMatchModal isOpen={isOpen} onClose={handlers.close} match={null} />
     </>
   )
 }

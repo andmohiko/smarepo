@@ -187,7 +187,6 @@ export const EditProfileForm = ({ defaultValues }: Props): React.ReactNode => {
               label="メインファイター"
               value={field.value}
               onChange={field.onChange}
-              error={errors.mainFighter?.message}
             />
           )}
         />

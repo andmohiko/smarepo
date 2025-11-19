@@ -24,7 +24,7 @@ export const useCropImageInput = (
 ): [
   {
     file: FileObject | undefined
-    selectedImageRef: RefObject<HTMLImageElement>
+    selectedImageRef: RefObject<HTMLImageElement | null>
     uncroppedImageUrl: string | undefined
     crop: Crop
   },

@@ -118,7 +118,6 @@ export const RegisterForm = (): React.ReactNode => {
               label="メインファイター"
               value={field.value}
               onChange={field.onChange}
-              error={errors.mainFighter?.message}
             />
           )}
         />
