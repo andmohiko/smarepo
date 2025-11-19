@@ -27,13 +27,15 @@ service cloud.firestore {
     }
 
     function isValidPublicMatchSchema(requestData) {
-      return requestData.size() == 10
+      return requestData.size() == 12
         && 'createdAt' in requestData && requestData.createdAt is timestamp
         && 'isContinuedMatch' in requestData && requestData.isContinuedMatch is bool
         && 'isElite' in requestData && requestData.isElite is bool
         && 'globalSmashPower' in requestData && (requestData.globalSmashPower is number || requestData.globalSmashPower == null)
         && 'myFighterId' in requestData && requestData.myFighterId is string
+        && 'myFighterName' in requestData && requestData.myFighterName is string
         && 'opponentFighterId' in requestData && requestData.opponentFighterId is string
+        && 'opponentFighterName' in requestData && requestData.opponentFighterName is string
         && 'result' in requestData && requestData.result is string
         && 'stage' in requestData && (requestData.stage is string || requestData.stage == null)
         && 'updatedAt' in requestData && requestData.updatedAt is timestamp

@@ -14,7 +14,9 @@ export type PublicMatch = {
   isElite: boolean
   globalSmashPower: number | null
   myFighterId: string
+  myFighterName: string
   opponentFighterId: string
+  opponentFighterName: string
   result: Result
   stage: OnlineStage | null
   updatedAt: Date
@@ -34,7 +36,9 @@ export type UpdatePublicMatchDto = {
   isElite?: PublicMatch['isElite']
   globalSmashPower?: PublicMatch['globalSmashPower']
   myFighterId?: PublicMatch['myFighterId']
+  myFighterName?: PublicMatch['myFighterName']
   opponentFighterId?: PublicMatch['opponentFighterId']
+  opponentFighterName?: PublicMatch['opponentFighterName']
   result?: PublicMatch['result']
   stage?: PublicMatch['stage']
   updatedAt: FieldValue
