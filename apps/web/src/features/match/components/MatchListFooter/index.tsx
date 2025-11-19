@@ -45,7 +45,7 @@ export const MatchListFooter = ({ matches, add }: Props): React.ReactNode => {
         {winningStreak > 0 && (
           <>
             <div className={styles.winningStreakFighterIcon}>
-              <FighterIcon fighterId={todaysMatches[0].myFighterId} size="sm" />
+              <FighterIcon fighterId={matches[0].myFighterId} size="sm" />
             </div>
             <span className={styles.winningStreakCount}>{winningStreak}</span>
             <div className={styles.winningStreakLabel}>

@@ -85,6 +85,7 @@ export const MatchListContainer = (): React.ReactElement => {
         isOpen={isOpenEditModal}
         onClose={onCloseModel}
         match={currentMatch}
+        isFirstMatch={matches.length === 0}
       />
     </div>
   )

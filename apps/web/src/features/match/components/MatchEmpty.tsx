@@ -17,7 +17,12 @@ export const MatchEmpty = (): React.ReactNode => {
         action={<BasicButton onClick={handlers.open}>戦績を追加</BasicButton>}
       />
 
-      <EditMatchModal isOpen={isOpen} onClose={handlers.close} match={null} />
+      <EditMatchModal
+        isOpen={isOpen}
+        onClose={handlers.close}
+        match={null}
+        isFirstMatch
+      />
     </>
   )
 }

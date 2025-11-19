@@ -7,12 +7,14 @@ type Props = {
   isOpen: boolean
   onClose: () => void
   match: PublicMatch | null
+  isFirstMatch: boolean
 }
 
 export const EditMatchModal = ({
   isOpen,
   onClose,
   match,
+  isFirstMatch,
 }: Props): React.ReactElement => {
   return (
     <BaseBottomSheet
@@ -20,7 +22,11 @@ export const EditMatchModal = ({
       isOpen={isOpen}
       onClose={onClose}
     >
-      <EditMatchForm onClose={onClose} defaultValues={match ?? undefined} />
+      <EditMatchForm
+        onClose={onClose}
+        defaultValues={match ?? undefined}
+        isFirstMatch={isFirstMatch}
+      />
     </BaseBottomSheet>
   )
 }

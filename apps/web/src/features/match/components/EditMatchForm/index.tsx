@@ -21,11 +21,13 @@ import styles from './style.module.css'
 type Props = {
   onClose: () => void
   defaultValues?: PublicMatch
+  isFirstMatch: boolean
 }
 
 export const EditMatchForm = ({
   onClose,
   defaultValues,
+  isFirstMatch,
 }: Props): React.ReactElement => {
   const [publicMatches] = usePublicMatches()
   const recentFighters = unique<FighterId>(
@@ -88,7 +90,7 @@ export const EditMatchForm = ({
               label="自分のファイター"
               value={field.value}
               onChange={field.onChange}
-              isSelectFromRecentFighters={true}
+              isSelectFromRecentFighters={!isFirstMatch}
               isShowRecentFightersButton
               recentFighters={recentFighters}
             />
