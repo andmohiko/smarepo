@@ -88,7 +88,6 @@ export const EditMatchForm = ({
               label="自分のファイター"
               value={field.value}
               onChange={field.onChange}
-              error={errors.myFighterId?.message}
               isSelectFromRecentFighters={true}
               isShowRecentFightersButton
               recentFighters={recentFighters}
@@ -103,7 +102,6 @@ export const EditMatchForm = ({
               label="相手のファイター"
               value={field.value}
               onChange={field.onChange}
-              error={errors.opponentFighterId?.message}
             />
           )}
         />
@@ -111,11 +109,7 @@ export const EditMatchForm = ({
           name="result"
           control={control}
           render={({ field }) => (
-            <ResultInput
-              value={field.value}
-              onChange={field.onChange}
-              error={errors.result?.message}
-            />
+            <ResultInput value={field.value} onChange={field.onChange} />
           )}
         />
         <Accordion

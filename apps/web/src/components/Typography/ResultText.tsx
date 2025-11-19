@@ -1,6 +1,6 @@
-import classNames from 'classnames'
 import type { Result } from '@smarepo/common'
 import { resultLabel } from '@smarepo/common'
+import classNames from 'classnames'
 
 import styles from './style.module.css'
 import type { FontSizes } from './types'

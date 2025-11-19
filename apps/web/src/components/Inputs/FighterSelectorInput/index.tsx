@@ -32,7 +32,6 @@ type Props = {
   recentFighters?: FighterId[]
   value?: FighterId | undefined
   onChange?: (fighterId: FighterId) => void
-  error?: React.ReactNode
 }
 
 export const FighterSelectorInput = ({
@@ -43,7 +42,6 @@ export const FighterSelectorInput = ({
   isSelectFromRecentFighters = false,
   recentFighters = [],
   onChange,
-  error,
 }: Props): React.ReactNode => {
   const [isShowRecent, setIsShowRecent] = useState<boolean>(
     isSelectFromRecentFighters,
@@ -78,7 +76,6 @@ export const FighterSelectorInput = ({
           )}
         </FlexBox>
       )}
-      {error && <p className={styles.error}>{error}</p>}
       <div className={styles.fighterSelector}>
         {fightersIds.map((fighterId) => (
           <div key={fighterId} className={styles.fighterIcon}>

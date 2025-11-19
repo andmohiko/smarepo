@@ -20,18 +20,18 @@
 
 .headingText {
   line-height: 1.25;
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
   font-weight: bold;
 }
 
 .labelText {
   line-height: 1.25;
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
 }
 
 .paragraphText {
   line-height: 1.5;
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
 }
 
 ._size32 {
@@ -84,11 +84,11 @@
 }
 
 ._WIN {
-  color: #ff0000;
+  color: var(--color-win);
 }
 
 ._LOSE {
-  color: #ff00ff;
+  color: var(--color-lose);
 }
 
 ._DRAW {

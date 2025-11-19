@@ -6,9 +6,11 @@
   width: 100%;
   position: relative;
 
-  .addMatchButtonContainer {
+  .matchListFooterContainer {
     position: fixed;
-    bottom: 32px;
+    bottom: 28px;
     transform: translateY(-50%);
+    width: 100%;
+    max-width: 500px;
   }
 }

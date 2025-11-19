@@ -18,14 +18,9 @@ import styles from './style.module.css'
 type Props = {
   value: Result | undefined
   onChange: (value: Result) => void
-  error?: React.ReactNode
 }
 
-export const ResultInput = ({
-  value,
-  onChange,
-  error,
-}: Props): React.ReactNode => {
+export const ResultInput = ({ value, onChange }: Props): React.ReactNode => {
   /**
    * 勝ちボタンがクリックされた際のハンドラ
    * 内部状態をtrueに更新し、親コンポーネントに通知
@@ -44,7 +39,6 @@ export const ResultInput = ({
 
   return (
     <div className={styles.resultInput}>
-      {error && <p className={styles.error}>{error}</p>}
       <button
         type="button"
         onClick={handleWinClick}

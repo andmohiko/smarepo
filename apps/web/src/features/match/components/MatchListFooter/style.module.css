@@ -1,0 +1,65 @@
+.matchListFooter {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 50px 1fr;
+  justify-content: center;
+  align-items: center;
+  height: 68px;
+  width: 100%;
+  padding: 8px 8px;
+  background-color: var(--color-white);
+  border-top: 1px solid var(--color-gray200);
+  box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.05);
+
+  .winningStreak {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 4px;
+    width: 100%;
+
+    .winningStreakFighterIcon {
+      margin-bottom: -1px;
+      padding-right: 10px;
+    }
+
+    .winningStreakCount {
+      font-size: 28px;
+      font-weight: bold;
+      color: var(--color-win);
+      padding-right: 4px;
+    }
+
+    .winningStreakLabel {
+      margin-bottom: 4px;
+    }
+  }
+
+  .addMatchButton {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .today {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 4px;
+
+    .countWin {
+      margin-bottom: 2px;
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--color-win);
+    }
+
+    .countLose {
+      margin-bottom: 2px;
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--color-lose);
+    }
+  }
+}

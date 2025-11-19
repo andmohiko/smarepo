@@ -4,7 +4,6 @@ import dayjs from 'dayjs'
 import { Fragment, useState } from 'react'
 import { FlexBox } from '~/components/Base/FlexBox'
 import { LoadingAnimation } from '~/components/Base/Loading'
-import { AddMatchButton } from '~/components/Buttons/AddMatchButton'
 import { LabelText } from '~/components/Typography/LabelText'
 import { EditMatchModal } from '~/features/match/components/EditMatchModal'
 import { MatchEmpty } from '~/features/match/components/MatchEmpty'
@@ -14,6 +13,7 @@ import { MatchListSummary } from '~/features/match/components/MatchListSummary'
 import { usePublicMatches } from '~/hooks/usePublicMatches'
 import { useToast } from '~/hooks/useToast'
 import { isSameDay } from '~/utils/date'
+import { MatchListFooter } from '../MatchListFooter'
 import styles from './style.module.css'
 
 export const MatchListContainer = (): React.ReactElement => {
@@ -74,8 +74,8 @@ export const MatchListContainer = (): React.ReactElement => {
         </>
       )}
 
-      <div className={styles.addMatchButtonContainer}>
-        <AddMatchButton add={editModalHandlers.open} />
+      <div className={styles.matchListFooterContainer}>
+        <MatchListFooter matches={matches} add={editModalHandlers.open} />
       </div>
 
       {/* 戦績が空の場合 */}
