@@ -1,6 +1,8 @@
 import type { FighterId, Profile } from '@smarepo/common'
 import Image from 'next/image'
-import { FaXTwitter } from 'react-icons/fa6'
+import { AiOutlineAudioMuted } from 'react-icons/ai'
+import { BsNintendoSwitch } from 'react-icons/bs'
+import { FaDiscord, FaLine, FaXTwitter } from 'react-icons/fa6'
 import { FlexBox } from '~/components/Base/FlexBox'
 import { BasicButton } from '~/components/Buttons/BasicButton'
 import { DisplayItem } from '~/components/Displays/DisplayItem'
@@ -52,7 +54,7 @@ export const ProfileContainer = ({
         >{`@${profile.xId}`}</ParagraphText>
       </FlexBox>
       <ParagraphText>{profile.selfIntroduction}</ParagraphText>
-      <FlexBox gap={8} align="flex-start">
+      <FlexBox gap={24} align="flex-start">
         <DisplayItem
           label="メインファイター"
           value={
@@ -62,6 +64,28 @@ export const ProfileContainer = ({
                 size="md"
               />
             </div>
+          }
+        />
+        {/* 主なプレイ時間・フレンドコード・スマメイトレートを表示する */}
+        <DisplayItem label="主なプレイ時間" value={profile.mainPlayingTime} />
+        <DisplayItem label="フレンドコード" value={profile.friendCode} />
+        <DisplayItem
+          label="スマメイトレート"
+          value={profile.smashMateMaxRating}
+        />
+        <DisplayItem
+          label="ボイスチャット"
+          value={
+            <FlexBox direction="row" gap={8} justify="flex-start">
+              {profile.voiceChat.discord && <FaDiscord size={24} />}
+              {profile.voiceChat.line && <FaLine size={24} />}
+              {profile.voiceChat.nintendoOnline && (
+                <BsNintendoSwitch size={24} />
+              )}
+              {profile.voiceChat.listenOnly && (
+                <AiOutlineAudioMuted size={24} />
+              )}
+            </FlexBox>
           }
         />
       </FlexBox>

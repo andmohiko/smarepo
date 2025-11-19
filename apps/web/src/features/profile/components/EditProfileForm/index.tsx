@@ -6,6 +6,7 @@ import { FlexBox } from '~/components/Base/FlexBox'
 import { BasicButton } from '~/components/Buttons/BasicButton'
 import { CheckboxInput } from '~/components/Inputs/Checkboxes'
 import { FighterSelectorInput } from '~/components/Inputs/FighterSelectorInput'
+import { NumberInput } from '~/components/Inputs/NumberInput'
 import { ProfileImageInput } from '~/components/Inputs/ProfileImageInput'
 import { TextArea } from '~/components/Inputs/TextArea'
 import { TextInput } from '~/components/Inputs/TextInput'
@@ -42,8 +43,10 @@ export const EditProfileForm = ({ defaultValues }: Props): React.ReactNode => {
       friendCode: defaultValues.friendCode ?? undefined,
       isPrivateProfile: defaultValues.isPrivateProfile,
       mainFighter: defaultValues.mainFighter,
+      mainPlayingTime: defaultValues.mainPlayingTime,
       profileImageUrl: defaultValues.profileImageUrl,
       selfIntroduction: defaultValues.selfIntroduction ?? undefined,
+      smashMateMaxRating: defaultValues.smashMateMaxRating ?? undefined,
       username: defaultValues.username,
       voiceChat: defaultValues.voiceChat,
       xId: defaultValues.xId,
@@ -146,6 +149,33 @@ export const EditProfileForm = ({ defaultValues }: Props): React.ReactNode => {
               onChange={field.onChange}
               onBlur={field.onBlur}
               error={errors.friendCode?.message}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="mainPlayingTime"
+          render={({ field }) => (
+            <TextInput
+              label="主なプレイ時間"
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={errors.mainPlayingTime?.message}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="smashMateMaxRating"
+          render={({ field }) => (
+            <NumberInput
+              label="スマメイト最大レート"
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={errors.smashMateMaxRating?.message}
+              width="150px"
             />
           )}
         />

@@ -11,8 +11,10 @@ export const editProfileSchema = z.object({
     .optional(),
   isPrivateProfile: z.boolean(),
   mainFighter: z.string().min(1),
+  mainPlayingTime: z.string().min(1),
   profileImageUrl: z.string().min(1),
   selfIntroduction: z.string().min(1).max(1000).optional(),
+  smashMateMaxRating: z.number().min(0).max(5000).optional(),
   // アルファベットと数字とアンダースコアのみ
   username: z
     .string()
