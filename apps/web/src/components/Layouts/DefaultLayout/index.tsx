@@ -1,12 +1,10 @@
 import type { ReactElement, ReactNode } from 'react'
-
-import styles from './style.module.css'
-
 import { LoadingContentOverlay } from '~/components/Base/Loading'
-import { useLoadingContext } from '~/providers/LoadingProvider'
-import { FixedHeader } from '~/components/Layouts/FixedHeader'
 import { PageHead } from '~/components/Base/PageHead'
-import { BottomFooter } from '~/components/Layouts/BottomFooter'
+import { FixedHeader } from '~/components/Layouts/FixedHeader'
+import { FooterNavigation } from '~/components/Layouts/FooterNavigation'
+import { useLoadingContext } from '~/providers/LoadingProvider'
+import styles from './style.module.css'
 
 type Props = {
   children?: ReactNode
@@ -33,7 +31,7 @@ export const DefaultLayout = ({
 
       <div className={styles.footerWrapper}>
         <div className={styles.spWindow}>
-          <BottomFooter />
+          <FooterNavigation />
         </div>
       </div>
     </div>

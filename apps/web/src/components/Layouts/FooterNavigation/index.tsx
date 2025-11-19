@@ -3,12 +3,10 @@ import { useRouter } from 'next/router'
 import { AiOutlineUser } from 'react-icons/ai'
 import { IoAnalyticsOutline } from 'react-icons/io5'
 import { RiSwordLine } from 'react-icons/ri'
-
+import { useMyProfile } from '~/hooks/useMyProfile'
 import styles from './style.module.css'
 
-import { useMyProfile } from '~/hooks/useMyProfile'
-
-export const BottomFooter = (): React.ReactNode => {
+export const FooterNavigation = (): React.ReactNode => {
   const { pathname } = useRouter()
   const [profile] = useMyProfile()
   const footerItems: Array<NavigationItemProps> = [
@@ -62,7 +60,7 @@ const NavigationItem = ({
   return (
     <Link
       className={styles.navigationItem}
-      href={href}
+      href={isDisabled ? '#' : href}
       style={{
         color: isCurrent ? '#0593b9' : undefined,
         textDecoration: 'none',

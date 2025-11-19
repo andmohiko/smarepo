@@ -8,7 +8,7 @@ type Props = {
 
 export const AddMatchButton = ({ add }: Props): React.ReactElement => {
   return (
-    <button className={styles.addMatchButton} onClick={add}>
+    <button type="button" className={styles.addMatchButton} onClick={add}>
       <BsPlus size={64} />
     </button>
   )
