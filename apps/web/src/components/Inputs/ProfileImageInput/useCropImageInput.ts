@@ -1,7 +1,7 @@
-import type { RefObject } from 'react'
-import { useState, useCallback, useEffect, useRef } from 'react'
 import { useDisclosure } from '@mantine/hooks'
-import { type Crop } from 'react-image-crop'
+import type { RefObject } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import type { Crop } from 'react-image-crop'
 import { v4 as uuid } from 'uuid'
 
 import { uploadImage } from '~/infrastructure/storage/UploadOperations'
@@ -121,7 +121,7 @@ export const useCropImageInput = (
     } else {
       setUncroppedImageUrl(undefined)
     }
-  }, [fileData])
+  }, [fileData, uncroppedImageUrl, handlers.open])
 
   const remove = useCallback(() => {
     setFile('')
