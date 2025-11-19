@@ -6,7 +6,7 @@
  * @throws {Error} 戦績が見つからない場合にエラーをスロー
  */
 import { onDocumentUpdated } from 'firebase-functions/v2/firestore'
-
+import '~/config/firebase'
 import { convertPublicMatchForSnapOperation } from '~/infrastructure/firestore/PublicMatchOperations'
 import { saveMatchUpResult } from '~/services/updateMatchUpResultService'
 import { triggerOnce } from '~/utils/triggerOnce'
