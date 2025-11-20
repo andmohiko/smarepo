@@ -71,15 +71,6 @@ describe('createMatchUpResult', () => {
     test('勝ったとき', async () => {
       // ユーザーデータを作成
       await db.collection(userCollection).doc(userId).set(userData)
-      // 今回作成された戦績データを作成
-      const publicMatchData = {
-        ...basePublicMatchData,
-        result: 'WIN' as Result,
-      }
-      await db
-        .collection(publicMatchCollection)
-        .doc(publicMatchId)
-        .set(publicMatchData)
       // 既存マッチアップデータを作成
       await db
         .collection(userCollection)
@@ -88,6 +79,11 @@ describe('createMatchUpResult', () => {
         .doc(matchUpResultId)
         .set(baseMatchUpResultData)
 
+      // 今回作成された戦績データ（勝ち）
+      const publicMatchData = {
+        ...basePublicMatchData,
+        result: 'WIN' as Result,
+      }
       // マッチアップ結果を更新
       await saveMatchUpResult({ ...publicMatchData, publicMatchId })
 
@@ -114,15 +110,6 @@ describe('createMatchUpResult', () => {
     test('負けたとき', async () => {
       // ユーザーデータを作成
       await db.collection(userCollection).doc(userId).set(userData)
-      // 今回作成された戦績データを作成（負け）
-      const publicMatchData = {
-        ...basePublicMatchData,
-        result: 'LOSE' as Result,
-      }
-      await db
-        .collection(publicMatchCollection)
-        .doc(publicMatchId)
-        .set(publicMatchData)
       // 既存マッチアップデータを作成
       await db
         .collection(userCollection)
@@ -131,6 +118,11 @@ describe('createMatchUpResult', () => {
         .doc(matchUpResultId)
         .set(baseMatchUpResultData)
 
+      // 今回作成された戦績データ（負け）
+      const publicMatchData = {
+        ...basePublicMatchData,
+        result: 'LOSE' as Result,
+      }
       // マッチアップ結果を更新
       await saveMatchUpResult({ ...publicMatchData, publicMatchId })
 
@@ -159,16 +151,12 @@ describe('createMatchUpResult', () => {
     test('勝ったとき', async () => {
       // ユーザーデータを作成
       await db.collection(userCollection).doc(userId).set(userData)
-      // 今回作成された戦績データを作成
+
+      // 今回作成された戦績データ（勝ち）
       const publicMatchData = {
         ...basePublicMatchData,
         result: 'WIN' as Result,
       }
-      await db
-        .collection(publicMatchCollection)
-        .doc(publicMatchId)
-        .set(publicMatchData)
-
       // マッチアップ結果を作成
       await saveMatchUpResult({ ...publicMatchData, publicMatchId })
 
@@ -195,16 +183,11 @@ describe('createMatchUpResult', () => {
     test('負けたとき', async () => {
       // ユーザーデータを作成
       await db.collection(userCollection).doc(userId).set(userData)
-      // 今回作成された戦績データを作成（負け）
+      // 今回作成された戦績データ（負け）
       const publicMatchData = {
         ...basePublicMatchData,
         result: 'LOSE' as Result,
       }
-      await db
-        .collection(publicMatchCollection)
-        .doc(publicMatchId)
-        .set(publicMatchData)
-
       // マッチアップ結果を作成
       await saveMatchUpResult({ ...publicMatchData, publicMatchId })
 
