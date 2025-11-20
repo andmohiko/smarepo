@@ -32,7 +32,7 @@ export const EditMatchForm = ({
   const [publicMatches] = usePublicMatches()
   const recentFighters = unique<FighterId>(
     publicMatches.map((match) => match.myFighterId),
-  )
+  ).slice(0, 8)
   const { createPublicMatch } = useCreatePublicMatchMutation()
   const { updatePublicMatch } = useUpdatePublicMatchMutation()
   const { showErrorToast } = useToast()
