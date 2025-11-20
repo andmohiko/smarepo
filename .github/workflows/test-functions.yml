@@ -1,0 +1,42 @@
+name: Run @smarepo/functions test
+on:
+  push:
+    paths:
+      - apps/functions/src/**
+      - apps/functions/test/**
+  pull_request:
+    paths:
+      - apps/functions/**
+jobs:
+  test:
+    name: Run Cloud Functions tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.9.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Tests
+        uses: w9jds/firebase-action@master
+        with:
+          args: emulators:exec --only firestore 'cd apps/functions && npm test'
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY_DEV }}
