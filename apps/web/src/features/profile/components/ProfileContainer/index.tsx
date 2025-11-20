@@ -73,21 +73,26 @@ export const ProfileContainer = ({
           label="スマメイトレート"
           value={profile.smashMateMaxRating}
         />
-        <DisplayItem
-          label="ボイスチャット"
-          value={
-            <FlexBox direction="row" gap={8} justify="flex-start">
-              {profile.voiceChat.discord && <FaDiscord size={24} />}
-              {profile.voiceChat.line && <FaLine size={24} />}
-              {profile.voiceChat.nintendoOnline && (
-                <BsNintendoSwitch size={24} />
-              )}
-              {profile.voiceChat.listenOnly && (
-                <AiOutlineAudioMuted size={24} />
-              )}
-            </FlexBox>
-          }
-        />
+        {(profile.voiceChat.discord ||
+          profile.voiceChat.line ||
+          profile.voiceChat.nintendoOnline ||
+          profile.voiceChat.listenOnly) && (
+          <DisplayItem
+            label="ボイスチャット"
+            value={
+              <FlexBox direction="row" gap={8} justify="flex-start">
+                {profile.voiceChat.discord && <FaDiscord size={24} />}
+                {profile.voiceChat.line && <FaLine size={24} />}
+                {profile.voiceChat.nintendoOnline && (
+                  <BsNintendoSwitch size={24} />
+                )}
+                {profile.voiceChat.listenOnly && (
+                  <AiOutlineAudioMuted size={24} />
+                )}
+              </FlexBox>
+            }
+          />
+        )}
       </FlexBox>
     </FlexBox>
   )
