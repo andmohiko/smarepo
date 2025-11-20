@@ -25,7 +25,7 @@ export const FooterNavigation = (): React.ReactNode => {
       isDisabled: true,
     },
     {
-      href: '/i/mypage',
+      href: `/${profile?.username}`,
       label: 'マイページ',
       icon: <AiOutlineUser size={24} />,
       isCurrent: pathname === `/${profile?.username}`,
