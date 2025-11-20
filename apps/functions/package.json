@@ -8,6 +8,7 @@
     "lint:cspell": "cspell -c ../../cspell.json src/**/*",
     "pre-build": "tsup",
     "tsc": "tsc",
+    "test": "vitest --reporter=verbose",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
@@ -32,7 +33,8 @@
     "babel-plugin-module-resolver": "^5.0.2",
     "source-map-support": "^0.5.21",
     "tsup": "^8.5.0",
-    "typescript": "5.3.3"
+    "typescript": "5.3.3",
+    "vitest": "^2.1.3"
   },
   "engines": {
     "node": "20",
