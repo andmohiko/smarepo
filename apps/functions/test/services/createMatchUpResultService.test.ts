@@ -35,11 +35,11 @@ afterAll(async () => {
   deleteFirebaseApp()
 })
 
-const userId = 'testUserId'
+const userId = 'testUserId' as const
 const userData = {
   email: 'test@example.com',
 }
-const publicMatchId = 'testPublicMatchId'
+const publicMatchId = 'testPublicMatchId' as const
 const basePublicMatchData: Omit<PublicMatch, 'publicMatchId' | 'result'> = {
   createdAt: new Date(),
   isContinuedMatch: false,
@@ -53,7 +53,7 @@ const basePublicMatchData: Omit<PublicMatch, 'publicMatchId' | 'result'> = {
   updatedAt: new Date(),
   userId: userId,
 }
-const matchUpResultId = 'testMatchUpResultId'
+const matchUpResultId = 'testMatchUpResultId' as const
 const baseMatchUpResultData: Omit<MatchUpResult, 'matchUpResultId'> = {
   createdAt: new Date(),
   loses: 1,
