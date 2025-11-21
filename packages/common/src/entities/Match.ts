@@ -10,14 +10,14 @@ export const resultLabel: Record<Result, string> = {
 }
 
 export const onlineStageEnum = z.enum([
+  'FINAL_DESTINATION',
   'BATTLEFIELD',
   'SMALL_BATTLEFIELD',
-  'FINAL_DESTINATION',
 ])
 export type OnlineStage = z.infer<typeof onlineStageEnum>
 
 export const onlineStageOptions: Record<OnlineStage, string> = {
+  FINAL_DESTINATION: '終点',
   BATTLEFIELD: '戦場',
   SMALL_BATTLEFIELD: '小戦場',
-  FINAL_DESTINATION: '終点',
 }
