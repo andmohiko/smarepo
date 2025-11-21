@@ -53,6 +53,10 @@ export const FighterSelectorInput = ({
    * @param fighterId - 選択されたファイターID
    */
   const handleSelect = (fighterId: FighterId): void => {
+    if (value === fighterId) {
+      onChange?.(undefined)
+      return
+    }
     onChange?.(fighterId)
   }
 
