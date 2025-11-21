@@ -54,7 +54,7 @@ export const MatchListContainer = (): React.ReactElement => {
       {matches.length > 0 && (
         <>
           <MatchListSummary matches={matches} />
-          <FlexBox align="center">
+          <FlexBox align="center" mb={64}>
             {/* ヘッダー */}
             <MatchListHeader />
             {matches.map((match, i) => (
