@@ -1,0 +1,20 @@
+.winLoseResult {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 4px;
+
+  .countWin {
+    margin-bottom: 2px;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color-win);
+  }
+
+  .countLose {
+    margin-bottom: 2px;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color-lose);
+  }
+}

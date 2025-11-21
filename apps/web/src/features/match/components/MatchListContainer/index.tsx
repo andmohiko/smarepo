@@ -8,12 +8,12 @@ import { LabelText } from '~/components/Typography/LabelText'
 import { EditMatchModal } from '~/features/match/components/EditMatchModal'
 import { MatchEmpty } from '~/features/match/components/MatchEmpty'
 import { MatchListCard } from '~/features/match/components/MatchListCard'
+import { MatchListFooter } from '~/features/match/components/MatchListFooter'
 import { MatchListHeader } from '~/features/match/components/MatchListHeader'
 import { MatchListSummary } from '~/features/match/components/MatchListSummary'
 import { usePublicMatches } from '~/hooks/usePublicMatches'
 import { useToast } from '~/hooks/useToast'
 import { isSameDay } from '~/utils/date'
-import { MatchListFooter } from '../MatchListFooter'
 import styles from './style.module.css'
 
 export const MatchListContainer = (): React.ReactElement => {

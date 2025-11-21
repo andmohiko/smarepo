@@ -22,7 +22,7 @@ export const FooterNavigation = (): React.ReactNode => {
       label: '分析',
       icon: <IoAnalyticsOutline size={24} />,
       isCurrent: pathname === '/i/analytics',
-      isDisabled: true,
+      isDisabled: false,
     },
     {
       href: `/${profile?.username}`,
