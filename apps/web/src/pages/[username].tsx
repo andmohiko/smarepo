@@ -1,16 +1,40 @@
-import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
-import { DefaultLayout } from '~/components/Layouts/DefaultLayout'
+import type { Profile, SerializedProfile } from '@smarepo/common'
+import dayjs from 'dayjs'
+import type { GetServerSideProps, NextPage } from 'next'
+import { useMemo } from 'react'
+import { InnerLayout } from '~/components/Layouts/InnerLayout'
 import { UserPageContainer } from '~/features/profile/components/UserPageContainer'
+import { fetchProfileByUsernameOperation } from '~/infrastructure/firebaseAdmin/ProfileOperations'
 
-const UserProfilePage: NextPage = () => {
-  const { query } = useRouter()
-  const username = query.username as string
+type Props = {
+  profile: SerializedProfile | null | undefined
+}
+
+const UserProfilePage: NextPage<Props> = ({ profile }) => {
+  // クライアント側で文字列をDateオブジェクトに変換
+  const deserializedProfile: Profile | null | undefined = useMemo(() => {
+    if (!profile) {
+      return null
+    }
+    return {
+      ...profile,
+      createdAt: dayjs(profile.createdAt).toDate(),
+      updatedAt: dayjs(profile.updatedAt).toDate(),
+    } as Profile
+  }, [profile])
   return (
-    <DefaultLayout>
-      <UserPageContainer username={username} />
-    </DefaultLayout>
+    <InnerLayout>
+      <UserPageContainer profile={deserializedProfile} />
+    </InnerLayout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context,
+) => {
+  const { username } = context.query
+  const profile = await fetchProfileByUsernameOperation(username as string)
+  return { props: { profile } }
 }
 
 export default UserProfilePage

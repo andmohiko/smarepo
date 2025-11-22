@@ -1,24 +1,19 @@
+import type { Profile } from '@smarepo/common'
 import { FlexBox } from '~/components/Base/FlexBox'
-import { ProfileContainer } from '~/features/profile/components/ProfileContainer'
-import { useMyProfile } from '~/hooks/useMyProfile'
-import { useUserProfile } from '~/hooks/useUserProfile'
+import {
+  ProfileContainer,
+  ProfileContainerSkeleton,
+} from '~/features/profile/components/ProfileContainer'
 
 type Props = {
-  username: string
+  profile: Profile | null | undefined
 }
 
-export const UserPageContainer = ({ username }: Props): React.ReactNode => {
-  const [myProfile] = useMyProfile()
-  const [profile] = useUserProfile(username)
-
+export const UserPageContainer = ({ profile }: Props): React.ReactNode => {
   return (
     <FlexBox gap={16} px={16} py={16}>
-      {profile && (
-        <ProfileContainer
-          profile={profile}
-          isMyPage={myProfile?.username === username}
-        />
-      )}
+      {!profile && <ProfileContainerSkeleton />}
+      {profile && <ProfileContainer profile={profile} />}
     </FlexBox>
   )
 }

@@ -3,12 +3,10 @@ import { useRouter } from 'next/router'
 import { AiOutlineUser } from 'react-icons/ai'
 import { IoAnalyticsOutline } from 'react-icons/io5'
 import { RiSwordLine } from 'react-icons/ri'
-import { useMyProfile } from '~/hooks/useMyProfile'
 import styles from './style.module.css'
 
 export const FooterNavigation = (): React.ReactNode => {
   const { pathname } = useRouter()
-  const [profile] = useMyProfile()
   const footerItems: Array<NavigationItemProps> = [
     {
       href: '/',
@@ -25,10 +23,10 @@ export const FooterNavigation = (): React.ReactNode => {
       isDisabled: false,
     },
     {
-      href: `/${profile?.username}`,
+      href: '/i/mypage',
       label: 'マイページ',
       icon: <AiOutlineUser size={24} />,
-      isCurrent: pathname === `/${profile?.username}`,
+      isCurrent: pathname === '/i/mypage',
       isDisabled: false,
     },
   ]
