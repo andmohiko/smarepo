@@ -1,13 +1,13 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
 import {
-  serverTimestamp as getServerTimeStamp,
-  getFirestore,
   connectFirestoreEmulator,
+  getFirestore,
+  serverTimestamp as getServerTimeStamp,
 } from 'firebase/firestore'
-import { getStorage } from 'firebase/storage'
-import { getRemoteConfig } from 'firebase/remote-config'
 import type { RemoteConfig } from 'firebase/remote-config'
+import { getRemoteConfig } from 'firebase/remote-config'
+import { getStorage } from 'firebase/storage'
 
 const config = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,

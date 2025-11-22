@@ -52,3 +52,8 @@ export type UpdateProfileDto = {
   voiceChat: Profile['voiceChat']
   xId: Profile['xId']
 }
+
+export type SerializedProfile = Omit<Profile, 'createdAt' | 'updatedAt'> & {
+  createdAt: string | null
+  updatedAt: string | null
+}
