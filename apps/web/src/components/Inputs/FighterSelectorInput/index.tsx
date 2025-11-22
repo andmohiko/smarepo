@@ -31,7 +31,7 @@ type Props = {
   isSelectFromRecentFighters?: boolean
   recentFighters?: FighterId[]
   value?: FighterId | undefined
-  onChange?: (fighterId: FighterId) => void
+  onChange?: (fighterId: FighterId | undefined) => void
 }
 
 export const FighterSelectorInput = ({
