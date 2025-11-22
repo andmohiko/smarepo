@@ -4,11 +4,11 @@ import { useRouter } from 'next/router'
 import type { ReactNode } from 'react'
 import {
   createContext,
-  useState,
-  useContext,
   useCallback,
+  useContext,
   useEffect,
   useMemo,
+  useState,
 } from 'react'
 
 import { LoadingCover } from '~/components/Base/Loading'
@@ -22,11 +22,15 @@ import {
 import { auth, serverTimestamp } from '~/lib/firebase'
 import { errorMessage } from '~/utils/errorMessage'
 
-const nonAuthPaths = ['/i/new']
-
-const isNonAuthPath = (path: string) => {
-  return nonAuthPaths.some((p) => path.startsWith(p))
-}
+const authPaths = [
+  '/',
+  '/i/analytics',
+  '/i/edit',
+  '/i/mypage',
+  '/i/register',
+  '/i/settings',
+  '/i/delete',
+]
 
 const FirebaseAuthContext = createContext<{
   currentUser: User | null | undefined
@@ -55,7 +59,10 @@ const FirebaseAuthProvider = ({
   const { showErrorToast } = useToast()
   const [myProfile] = useMyProfile()
 
-  const isAuthPath = useMemo(() => !isNonAuthPath(pathname), [pathname])
+  const isAuthPath = useMemo(
+    () => authPaths.some((p) => pathname === p),
+    [pathname],
+  )
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -91,7 +98,7 @@ const FirebaseAuthProvider = ({
       }
     })
     return () => unsubscribe()
-  }, [isAuthPath, pathname, push])
+  }, [isAuthPath, pathname, push, myProfile])
 
   const login = useCallback(async () => {
     const googleProvider = new GoogleAuthProvider()
