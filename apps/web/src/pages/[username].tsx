@@ -34,6 +34,11 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 ) => {
   const { username } = context.query
   const profile = await fetchProfileByUsernameOperation(username as string)
+  if (profile?.isPrivateProfile) {
+    return {
+      props: { profile: null },
+    }
+  }
   return { props: { profile } }
 }
 
