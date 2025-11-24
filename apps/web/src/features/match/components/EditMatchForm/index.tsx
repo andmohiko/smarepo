@@ -3,6 +3,7 @@ import type { FighterId, PublicMatch } from '@smarepo/common'
 import { Controller, useForm } from 'react-hook-form'
 import { FlexBox } from '~/components/Base/FlexBox'
 import { BasicButton } from '~/components/Buttons/BasicButton'
+import { DeleteButton } from '~/components/Buttons/DeleteButton'
 import { Accordion } from '~/components/Displays/Accordion'
 import { CheckboxInput } from '~/components/Inputs/Checkboxes'
 import { FighterSelectorInput } from '~/components/Inputs/FighterSelectorInput'
@@ -10,12 +11,14 @@ import { NumberInput } from '~/components/Inputs/NumberInput'
 import { ResultInput } from '~/features/match/components/ResultInput'
 import { StageSelector } from '~/features/match/components/StageSelector'
 import { useCreatePublicMatchMutation } from '~/features/match/hooks/useCreatePublicMatchMutation'
+import { useDeletePublicMatchMutation } from '~/features/match/hooks/useDeletePublicMatchMutation'
 import { useUpdatePublicMatchMutation } from '~/features/match/hooks/useUpdatePublicMatchMutation'
 import type { EditPublicMatchInputType } from '~/features/match/types'
 import { editPublicMatchSchema } from '~/features/match/types'
 import { usePublicMatches } from '~/hooks/usePublicMatches'
 import { useToast } from '~/hooks/useToast'
 import { unique } from '~/utils/array'
+import { errorMessage } from '~/utils/errorMessage'
 import styles from './style.module.css'
 
 type Props = {
@@ -35,6 +38,7 @@ export const EditMatchForm = ({
   ).slice(0, 8)
   const { createPublicMatch } = useCreatePublicMatchMutation()
   const { updatePublicMatch } = useUpdatePublicMatchMutation()
+  const { deletePublicMatch } = useDeletePublicMatchMutation()
   const { showErrorToast } = useToast()
   const {
     control,
@@ -76,6 +80,23 @@ export const EditMatchForm = ({
       onClose()
     } catch {
       showErrorToast('戦績の作成に失敗しました')
+    }
+  }
+
+  const onDelete = async () => {
+    if (!defaultValues) {
+      return
+    }
+
+    if (!window.confirm('この戦績を削除しますか？')) {
+      return
+    }
+
+    try {
+      await deletePublicMatch(defaultValues.publicMatchId)
+      onClose()
+    } catch (e) {
+      showErrorToast('戦績の削除に失敗しました', errorMessage(e))
     }
   }
 
@@ -176,6 +197,13 @@ export const EditMatchForm = ({
             },
           ]}
         />
+        {defaultValues && (
+          <FlexBox align="stretch">
+            <DeleteButton onClick={onDelete} importance="secondary">
+              削除
+            </DeleteButton>
+          </FlexBox>
+        )}
       </div>
       <div className={styles.editMatchFormFooter}>
         <BasicButton type="submit" disabled={!isValid} loading={isSubmitting}>
