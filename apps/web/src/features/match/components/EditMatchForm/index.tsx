@@ -11,13 +11,14 @@ import { NumberInput } from '~/components/Inputs/NumberInput'
 import { ResultInput } from '~/features/match/components/ResultInput'
 import { StageSelector } from '~/features/match/components/StageSelector'
 import { useCreatePublicMatchMutation } from '~/features/match/hooks/useCreatePublicMatchMutation'
-import { useUpdatePublicMatchMutation } from '~/features/match/hooks/useUpdatePublicMatchMutation'
 import { useDeletePublicMatchMutation } from '~/features/match/hooks/useDeletePublicMatchMutation'
+import { useUpdatePublicMatchMutation } from '~/features/match/hooks/useUpdatePublicMatchMutation'
 import type { EditPublicMatchInputType } from '~/features/match/types'
 import { editPublicMatchSchema } from '~/features/match/types'
 import { usePublicMatches } from '~/hooks/usePublicMatches'
 import { useToast } from '~/hooks/useToast'
 import { unique } from '~/utils/array'
+import { errorMessage } from '~/utils/errorMessage'
 import styles from './style.module.css'
 
 type Props = {
@@ -86,7 +87,7 @@ export const EditMatchForm = ({
     if (!defaultValues) {
       return
     }
-    
+
     if (!window.confirm('この戦績を削除しますか？')) {
       return
     }
@@ -94,8 +95,8 @@ export const EditMatchForm = ({
     try {
       await deletePublicMatch(defaultValues.publicMatchId)
       onClose()
-    } catch {
-      showErrorToast('戦績の削除に失敗しました')
+    } catch (e) {
+      showErrorToast('戦績の削除に失敗しました', errorMessage(e))
     }
   }
 
@@ -196,13 +197,15 @@ export const EditMatchForm = ({
             },
           ]}
         />
+        {defaultValues && (
+          <FlexBox align="stretch">
+            <DeleteButton onClick={onDelete} importance="secondary">
+              削除
+            </DeleteButton>
+          </FlexBox>
+        )}
       </div>
       <div className={styles.editMatchFormFooter}>
-        {defaultValues && (
-          <DeleteButton onClick={onDelete} importance="secondary">
-            削除
-          </DeleteButton>
-        )}
         <BasicButton type="submit" disabled={!isValid} loading={isSubmitting}>
           保存
         </BasicButton>

@@ -4,6 +4,9 @@ service cloud.firestore {
     function requestData() {
       return request.resource.data;
     }
+    function resourceData() {
+      return resource.data;
+    }
     function isSignedIn() {
       return request.auth.uid != null;
     }
@@ -61,7 +64,7 @@ service cloud.firestore {
       allow read;
       allow create: if isSignedIn() && isUser(requestData().userId) && isValidPublicMatchSchema(requestData());
       allow update: if isSignedIn() && isUser(requestData().userId) && isValidPublicMatchSchema(requestData());
-      allow delete: if isSignedIn() && isUser(requestData().userId);
+      allow delete: if isSignedIn() && isUser(resourceData().userId);
     }
 
     match /users/{userId} {
