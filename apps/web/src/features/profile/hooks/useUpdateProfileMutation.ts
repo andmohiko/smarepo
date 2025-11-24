@@ -34,6 +34,19 @@ export const useUpdateProfileMutation = () => {
       xId: data.xId,
     })
 
+    // OGP画像を生成（非同期で実行、エラーは無視）
+    try {
+      await fetch('/api/ogp/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId: uid }),
+      })
+    } catch (_error) {
+      // OGP生成の失敗はプロフィール更新の成功を妨げない
+    }
+
     push('/')
   }
 
