@@ -3,6 +3,7 @@ import type { FighterId, PublicMatch } from '@smarepo/common'
 import { Controller, useForm } from 'react-hook-form'
 import { FlexBox } from '~/components/Base/FlexBox'
 import { BasicButton } from '~/components/Buttons/BasicButton'
+import { DeleteButton } from '~/components/Buttons/DeleteButton'
 import { Accordion } from '~/components/Displays/Accordion'
 import { CheckboxInput } from '~/components/Inputs/Checkboxes'
 import { FighterSelectorInput } from '~/components/Inputs/FighterSelectorInput'
@@ -11,6 +12,7 @@ import { ResultInput } from '~/features/match/components/ResultInput'
 import { StageSelector } from '~/features/match/components/StageSelector'
 import { useCreatePublicMatchMutation } from '~/features/match/hooks/useCreatePublicMatchMutation'
 import { useUpdatePublicMatchMutation } from '~/features/match/hooks/useUpdatePublicMatchMutation'
+import { useDeletePublicMatchMutation } from '~/features/match/hooks/useDeletePublicMatchMutation'
 import type { EditPublicMatchInputType } from '~/features/match/types'
 import { editPublicMatchSchema } from '~/features/match/types'
 import { usePublicMatches } from '~/hooks/usePublicMatches'
@@ -35,6 +37,7 @@ export const EditMatchForm = ({
   ).slice(0, 8)
   const { createPublicMatch } = useCreatePublicMatchMutation()
   const { updatePublicMatch } = useUpdatePublicMatchMutation()
+  const { deletePublicMatch } = useDeletePublicMatchMutation()
   const { showErrorToast } = useToast()
   const {
     control,
@@ -76,6 +79,23 @@ export const EditMatchForm = ({
       onClose()
     } catch {
       showErrorToast('戦績の作成に失敗しました')
+    }
+  }
+
+  const onDelete = async () => {
+    if (!defaultValues) {
+      return
+    }
+    
+    if (!window.confirm('この戦績を削除しますか？')) {
+      return
+    }
+
+    try {
+      await deletePublicMatch(defaultValues.publicMatchId)
+      onClose()
+    } catch {
+      showErrorToast('戦績の削除に失敗しました')
     }
   }
 
@@ -178,6 +198,11 @@ export const EditMatchForm = ({
         />
       </div>
       <div className={styles.editMatchFormFooter}>
+        {defaultValues && (
+          <DeleteButton onClick={onDelete} importance="secondary">
+            削除
+          </DeleteButton>
+        )}
         <BasicButton type="submit" disabled={!isValid} loading={isSubmitting}>
           保存
         </BasicButton>
