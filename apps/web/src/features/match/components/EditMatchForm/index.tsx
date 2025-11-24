@@ -88,7 +88,7 @@ export const EditMatchForm = ({
           render={({ field }) => (
             <FighterSelectorInput
               label="自分のファイター"
-              value={field.value}
+              value={field.value as FighterId | undefined}
               onChange={field.onChange}
               isSelectFromRecentFighters={!isFirstMatch}
               isShowRecentFightersButton
@@ -102,7 +102,7 @@ export const EditMatchForm = ({
           render={({ field }) => (
             <FighterSelectorInput
               label="相手のファイター"
-              value={field.value}
+              value={field.value as FighterId | undefined}
               onChange={field.onChange}
             />
           )}
@@ -128,7 +128,7 @@ export const EditMatchForm = ({
                       render={({ field }) => (
                         <CheckboxInput
                           label="VIPマッチ"
-                          value={field.value}
+                          value={field.value as boolean}
                           onChange={field.onChange}
                         />
                       )}
@@ -139,7 +139,7 @@ export const EditMatchForm = ({
                       render={({ field }) => (
                         <CheckboxInput
                           label="連戦だった"
-                          value={field.value}
+                          value={field.value as boolean}
                           onChange={field.onChange}
                         />
                       )}
@@ -162,7 +162,7 @@ export const EditMatchForm = ({
                     render={({ field }) => (
                       <NumberInput
                         label="世界戦闘力"
-                        value={field.value}
+                        value={field.value as number | undefined}
                         onChange={field.onChange}
                         placeHolder="1429"
                         rightSection={<>万</>}

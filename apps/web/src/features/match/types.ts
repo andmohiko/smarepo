@@ -5,9 +5,9 @@ export const editPublicMatchSchema = z.object({
   isContinuedMatch: z.boolean(),
   isElite: z.boolean(),
   globalSmashPower: z.number().min(1).max(3000).optional(),
-  myFighterId: z.string(),
-  opponentFighterId: z.string(),
-  result: resultEnum,
+  myFighterId: z.string().optional(),
+  opponentFighterId: z.string().optional(),
+  result: resultEnum.optional(),
   stage: onlineStageEnum.optional(),
 })
 

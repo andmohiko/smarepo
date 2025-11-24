@@ -16,16 +16,16 @@ export const useUpdatePublicMatchMutation = () => {
     }
 
     await updatePublicMatchOperation(publicMatchId, {
-      isContinuedMatch: data.isContinuedMatch,
-      isElite: data.isElite,
+      isContinuedMatch: data.isContinuedMatch as boolean,
+      isElite: data.isElite as boolean,
       globalSmashPower: data.globalSmashPower
-        ? data.globalSmashPower * 10000
+        ? (data.globalSmashPower as number) * 10000
         : null,
-      myFighterId: data.myFighterId!,
+      myFighterId: data.myFighterId as FighterId,
       myFighterName: fighters[data.myFighterId as FighterId].name,
-      opponentFighterId: data.opponentFighterId!,
+      opponentFighterId: data.opponentFighterId as FighterId,
       opponentFighterName: fighters[data.opponentFighterId as FighterId].name,
-      result: data.result!,
+      result: data.result as any,
       stage: data.stage ? data.stage : null,
       updatedAt: serverTimestamp,
     })

@@ -170,7 +170,7 @@ importers:
         specifier: ^11.0.1
         version: 11.10.0
       zod:
-        specifier: ^3.24.2
+        specifier: ^3.25.76
         version: 3.25.76
     devDependencies:
       '@firebase/rules-unit-testing':
