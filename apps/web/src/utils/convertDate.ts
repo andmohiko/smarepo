@@ -10,9 +10,13 @@ export function convertDate(
   targetKey: Array<string>,
 ): DocumentData {
   targetKey.forEach((key) => {
-    const value: Timestamp = snapshot[key]
+    const value = snapshot[key]
     if (value) {
-      snapshot[key] = value.toDate()
+      if (value instanceof Date) {
+        snapshot[key] = value
+      } else if (typeof value === 'object' && 'toDate' in value && typeof value.toDate === 'function') {
+        snapshot[key] = value.toDate()
+      }
     }
   })
   return snapshot
