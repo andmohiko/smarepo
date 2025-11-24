@@ -1,10 +1,10 @@
-import { publicMatchCollection } from '@smarepo/common'
 import type {
   CreatePublicMatchDto,
   PublicMatch,
   PublicMatchId,
   UpdatePublicMatchDto,
 } from '@smarepo/common'
+import { publicMatchCollection } from '@smarepo/common'
 import type { Unsubscribe } from 'firebase/firestore'
 import {
   addDoc,
