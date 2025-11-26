@@ -1,4 +1,3 @@
-import type { FighterId } from '@smarepo/common'
 import { useRouter } from 'next/router'
 import type { EditProfileInputType } from '~/features/profile/types'
 import { updateProfileOperation } from '~/infrastructure/firestore/ProfileOperations'
@@ -18,7 +17,7 @@ export const useUpdateProfileMutation = () => {
       displayName: data.displayName,
       friendCode: data.friendCode ?? '',
       isPrivateProfile: data.isPrivateProfile,
-      mainFighter: data.mainFighter as FighterId,
+      mainFighterIds: data.mainFighterIds,
       mainPlayingTime: data.mainPlayingTime,
       profileImageUrl: data.profileImageUrl,
       smashMateMaxRating: data.smashMateMaxRating ?? null,
@@ -38,7 +37,7 @@ export const useUpdateProfileMutation = () => {
     try {
       const ogpRequest: GenerateOgpRequest = {
         displayName: data.displayName,
-        mainFighter: data.mainFighter,
+        mainFighter: data.mainFighterIds[0],
         profileImageUrl: data.profileImageUrl,
         selfIntroduction: data.selfIntroduction ?? '',
         userId: uid,

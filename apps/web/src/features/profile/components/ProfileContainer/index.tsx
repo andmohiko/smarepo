@@ -56,13 +56,16 @@ export const ProfileContainer = ({
       <ParagraphText>{profile.selfIntroduction}</ParagraphText>
       <FlexBox gap={24} align="flex-start">
         <DisplayItem
-          label="メインファイター"
+          label="使用ファイター"
           value={
             <div className={styles.fighterIconContainer}>
-              <FighterIcon
-                fighterId={profile.mainFighter as FighterId}
-                size="md"
-              />
+              {profile.mainFighterIds.map((fighterId) => (
+                <FighterIcon
+                  key={fighterId}
+                  fighterId={fighterId as FighterId}
+                  size="md"
+                />
+              ))}
             </div>
           }
         />

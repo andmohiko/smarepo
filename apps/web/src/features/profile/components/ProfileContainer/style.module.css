@@ -7,4 +7,6 @@
 
 .fighterIconContainer {
   padding-top: 4px;
+  display: flex;
+  gap: 4px;
 }

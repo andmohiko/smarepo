@@ -20,7 +20,7 @@ export type Profile = {
   displayName: string
   friendCode: string
   isPrivateProfile: boolean
-  mainFighter: string
+  mainFighterIds: Array<string>
   mainPlayingTime: string
   ogpImageUrl: string | null
   profileImageUrl: string
@@ -44,7 +44,7 @@ export type UpdateProfileDto = {
   displayName: Profile['displayName']
   friendCode: Profile['friendCode']
   isPrivateProfile: Profile['isPrivateProfile']
-  mainFighter: Profile['mainFighter']
+  mainFighterIds: Profile['mainFighterIds']
   mainPlayingTime: Profile['mainPlayingTime']
   profileImageUrl: Profile['profileImageUrl']
   selfIntroduction: Profile['selfIntroduction']

@@ -13,7 +13,7 @@ export const editProfileSchema = (currentUsername: string) =>
         .regex(/^SW-\d{4}-\d{4}-\d{4}$/)
         .optional(),
       isPrivateProfile: z.boolean(),
-      mainFighter: z.string().min(1),
+      mainFighterIds: z.array(z.string()).min(1),
       mainPlayingTime: z.string().min(1),
       profileImageUrl: z.string().min(1),
       selfIntroduction: z.string().min(1).max(1000).optional(),

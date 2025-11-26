@@ -5,7 +5,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { FlexBox } from '~/components/Base/FlexBox'
 import { BasicButton } from '~/components/Buttons/BasicButton'
 import { CheckboxInput } from '~/components/Inputs/Checkboxes'
-import { FighterSelectorInput } from '~/components/Inputs/FighterSelectorInput'
+import { MultiFighterSelectorInput } from '~/components/Inputs/MultiFighterSelectorInput'
 import { NumberInput } from '~/components/Inputs/NumberInput'
 import { ProfileImageInput } from '~/components/Inputs/ProfileImageInput'
 import { TextArea } from '~/components/Inputs/TextArea'
@@ -43,7 +43,7 @@ export const EditProfileForm = ({ defaultValues }: Props): React.ReactNode => {
       displayName: defaultValues.displayName,
       friendCode: defaultValues.friendCode ?? undefined,
       isPrivateProfile: defaultValues.isPrivateProfile,
-      mainFighter: defaultValues.mainFighter,
+      mainFighterIds: defaultValues.mainFighterIds,
       mainPlayingTime: defaultValues.mainPlayingTime,
       profileImageUrl: defaultValues.profileImageUrl,
       selfIntroduction: defaultValues.selfIntroduction ?? undefined,
@@ -182,10 +182,10 @@ export const EditProfileForm = ({ defaultValues }: Props): React.ReactNode => {
         />
         <Controller
           control={control}
-          name="mainFighter"
+          name="mainFighterIds"
           render={({ field }) => (
-            <FighterSelectorInput
-              label="メインファイター"
+            <MultiFighterSelectorInput
+              label="使用ファイター（複数選択可）"
               value={field.value}
               onChange={field.onChange}
             />
