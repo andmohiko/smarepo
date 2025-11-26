@@ -15,7 +15,7 @@ export const registerSchema = z
       .max(15, { message: 'ユーザー名は15文字以内で入力してください' }),
     xId: z.string().min(1).max(15),
     profileImageUrl: z.string().min(1),
-    mainFighter: z.string().min(1),
+    mainFighterIds: z.array(z.string()).min(1),
   })
   .refine(
     async (data) => {

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { Controller, useForm } from 'react-hook-form'
 import { FlexBox } from '~/components/Base/FlexBox'
 import { BasicButton } from '~/components/Buttons/BasicButton'
-import { FighterSelectorInput } from '~/components/Inputs/FighterSelectorInput'
+import { MultiFighterSelectorInput } from '~/components/Inputs/MultiFighterSelectorInput'
 import { ProfileImageInput } from '~/components/Inputs/ProfileImageInput'
 import { TextInput } from '~/components/Inputs/TextInput'
 import { useCreateProfileMutation } from '~/features/register/hooks/useCreateProfileMutation'
@@ -34,7 +34,7 @@ export const RegisterForm = (): React.ReactNode => {
       username: '',
       xId: '',
       profileImageUrl: '',
-      mainFighter: '',
+      mainFighterIds: [],
     },
   })
 
@@ -112,10 +112,10 @@ export const RegisterForm = (): React.ReactNode => {
         />
         <Controller
           control={control}
-          name="mainFighter"
+          name="mainFighterIds"
           render={({ field }) => (
-            <FighterSelectorInput
-              label="メインファイター"
+            <MultiFighterSelectorInput
+              label="使用ファイター（複数選択可）"
               value={field.value}
               onChange={field.onChange}
             />
