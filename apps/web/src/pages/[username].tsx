@@ -28,9 +28,7 @@ const UserProfilePage: NextPage<Props> = ({ profile }) => {
   const pageTitle = profile ? `${profile.displayName} | スマレポ` : 'スマレポ'
   const pageDescription =
     profile?.selfIntroduction || 'スマブラ戦績記録・分析アプリ'
-  const ogpImageUrl =
-    profile?.ogpImageUrl || `${process.env.NEXT_PUBLIC_APP_URL}/images/ogp.png`
-  const pageUrl = `${process.env.NEXT_PUBLIC_APP_URL}/${profile?.username || ''}`
+  const pageUrl = `${process.env.NEXT_PUBLIC_APP_URL}/${profile?.username}`
 
   return (
     <>
@@ -43,7 +41,6 @@ const UserProfilePage: NextPage<Props> = ({ profile }) => {
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
         <meta property="og:site_name" content="スマレポ" />
-        <meta property="og:image" content={ogpImageUrl} />
         <meta property="og:type" content="profile" />
 
         {/* Twitter Card */}
@@ -52,7 +49,25 @@ const UserProfilePage: NextPage<Props> = ({ profile }) => {
         <meta name="twitter:domain" content={process.env.NEXT_PUBLIC_APP_URL} />
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={pageDescription} />
-        <meta name="twitter:image" content={ogpImageUrl} />
+
+        {/* OGP画像 */}
+        {profile?.ogpImageUrl ? (
+          <>
+            <meta property="og:image" content={profile.ogpImageUrl} />
+            <meta name="twitter:image" content={profile.ogpImageUrl} />
+          </>
+        ) : (
+          <>
+            <meta
+              property="og:image"
+              content={`${process.env.NEXT_PUBLIC_APP_URL}/images/ogp.png`}
+            />
+            <meta
+              name="twitter:image"
+              content={`${process.env.NEXT_PUBLIC_APP_URL}/images/ogp.png`}
+            />
+          </>
+        )}
       </Head>
       <PublicLayout>
         <UserPageContainer profile={deserializedProfile} />
