@@ -14,6 +14,7 @@ export const UnstyledButton = ({
   return (
     <button
       className={styles.unstyledButton}
+      type="button"
       onClick={onClick}
       style={{
         width,
