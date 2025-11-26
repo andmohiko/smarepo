@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import { useMemo } from 'react'
-import { InnerLayout } from '~/components/Layouts/InnerLayout'
+import { PublicLayout } from '~/components/Layouts/PublicLayout'
 import { UserPageContainer } from '~/features/profile/components/UserPageContainer'
 import { fetchProfileByUsernameOperation } from '~/infrastructure/firebaseAdmin/ProfileOperations'
 
@@ -53,9 +53,9 @@ const UserProfilePage: NextPage<Props> = ({ profile }) => {
         <meta name="twitter:description" content={pageDescription} />
         <meta name="twitter:image" content={ogpImageUrl} />
       </Head>
-      <InnerLayout>
+      <PublicLayout>
         <UserPageContainer profile={deserializedProfile} />
-      </InnerLayout>
+      </PublicLayout>
     </>
   )
 }
