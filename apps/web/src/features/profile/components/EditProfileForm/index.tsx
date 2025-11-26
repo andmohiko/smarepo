@@ -59,7 +59,6 @@ export const EditProfileForm = ({ defaultValues }: Props): React.ReactNode => {
       startLoading()
       await updateProfile(data)
       showSuccessToast('プロフィールを更新しました')
-      push('/i/mypage')
     } catch (e) {
       showErrorToast('プロフィールの保存に失敗しました', errorMessage(e))
     } finally {

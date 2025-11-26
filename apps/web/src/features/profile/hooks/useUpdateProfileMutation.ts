@@ -56,7 +56,7 @@ export const useUpdateProfileMutation = () => {
       // OGP生成の失敗はプロフィール更新の成功を妨げない
     }
 
-    push('/')
+    push('/i/mypage')
   }
 
   return { updateProfile }

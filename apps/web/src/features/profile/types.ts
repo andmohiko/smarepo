@@ -8,10 +8,21 @@ export const editProfileSchema = (currentUsername: string) =>
       // SW-1234-1234-1234のフォーマット
       friendCode: z
         .string()
-        .min(17)
-        .max(17)
-        .regex(/^SW-\d{4}-\d{4}-\d{4}$/)
-        .optional(),
+        .optional()
+        .refine(
+          (val) => {
+            // undefinedの場合はバリデーションをスキップ（optionalのため）
+            if (!val) {
+              return true
+            }
+            // 17文字で、SW-1234-1234-1234の形式であることを確認
+            return val.length === 17 && /^SW-\d{4}-\d{4}-\d{4}$/.test(val)
+          },
+          {
+            message:
+              'フレンドコードはSW-1234-1234-1234の形式で入力してください',
+          },
+        ),
       isPrivateProfile: z.boolean(),
       mainFighterIds: z.array(z.string()).min(1),
       mainPlayingTime: z.string().min(1),
