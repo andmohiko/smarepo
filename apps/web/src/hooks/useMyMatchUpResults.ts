@@ -25,7 +25,17 @@ export const useMyMatchUpResults = (): [
       setIsLoading(true)
       try {
         const matchUpResults = await fetchMyMatchUpResultsOperation(uid)
-        setMatchUpResults(matchUpResults)
+        const sortedMatchUpResults = matchUpResults
+          .sort((a, b) =>
+            a.opponentFighterId.localeCompare(b.opponentFighterId),
+          )
+          .sort((a, b) => {
+            const aWinRate = a.wins / a.matches
+            const bWinRate = b.wins / b.matches
+            return bWinRate - aWinRate
+          })
+          .sort((a, b) => b.matches - a.matches)
+        setMatchUpResults(sortedMatchUpResults)
       } catch (e) {
         setError(errorMessage(e))
         showErrorToast('マッチアップ戦績の取得に失敗しました')

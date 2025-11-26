@@ -1,6 +1,6 @@
 import type { MatchUpResult, Uid } from '@smarepo/common'
 import { matchUpResultCollection, userCollection } from '@smarepo/common'
-import { collection, getDocs, orderBy, query } from 'firebase/firestore'
+import { collection, getDocs, query } from 'firebase/firestore'
 
 import { db } from '~/lib/firebase'
 import { convertDate } from '~/utils/convertDate'
@@ -11,10 +11,7 @@ export const fetchMyMatchUpResultsOperation = async (
   uid: Uid,
 ): Promise<Array<MatchUpResult>> => {
   const snapshot = await getDocs(
-    query(
-      collection(db, userCollection, uid, matchUpResultCollection),
-      orderBy('matches', 'desc'),
-    ),
+    query(collection(db, userCollection, uid, matchUpResultCollection)),
   )
   if (snapshot.size === 0) {
     return [] as Array<MatchUpResult>
