@@ -23,6 +23,7 @@
     "@mantine/hooks": "^7.17.3",
     "@mantine/notifications": "^7.17.3",
     "@napi-rs/canvas": "^0.1.82",
+    "@remotion/google-fonts": "^4.0.377",
     "@sentry/nextjs": "^9.10.1",
     "@smarepo/common": "workspace:*",
     "classnames": "^2.5.1",

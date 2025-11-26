@@ -15,38 +15,37 @@ const OGP_HEIGHT = 630
 const primaryColor = '#69a5ff'
 const textColor = '#333333'
 const textLightColor = '#777777'
-const _textLighterColor = '#999999'
 
 // Noto Sans JPフォントの登録
-// @fontsource/noto-sans-jpから.woffファイルを読み込む
+// public/fontsディレクトリに配置したTTFファイルを読み込む
 try {
-  // @fontsource/noto-sans-jpのパス
-  const fontSourcePath = path.join(
+  // public/fontsディレクトリのパス
+  const fontsDirPath = path.join(
     process.cwd(),
-    'node_modules',
-    '@fontsource',
+    'public',
+    'fonts',
     'noto-sans-jp',
-    'files',
   )
 
   // 通常のフォント（weight 400）
   const regularFontPath = path.join(
-    fontSourcePath,
-    'noto-sans-jp-japanese-400-normal.woff',
+    fontsDirPath,
+    'static',
+    'NotoSansJP-Regular.ttf',
   )
 
   // 太字フォント（weight 700）
-  const boldFontPath = path.join(
-    fontSourcePath,
-    'noto-sans-jp-japanese-700-normal.woff',
-  )
+  const boldFontPath = path.join(fontsDirPath, 'NotoSansJP-Bold.ttf')
 
-  // .woffファイルを登録（@napi-rs/canvasがサポートしているか確認）
+  // TTFファイルを登録
   GlobalFonts.registerFromPath(regularFontPath, 'Noto Sans JP')
   GlobalFonts.registerFromPath(boldFontPath, 'Noto Sans JP Bold')
-} catch (_error) {
+} catch (error) {
   // フォント登録に失敗した場合、デフォルトフォントを使用
-  // .woffがサポートされていない場合は、.ttfファイルを使用する必要があります
+  console.error(
+    'フォントの登録に失敗しました。エラー詳細:',
+    error instanceof Error ? error.message : String(error),
+  )
 }
 
 /**

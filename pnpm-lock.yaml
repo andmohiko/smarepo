@@ -108,6 +108,9 @@ importers:
       '@napi-rs/canvas':
         specifier: ^0.1.82
         version: 0.1.82
+      '@remotion/google-fonts':
+        specifier: ^4.0.377
+        version: 4.0.377(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@sentry/nextjs':
         specifier: ^9.10.1
         version: 9.46.0(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(next@15.2.4(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.94.0))(react@19.1.0)(webpack@5.102.1)
@@ -2349,6 +2352,9 @@ packages:
   '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
+  '@remotion/google-fonts@4.0.377':
+    resolution: {integrity: sha512-2xf38i4L8wOwZCX92KrWa1M+g2HeccUe/3z9LngXE9uOkzjnUKmFEd9Psr45XDSg1bvu6JtQgx9Ui1iQQfWrUQ==}
+
   '@rollup/plugin-commonjs@28.0.1':
     resolution: {integrity: sha512-+tNWdlWKbpB3WgBN7ijjYkq9X5uhjmcvyjEght4NmH5fAU++zfQzAJ6wumLS+dNcvwEZhKx2Z+skY8m7v0wGSA==}
     engines: {node: '>=16.0.0 || 14 >= 14.17'}
@@ -4308,6 +4314,12 @@ packages:
   regjsparser@0.13.0:
     resolution: {integrity: sha512-NZQZdC5wOE/H3UT28fVGL+ikOZcEzfMGk/c3iN9UGxzWHMa1op7274oyiUVrAG4B2EuFhus8SvkaYnhvW92p9Q==}
     hasBin: true
+
+  remotion@4.0.377:
+    resolution: {integrity: sha512-j/tvXlh6YBRI1pt6/42mOOiOQdY4aycf7mIU15kDjejcrrC6TBOUQVWwJnu7eppPeMKFNzJcZGdAyc0Xupyi3A==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
 
   require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
@@ -7210,6 +7222,13 @@ snapshots:
 
   '@protobufjs/utf8@1.1.0': {}
 
+  '@remotion/google-fonts@4.0.377(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      remotion: 4.0.377(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+    transitivePeerDependencies:
+      - react
+      - react-dom
+
   '@rollup/plugin-commonjs@28.0.1(rollup@4.53.2)':
     dependencies:
       '@rollup/pluginutils': 5.3.0(rollup@4.53.2)
@@ -9398,6 +9417,11 @@ snapshots:
   regjsparser@0.13.0:
     dependencies:
       jsesc: 3.1.0
+
+  remotion@4.0.377(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
   require-directory@2.1.1: {}
 
