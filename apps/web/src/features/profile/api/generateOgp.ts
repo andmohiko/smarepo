@@ -201,11 +201,11 @@ export const createOgpCanvas = async (
   // サイトロゴ/タイトル
   ctx.fillStyle = primaryColor
   ctx.font = 'bold 48px "Noto Sans JP Bold", "Noto Sans JP", sans-serif'
-  ctx.fillText('スマレポ', 80, 570)
+  ctx.fillText('スマレポ', 80, 550)
 
   ctx.fillStyle = primaryColor
   ctx.font = '24px "Noto Sans JP", sans-serif'
-  ctx.fillText('スマブラ戦績記録・分析アプリ', 300, 570)
+  ctx.fillText('スマブラ戦績記録・分析アプリ', 300, 550)
 
   // CanvasをBufferに変換
   return canvas.toBuffer('image/png')
