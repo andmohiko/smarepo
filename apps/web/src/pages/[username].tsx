@@ -25,9 +25,7 @@ const UserProfilePage: NextPage<Props> = ({ profile }) => {
   }, [profile])
 
   // OGP用のメタタグ
-  const pageTitle = profile
-    ? `${profile.displayName} (@${profile.username}) | スマレポ`
-    : 'スマレポ'
+  const pageTitle = profile ? `${profile.displayName} | スマレポ` : 'スマレポ'
   const pageDescription =
     profile?.selfIntroduction || 'スマブラ戦績記録・分析アプリ'
   const ogpImageUrl =
