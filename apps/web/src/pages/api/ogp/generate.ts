@@ -1,27 +1,41 @@
-import { createCanvas, GlobalFonts, loadImage } from '@napi-rs/canvas'
+/**
+ * @file generate.ts
+ * @description OGP画像生成API
+ * @remarks
+ * プロフィール情報からOGP画像を生成し、Firebase Storageにアップロードする
+ * リクエストボディからプロフィール情報を受け取り、zodで検証する
+ */
+import { createCanvas, loadImage } from '@napi-rs/canvas'
 import { fighters, profileCollection } from '@smarepo/common'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import sharp from 'sharp'
 import { v4 as uuid } from 'uuid'
+import { z } from 'zod'
 import { db, serverTimestamp, storage } from '~/lib/admin'
 
 // OGP画像のサイズ (Twitter/OGP標準)
 const OGP_WIDTH = 1200
 const OGP_HEIGHT = 630
 
-// フォントの登録（システムフォントを使用）
-try {
-  GlobalFonts.registerFromPath(
-    '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf',
-    'DejaVuSans-Bold',
-  )
-  GlobalFonts.registerFromPath(
-    '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
-    'DejaVuSans',
-  )
-} catch (_error) {
-  // フォント登録失敗時はデフォルトフォントを使用
-}
+/**
+ * OGP生成リクエストボディのzodスキーマ
+ * @remarks
+ * プロフィール情報とuserIdを含む
+ */
+const generateOgpRequestSchema = z.object({
+  displayName: z.string(),
+  mainFighter: z.string(),
+  profileImageUrl: z.string().url(),
+  selfIntroduction: z.string(),
+  userId: z.string(),
+  username: z.string(),
+  xId: z.string(),
+})
+
+/**
+ * OGP生成リクエストボディの型
+ */
+export type GenerateOgpRequest = z.infer<typeof generateOgpRequestSchema>
 
 export default async function handler(
   req: NextApiRequest,
@@ -32,23 +46,17 @@ export default async function handler(
   }
 
   try {
-    const { userId } = req.body
+    // リクエストボディの検証
+    const validationResult = generateOgpRequestSchema.safeParse(req.body)
 
-    if (!userId) {
-      return res.status(400).json({ error: 'userId is required' })
+    if (!validationResult.success) {
+      return res.status(400).json({
+        error: '/api/ogp/generate: Invalid request body',
+        details: validationResult.error.errors,
+      })
     }
 
-    // Firestoreからプロフィール情報を取得
-    const profileDoc = await db.collection(profileCollection).doc(userId).get()
-
-    if (!profileDoc.exists) {
-      return res.status(404).json({ error: 'Profile not found' })
-    }
-
-    const profile = profileDoc.data()
-    if (!profile) {
-      return res.status(404).json({ error: 'Profile data is empty' })
-    }
+    const profile: GenerateOgpRequest = validationResult.data
 
     // Canvasを作成
     const canvas = createCanvas(OGP_WIDTH, OGP_HEIGHT)
@@ -115,20 +123,20 @@ export default async function handler(
 
     // 表示名
     ctx.fillStyle = '#ffffff'
-    ctx.font = 'bold 60px DejaVuSans-Bold, sans-serif'
+    ctx.font = 'bold 60px sans-serif'
     ctx.fillText(profile.displayName || 'Unknown User', textX, textY)
 
     // ユーザーID
     textY += 70
     ctx.fillStyle = '#a0a0a0'
-    ctx.font = '40px DejaVuSans, sans-serif'
+    ctx.font = '40px sans-serif'
     ctx.fillText(`@${profile.username || 'unknown'}`, textX, textY)
 
     // メインファイター情報
     if (profile.mainFighter) {
       textY += 80
       ctx.fillStyle = '#ffffff'
-      ctx.font = '36px DejaVuSans, sans-serif'
+      ctx.font = '36px sans-serif'
       ctx.fillText('Main Fighter:', textX, textY)
 
       // ファイターアイコンを描画（可能であれば）
@@ -142,21 +150,35 @@ export default async function handler(
       }
     }
 
-    // スマメイトレート
-    if (profile.smashMateMaxRating) {
-      textY += 70
-      ctx.fillStyle = '#e94560'
-      ctx.font = 'bold 36px DejaVuSans-Bold, sans-serif'
-      ctx.fillText(`SmashMate: ${profile.smashMateMaxRating}`, textX, textY)
+    // 自己紹介
+    if (profile.selfIntroduction) {
+      textY += 80
+      ctx.fillStyle = '#a0a0a0'
+      ctx.font = '28px sans-serif'
+      // テキストが長い場合は省略
+      const maxWidth = 800
+      const introductionText =
+        profile.selfIntroduction.length > 50
+          ? `${profile.selfIntroduction.substring(0, 50)}...`
+          : profile.selfIntroduction
+      ctx.fillText(introductionText, textX, textY, maxWidth)
+    }
+
+    // X ID
+    if (profile.xId) {
+      textY += 50
+      ctx.fillStyle = '#ffffff'
+      ctx.font = '32px sans-serif'
+      ctx.fillText(`X: @${profile.xId}`, textX, textY)
     }
 
     // サイトロゴ/タイトル
     ctx.fillStyle = '#ffffff'
-    ctx.font = 'bold 48px DejaVuSans-Bold, sans-serif'
+    ctx.font = 'bold 48px sans-serif'
     ctx.fillText('スマレポ', 50, 580)
 
     ctx.fillStyle = '#a0a0a0'
-    ctx.font = '32px DejaVuSans, sans-serif'
+    ctx.font = '32px sans-serif'
     ctx.fillText('スマブラ戦績記録・分析アプリ', 250, 580)
 
     // CanvasをBufferに変換
@@ -171,7 +193,7 @@ export default async function handler(
     const bucket = storage.bucket(
       process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
     )
-    const fileName = `images/users/ogp_${uuid()}.png`
+    const fileName = `images/users/${profile.userId}/ogp_${uuid()}.png`
     const file = bucket.file(fileName)
 
     await file.save(optimizedBuffer, {
@@ -186,7 +208,7 @@ export default async function handler(
     const publicUrl = `https://storage.googleapis.com/${bucket.name}/${fileName}`
 
     // FirestoreのプロフィールにOGP画像URLを保存
-    await db.collection(profileCollection).doc(userId).update({
+    await db.collection(profileCollection).doc(profile.userId).update({
       ogpImageUrl: publicUrl,
       updatedAt: serverTimestamp,
     })
