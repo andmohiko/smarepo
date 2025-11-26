@@ -21,6 +21,7 @@
 - isPrivateProfile: Boolean プロフィールを非公開にするかどうか
 - mainFighter: String メインファイターのID
 - mainPlayingTime: String 主なプレイ時間
+- ogpImageUrl: String OGP画像のURL（動的生成）
 - profileImageUrl: String プロフィール画像のURL
 - selfIntroduction: String 自己紹介
 - smashMateMaxRating: Number スマメイト最高レート

@@ -15,13 +15,14 @@ service cloud.firestore {
     }
 
     function isValidProfileSchema(requestData) {
-      return requestData.size() == 13
+      return requestData.size() == 14
         && 'createdAt' in requestData && requestData.createdAt is timestamp
         && 'displayName' in requestData && requestData.displayName is string
         && 'friendCode' in requestData && requestData.friendCode is string
         && 'isPrivateProfile' in requestData && requestData.isPrivateProfile is bool
         && 'mainFighter' in requestData && requestData.mainFighter is string
         && 'mainPlayingTime' in requestData && requestData.mainPlayingTime is string
+        && 'ogpImageUrl' in requestData && (requestData.ogpImageUrl is string || requestData.ogpImageUrl == null)
         && 'profileImageUrl' in requestData && requestData.profileImageUrl is string
         && 'selfIntroduction' in requestData && requestData.selfIntroduction is string
         && 'smashMateMaxRating' in requestData && (requestData.smashMateMaxRating is number || requestData.smashMateMaxRating == null)

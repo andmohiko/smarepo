@@ -1,4 +1,5 @@
 import type { FieldValue } from 'firebase/firestore'
+import type * as admin from 'firebase-admin'
 
 import type { UserId } from './User'
 
@@ -17,12 +18,13 @@ export type Profile = {
   profileId: ProfileId
   createdAt: Date
   displayName: string
-  friendCode: string | null
+  friendCode: string
   isPrivateProfile: boolean
   mainFighter: string
   mainPlayingTime: string
+  ogpImageUrl: string | null
   profileImageUrl: string
-  selfIntroduction: string | null
+  selfIntroduction: string
   smashMateMaxRating: number | null
   updatedAt: Date
   username: string
@@ -51,6 +53,11 @@ export type UpdateProfileDto = {
   username: Profile['username']
   voiceChat: Profile['voiceChat']
   xId: Profile['xId']
+}
+
+export type UpdateProfileFromAdminDto = {
+  ogpImageUrl: Profile['ogpImageUrl']
+  updatedAt: admin.firestore.FieldValue
 }
 
 export type SerializedProfile = Omit<Profile, 'createdAt' | 'updatedAt'> & {

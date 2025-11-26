@@ -1,4 +1,8 @@
-import type { Profile, SerializedProfile } from '@smarepo/common'
+import type {
+  Profile,
+  SerializedProfile,
+  UpdateProfileFromAdminDto,
+} from '@smarepo/common'
 import { profileCollection } from '@smarepo/common'
 
 import { db } from '~/lib/admin'
@@ -22,4 +26,11 @@ export const fetchProfileByUsernameOperation = async (
     profileId: snapshot.docs[0].id,
     ...convertDateForAdmin(data, dateColumns),
   } as SerializedProfile
+}
+
+export const updateProfileOperation = async (
+  profileId: string,
+  dto: UpdateProfileFromAdminDto,
+) => {
+  await db.collection(profileCollection).doc(profileId).update(dto)
 }
