@@ -37,7 +37,7 @@ export const useUpdateProfileMutation = () => {
     try {
       const ogpRequest: GenerateOgpRequest = {
         displayName: data.displayName,
-        mainFighter: data.mainFighterIds[0],
+        mainFighterIds: data.mainFighterIds,
         profileImageUrl: data.profileImageUrl,
         selfIntroduction: data.selfIntroduction ?? '',
         userId: uid,

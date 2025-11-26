@@ -22,7 +22,7 @@ import { optimizeBufferBySharp } from '~/lib/sharp'
  */
 const generateOgpRequestSchema = z.object({
   displayName: z.string(),
-  mainFighter: z.string(),
+  mainFighterIds: z.array(z.string()),
   profileImageUrl: z.string().url(),
   selfIntroduction: z.string(),
   userId: z.string(),

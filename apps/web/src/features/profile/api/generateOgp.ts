@@ -172,15 +172,24 @@ export const createOgpCanvas = async (
   ctx.fillText(`@${profile.username || 'unknown'}`, textX, textY)
 
   // メインファイター情報
-  if (profile.mainFighter) {
-    try {
-      const fighterIconPath = `${process.env.NEXT_PUBLIC_APP_URL}/fighters/${fighters[profile.mainFighter].icon}`
-      const fighterIcon = await loadImage(fighterIconPath)
-      const iconSize = 60
-      textY += 40
-      ctx.drawImage(fighterIcon, textX, textY, iconSize, iconSize)
-    } catch (_error) {
-      // ファイターアイコンの読み込み失敗時はスキップ
+  if (profile.mainFighterIds.length > 0) {
+    const iconSize = 60
+    const iconSpacing = 10
+    textY += 40
+    let currentIconX = textX
+
+    // 各ファイターアイコンを横に並べて描画
+    for (const fighterId of profile.mainFighterIds) {
+      try {
+        const fighterIconPath = `${process.env.NEXT_PUBLIC_APP_URL}/fighters/${fighters[fighterId].icon}`
+        const fighterIcon = await loadImage(fighterIconPath)
+        ctx.drawImage(fighterIcon, currentIconX, textY, iconSize, iconSize)
+        // 次のアイコンのX座標を計算（アイコンサイズ + 間隔）
+        currentIconX += iconSize + iconSpacing
+      } catch (_error) {
+        // ファイターアイコンの読み込み失敗時はスキップ
+        // エラーが発生しても次のアイコンを描画するため、X座標は更新しない
+      }
     }
   }
 
