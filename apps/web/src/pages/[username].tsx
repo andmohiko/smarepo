@@ -49,6 +49,7 @@ const UserProfilePage: NextPage<Props> = ({ profile }) => {
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@andmohiko" />
+        <meta name="twitter:domain" content={process.env.NEXT_PUBLIC_APP_URL} />
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={pageDescription} />
         <meta name="twitter:image" content={ogpImageUrl} />
