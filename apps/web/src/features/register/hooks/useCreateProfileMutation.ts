@@ -21,6 +21,7 @@ export const useCreateProfileMutation = () => {
       isPrivateProfile: false,
       mainFighter: data.mainFighter as FighterId,
       mainPlayingTime: '',
+      ogpImageUrl: null,
       profileImageUrl: data.profileImageUrl,
       selfIntroduction: '',
       smashMateMaxRating: null,

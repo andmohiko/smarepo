@@ -17,13 +17,13 @@ export type Profile = {
   profileId: ProfileId
   createdAt: Date
   displayName: string
-  friendCode: string | null
+  friendCode: string
   isPrivateProfile: boolean
   mainFighter: string
   mainPlayingTime: string
   ogpImageUrl: string | null
   profileImageUrl: string
-  selfIntroduction: string | null
+  selfIntroduction: string
   smashMateMaxRating: number | null
   updatedAt: Date
   username: string
@@ -45,7 +45,6 @@ export type UpdateProfileDto = {
   isPrivateProfile: Profile['isPrivateProfile']
   mainFighter: Profile['mainFighter']
   mainPlayingTime: Profile['mainPlayingTime']
-  ogpImageUrl?: Profile['ogpImageUrl']
   profileImageUrl: Profile['profileImageUrl']
   selfIntroduction: Profile['selfIntroduction']
   smashMateMaxRating: Profile['smashMateMaxRating']
