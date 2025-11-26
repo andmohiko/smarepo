@@ -1,8 +1,9 @@
 import { createCanvas, GlobalFonts, loadImage } from '@napi-rs/canvas'
-import { profileCollection } from '@smarepo/common'
+import { fighters, profileCollection } from '@smarepo/common'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import sharp from 'sharp'
-import admin, { db } from '~/lib/admin'
+import { v4 as uuid } from 'uuid'
+import { db, serverTimestamp, storage } from '~/lib/admin'
 
 // OGP画像のサイズ (Twitter/OGP標準)
 const OGP_WIDTH = 1200
@@ -132,7 +133,7 @@ export default async function handler(
 
       // ファイターアイコンを描画（可能であれば）
       try {
-        const fighterIconPath = `${process.env.NEXT_PUBLIC_APP_URL}/images/fighters/${profile.mainFighter}.png`
+        const fighterIconPath = `${process.env.NEXT_PUBLIC_APP_URL}/fighters/${fighters[profile.mainFighter].icon}`
         const fighterIcon = await loadImage(fighterIconPath)
         const iconSize = 60
         ctx.drawImage(fighterIcon, textX + 250, textY - 50, iconSize, iconSize)
@@ -167,8 +168,10 @@ export default async function handler(
       .toBuffer()
 
     // Firebase Storageにアップロード
-    const bucket = admin.storage().bucket()
-    const fileName = `ogp/users/${userId}.png`
+    const bucket = storage.bucket(
+      process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    )
+    const fileName = `images/users/ogp_${uuid()}.png`
     const file = bucket.file(fileName)
 
     await file.save(optimizedBuffer, {
@@ -185,7 +188,7 @@ export default async function handler(
     // FirestoreのプロフィールにOGP画像URLを保存
     await db.collection(profileCollection).doc(userId).update({
       ogpImageUrl: publicUrl,
-      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      updatedAt: serverTimestamp,
     })
 
     return res.status(200).json({
