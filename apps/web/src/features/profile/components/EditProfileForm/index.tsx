@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { Profile } from '@smarepo/common'
-import { useRouter } from 'next/router'
 import { Controller, useForm } from 'react-hook-form'
 import { FlexBox } from '~/components/Base/FlexBox'
 import { BasicButton } from '~/components/Buttons/BasicButton'
@@ -27,7 +26,6 @@ type Props = {
 }
 
 export const EditProfileForm = ({ defaultValues }: Props): React.ReactNode => {
-  const { push } = useRouter()
   const { uid } = useFirebaseAuthContext()
   const { startLoading, stopLoading } = useLoadingContext()
   const { showErrorToast, showSuccessToast } = useToast()
