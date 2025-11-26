@@ -10,8 +10,8 @@ import { fighters } from '@smarepo/common'
 import type { GenerateOgpRequest } from '~/pages/api/ogp/generate'
 
 // OGP画像のサイズ (Twitter/OGP標準)
-const OGP_WIDTH = 1200
-const OGP_HEIGHT = 630
+const OGP_WIDTH = 1280
+const OGP_HEIGHT = 640
 const primaryColor = '#69a5ff'
 const textColor = '#333333'
 const textLightColor = '#777777'
