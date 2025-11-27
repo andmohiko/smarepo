@@ -10,6 +10,7 @@
   "scripts": {
     "console": "pnpm -F \"console\"",
     "web": "pnpm -F \"web\"",
+    "native": "pnpm -F \"native\"",
     "functions": "pnpm -F \"functions\"",
     "common": "pnpm -F \"common\"",
     "dev": "turbo run dev --no-cache --parallel --continue",
