@@ -1,4 +1,5 @@
 import { Tabs } from 'expo-router'
+import { Platform } from 'react-native'
 
 import { HapticTab } from '~/components/haptic-tab'
 import { IconSymbol } from '~/components/ui/icon-symbol'
@@ -11,26 +12,55 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].primary,
         headerShown: false,
         tabBarButton: HapticTab,
+        tabBarStyle: {
+          paddingTop: 0,
+          paddingBottom: Platform.OS === 'ios' ? 28 : 12,
+          height: Platform.OS === 'ios' ? 88 : 84,
+        },
+        tabBarItemStyle: {
+          paddingVertical: 8,
+        },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
+          title: 'オンライン戦績',
+          tabBarIcon: ({ color, focused }) => (
+            <IconSymbol
+              size={28}
+              name={focused ? 'fight.fill' : 'fight'}
+              color={color}
+            />
           ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="analytics"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="paperplane.fill" color={color} />
+          title: '分析',
+          tabBarIcon: ({ color, focused }) => (
+            <IconSymbol
+              size={28}
+              name={focused ? 'timeline.fill' : 'timeline'}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="mypage"
+        options={{
+          title: 'マイページ',
+          tabBarIcon: ({ color, focused }) => (
+            <IconSymbol
+              size={28}
+              name={focused ? 'person.fill' : 'person'}
+              color={color}
+            />
           ),
         }}
       />
