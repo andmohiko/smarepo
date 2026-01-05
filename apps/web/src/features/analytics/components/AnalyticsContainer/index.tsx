@@ -1,20 +1,24 @@
 import type { FighterId } from '@smarepo/common'
-import { useState } from 'react'
 import { FlexBox } from '~/components/Base/FlexBox'
 import { LoadingAnimation } from '~/components/Base/Loading'
 import { FighterSelectorInput } from '~/components/Inputs/FighterSelectorInput'
 import { MatchUpResultCard } from '~/features/analytics/components/MatchUpResultCard'
 import { MatchUpResultEmpty } from '~/features/analytics/components/MatchUpResultEmpty'
 import { MatchUpResultListHeader } from '~/features/analytics/components/MatchUpResultListHeader'
+import { useLocalStorage } from '~/hooks/useLocalStorage'
 import { useMyMatchUpResults } from '~/hooks/useMyMatchUpResults'
 import { useToast } from '~/hooks/useToast'
 import { unique } from '~/utils/array'
 import styles from './style.module.css'
 
+/** ローカルストレージのキー: 分析画面で選択したファイターID */
+const STORAGE_KEY_ANALYTICS_MY_FIGHTER_ID = 'analytics_my_fighter_id'
+
 export const AnalyticsContainer = (): React.ReactNode => {
   const { showErrorToast } = useToast()
   const [matchUpResults, error, isLoading] = useMyMatchUpResults()
-  const [myFighterId, setMyFighterId] = useState<FighterId | undefined>(
+  const [myFighterId, setMyFighterId] = useLocalStorage<FighterId | undefined>(
+    STORAGE_KEY_ANALYTICS_MY_FIGHTER_ID,
     undefined,
   )
   const recentFighters = unique<FighterId>(
