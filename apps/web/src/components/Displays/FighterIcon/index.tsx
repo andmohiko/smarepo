@@ -4,10 +4,10 @@
  * @component
  */
 
-import classNames from 'classnames'
-import Image from 'next/image'
 import type { FighterId } from '@smarepo/common'
 import { fighters } from '@smarepo/common'
+import classNames from 'classnames'
+import Image from 'next/image'
 
 import styles from './style.module.css'
 

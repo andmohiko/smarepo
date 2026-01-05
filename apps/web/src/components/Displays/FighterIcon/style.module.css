@@ -1,6 +1,8 @@
 .fighterIcon {
   margin: 0 auto;
   padding: 2px;
+  width: 100%;
+  height: 100%;
 
   &.selected {
     background-color: var(--color-primaryDark);
@@ -20,10 +22,5 @@
   &._lg {
     width: 64px;
     height: 64px;
-  }
-
-  &._100% {
-    width: 100%;
-    height: 100%;
   }
 }
