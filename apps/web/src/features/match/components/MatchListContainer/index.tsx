@@ -3,6 +3,7 @@ import type { PublicMatch } from '@smarepo/common'
 import dayjs from 'dayjs'
 import { Fragment, useState } from 'react'
 import { FlexBox } from '~/components/Base/FlexBox'
+import { InfiniteScroller } from '~/components/Base/InfiniteScroller'
 import { LoadingAnimation } from '~/components/Base/Loading'
 import { LabelText } from '~/components/Typography/LabelText'
 import { EditMatchModal } from '~/features/match/components/EditMatchModal'
@@ -16,9 +17,15 @@ import { useToast } from '~/hooks/useToast'
 import { isSameDay } from '~/utils/date'
 import styles from './style.module.css'
 
+/**
+ * 戦績一覧コンテナコンポーネント
+ * - 無限スクロールによるページネーション対応
+ * - 最初のページはリアルタイム購読、追加ページはフェッチで取得
+ */
 export const MatchListContainer = (): React.ReactElement => {
   const { showErrorToast } = useToast()
-  const [matches, error, isLoading] = usePublicMatches()
+  const { matches, error, isLoading, isLoadingMore, hasMore, loadMore } =
+    usePublicMatches()
   const [isOpenEditModal, editModalHandlers] = useDisclosure()
   const [currentMatch, setCurrentMatch] = useState<PublicMatch | null>(null)
 
@@ -26,6 +33,11 @@ export const MatchListContainer = (): React.ReactElement => {
     showErrorToast('戦績の取得に失敗しました')
   }
 
+  /**
+   * 日付区切りを表示するかどうか判定
+   * @param i - 現在のインデックス
+   * @returns 日付を表示する場合はtrue
+   */
   const isShowDate = (i: number): boolean => {
     return (
       i === 0 ||
@@ -70,6 +82,16 @@ export const MatchListContainer = (): React.ReactElement => {
                 <MatchListCard match={match} onEdit={() => onEdit(match)} />
               </Fragment>
             ))}
+
+            {/* 無限スクロール */}
+            <InfiniteScroller
+              isLoadingMore={isLoadingMore}
+              hasMore={hasMore}
+              isLoading={isLoading}
+              loadMore={loadMore}
+              dataLength={matches.length}
+              endMessage="すべての戦績を表示しました"
+            />
           </FlexBox>
         </>
       )}

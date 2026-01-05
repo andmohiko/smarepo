@@ -32,7 +32,7 @@ export const EditMatchForm = ({
   defaultValues,
   isFirstMatch,
 }: Props): React.ReactElement => {
-  const [publicMatches] = usePublicMatches()
+  const { matches: publicMatches } = usePublicMatches()
   const recentFighters = unique<FighterId>(
     publicMatches.map((match) => match.myFighterId),
   ).slice(0, 8)
