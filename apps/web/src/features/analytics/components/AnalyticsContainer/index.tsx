@@ -5,6 +5,7 @@ import { FighterSelectorInput } from '~/components/Inputs/FighterSelectorInput'
 import { MatchUpResultCard } from '~/features/analytics/components/MatchUpResultCard'
 import { MatchUpResultEmpty } from '~/features/analytics/components/MatchUpResultEmpty'
 import { MatchUpResultListHeader } from '~/features/analytics/components/MatchUpResultListHeader'
+import { TotalResultSummary } from '~/features/analytics/components/TotalResultSummary'
 import { useLocalStorage } from '~/hooks/useLocalStorage'
 import { useMyMatchUpResults } from '~/hooks/useMyMatchUpResults'
 import { useToast } from '~/hooks/useToast'
@@ -54,6 +55,7 @@ export const AnalyticsContainer = (): React.ReactNode => {
             />
           </div>
           <MatchUpResultListHeader />
+          <TotalResultSummary matchUpResults={filteredMatchUpResults} />
           {filteredMatchUpResults.map((matchUpResult) => (
             <MatchUpResultCard
               key={matchUpResult.matchUpResultId}
