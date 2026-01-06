@@ -1,11 +1,11 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // match /{document=**} {
-    //   allow read, write;
-    // }
     function requestData() {
       return request.resource.data;
+    }
+    function resourceData() {
+      return resource.data;
     }
     function isSignedIn() {
       return request.auth.uid != null;
@@ -13,49 +13,69 @@ service cloud.firestore {
     function isUser(userId) {
       return request.auth.uid == userId;
     }
-    match /authUsers/{authId} {
-      allow read;
-      allow create: if isSignedIn()
-      								&& isUser(authId)
-      								&& 'createdAt' in requestData() && requestData().createdAt is timestamp
-                      && 'userId' in requestData() && requestData().userId is string
-                      && 'loginMethod' in requestData() && requestData().loginMethod is string;
+
+    function isValidProfileSchema(requestData) {
+      return requestData.size() == 14
+        && 'createdAt' in requestData && requestData.createdAt is timestamp
+        && 'displayName' in requestData && requestData.displayName is string
+        && 'friendCode' in requestData && requestData.friendCode is string
+        && 'isPrivateProfile' in requestData && requestData.isPrivateProfile is bool
+        && 'mainFighterIds' in requestData && requestData.mainFighterIds is list
+        && 'mainPlayingTime' in requestData && requestData.mainPlayingTime is string
+        && 'ogpImageUrl' in requestData && (requestData.ogpImageUrl is string || requestData.ogpImageUrl == null)
+        && 'profileImageUrl' in requestData && requestData.profileImageUrl is string
+        && 'selfIntroduction' in requestData && requestData.selfIntroduction is string
+        && 'smashMateMaxRating' in requestData && (requestData.smashMateMaxRating is number || requestData.smashMateMaxRating == null)
+        && 'updatedAt' in requestData && requestData.updatedAt is timestamp
+        && 'username' in requestData && requestData.username is string
+        && 'voiceChat' in requestData && requestData.voiceChat is map
+        && 'xId' in requestData && requestData.xId is string;
     }
+
+    function isValidPublicMatchSchema(requestData) {
+      return requestData.size() == 12
+        && 'createdAt' in requestData && requestData.createdAt is timestamp
+        && 'isContinuedMatch' in requestData && requestData.isContinuedMatch is bool
+        && 'isElite' in requestData && requestData.isElite is bool
+        && 'globalSmashPower' in requestData && (requestData.globalSmashPower is number || requestData.globalSmashPower == null)
+        && 'myFighterId' in requestData && requestData.myFighterId is string
+        && 'myFighterName' in requestData && requestData.myFighterName is string
+        && 'opponentFighterId' in requestData && requestData.opponentFighterId is string
+        && 'opponentFighterName' in requestData && requestData.opponentFighterName is string
+        && 'result' in requestData && requestData.result is string
+        && 'stage' in requestData && (requestData.stage is string || requestData.stage == null)
+        && 'updatedAt' in requestData && requestData.updatedAt is timestamp
+        && 'userId' in requestData && requestData.userId is string;
+    }
+
+    function isValidUserSchema(requestData) {
+      return requestData.size() == 3
+        && 'createdAt' in requestData && requestData.createdAt is timestamp
+        && 'email' in requestData && requestData.email is string
+        && 'updatedAt' in requestData && requestData.updatedAt is timestamp;
+    }
+
+    match /profiles/{profileId} {
+      allow read;
+      allow create: if isSignedIn() && isUser(profileId) && isValidProfileSchema(requestData());
+      allow update: if isSignedIn() && isUser(profileId) && isValidProfileSchema(requestData());
+    }
+
+    match /publicMatches/{publicMatchId} {
+      allow read;
+      allow create: if isSignedIn() && isUser(requestData().userId) && isValidPublicMatchSchema(requestData());
+      allow update: if isSignedIn() && isUser(requestData().userId) && isValidPublicMatchSchema(requestData());
+      allow delete: if isSignedIn() && isUser(resourceData().userId);
+    }
+
     match /users/{userId} {
       allow read;
-      allow create: if isSignedIn()
-      								&& 'createdAt' in requestData() && requestData().createdAt is timestamp
-                      && 'updatedAt' in requestData() && requestData().updatedAt is timestamp
-                      && 'authId' in requestData() && requestData().authId is string
-                      && 'userOriginalId' in requestData() && requestData().userOriginalId is string
-                      && 'username' in requestData() && requestData().username is string;
-      allow update: if isSignedIn()
-      								&& 'updatedAt' in requestData() && requestData().updatedAt is timestamp;
-    }
-    match /records/{recordId} {
-      allow read;
-    	allow create: if isSignedIn()
-                      && 'createdAt' in requestData() && requestData().createdAt is timestamp
-                      && 'updatedAt' in requestData() && requestData().updatedAt is timestamp
-                      && 'userId' in requestData() && requestData().userId is string
-                      && 'userOriginalId' in requestData() && requestData().userOriginalId is string
-                      && 'roomType' in requestData() && requestData().roomType is string
-                      && 'fighter' in requestData() && requestData().fighter is string
-                      && 'fighterId' in requestData() && requestData().fighterId is string
-                      && 'opponent' in requestData() && requestData().opponent is string
-                      && 'opponentId' in requestData() && requestData().opponentId is string
-                      && 'result' in requestData() && requestData().result is bool;
-      allow update: if isSignedIn()
-                      && 'updatedAt' in requestData() && requestData().updatedAt is timestamp
-                      && 'fighter' in requestData() && requestData().fighter is string
-                      && 'fighterId' in requestData() && requestData().fighterId is string
-                      && 'opponent' in requestData() && requestData().opponent is string
-                      && 'opponentId' in requestData() && requestData().opponentId is string
-                      && 'result' in requestData() && requestData().result is bool;
-      allow delete: if isSignedIn();
-    }
-    match /versions/{version} {
-      allow read;
+      allow create: if isSignedIn() && isUser(userId) && isValidUserSchema(requestData());
+      allow update: if isSignedIn() && isUser(userId) && isValidUserSchema(requestData());
+
+      match /matchUpResults/{matchUpResultId} {
+        allow read: if isSignedIn() && isUser(userId);
+      }
     }
   }
 }

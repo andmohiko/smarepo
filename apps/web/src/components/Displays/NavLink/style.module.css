@@ -1,0 +1,12 @@
+.navLink {
+  padding: 0;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  line-height: 1.2;
+  text-decoration: none;
+
+  .mantineNavLink {
+    padding-inline: 0;
+    color: var(--color-black);
+  }
+}

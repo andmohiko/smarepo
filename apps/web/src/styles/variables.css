@@ -1,0 +1,45 @@
+:root {
+  /* Base colors */
+  --color-base: #ffffff;
+  --color-primary: #69a5ff;
+  --color-primaryLight: #4bc1e6;
+  --color-primaryDark: #1451ad;
+  --color-error: #ef5252;
+  --color-errorLight: #ffdbdb;
+  --color-success: #74cd6d;
+  --color-successLight: #c2f2be;
+  --color-warning: #f2bc2f;
+  --color-warningLight: #f2ebad;
+  --color-info: #53abc7;
+  --color-infoLight: #d6eff8;
+
+  /* Base color shades */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-text-white: #ffffff;
+  --color-text-black: #171923;
+  --color-text-gray: #4a5568;
+
+  /* Gray shades */
+  --color-gray50: #f7fafc;
+  --color-gray100: #edf2f7;
+  --color-gray200: #e2e8f0;
+  --color-gray300: #cbd5e0;
+  --color-gray400: #a0aec0;
+  --color-gray500: #718096;
+  --color-gray600: #4a5568;
+  --color-gray700: #2d3748;
+  --color-gray800: #1a202c;
+  --color-gray900: #171923;
+  --color-blue: #3681f3;
+
+  /* Cyan shades */
+  --color-cyanLight: #edfdfd;
+  --color-cyan: #9decf9;
+  --color-cyanDark: #00b5d8;
+
+  --color-link: #228be6;
+
+  --color-win: #ff0000;
+  --color-lose: #0000ff;
+}

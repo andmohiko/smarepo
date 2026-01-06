@@ -1,0 +1,37 @@
+.matchListCard {
+  width: 100%;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--color-gray300);
+  display: flex;
+  justify-content: center;
+
+  .matchListCardContent {
+    width: 100%;
+
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    grid-template-areas: result myFighter opponentFighter action;
+    grid-template-columns: 100px 80px 80px 100px;
+    gap: 8px;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .result {
+      justify-self: center;
+
+      @media (max-width: 480px) {
+        justify-self: flex-end;
+        padding-right: 16px;
+      }
+    }
+
+    .action {
+      padding-right: 48px;
+      justify-self: flex-end;
+    }
+  }
+}

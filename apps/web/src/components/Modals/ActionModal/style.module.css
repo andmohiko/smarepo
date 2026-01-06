@@ -1,0 +1,45 @@
+.mantineModalHeader {
+  display: none !important;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  /* mantineのmodalの左右のpaddingが16pxなので、それを引いた幅にする */
+  width: calc(100% - 32px);
+  background-color: var(--bg-white0);
+
+  display: grid;
+  grid-template-columns: 48px 1fr 80px;
+  align-items: center;
+  height: 72px;
+
+  .close {
+    justify-self: flex-start;
+    padding-top: 4px;
+  }
+
+  .title {
+    justify-self: flex-start;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 2;
+  }
+
+  .action {
+    justify-self: flex-end;
+
+    .save {
+      color: var(--color-cast-nav);
+      font-weight: bold;
+    }
+  }
+}
+
+.body {
+  padding-top: 72px;
+  display: flex;
+  justify-content: center;
+}

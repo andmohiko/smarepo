@@ -1,0 +1,39 @@
+.multiFighterSelectorInput {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fighterSelectorWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.removeButtonText {
+  color: var(--color-red);
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.removeButtonText:hover {
+  opacity: 0.7;
+}
+
+.addButtonWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.addButtonText {
+  color: var(--color-blue);
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.addButtonText:hover {
+  opacity: 0.7;
+}

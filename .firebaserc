@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "smash-bros-analytics"
+    "production": "prd-smarepo",
+    "develop": "smarepo-dev"
   }
 }

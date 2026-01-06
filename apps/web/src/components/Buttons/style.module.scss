@@ -1,0 +1,39 @@
+.primary {
+  color: var(--color-text-white);
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+
+  &:hover {
+    background-color: var(--color-primary);
+    opacity: 0.8;
+  }
+}
+
+.secondary {
+  color: var(--color-primary);
+  background-color: var(--bg-white0);
+  border-color: var(--color-primary);
+
+  &:hover {
+    background-color: var(--bg-white0);
+    opacity: 0.8;
+  }
+}
+
+.tertiary {
+  color: var(--color-primary);
+  background-color: transparent;
+  border-color: transparent;
+
+  &:hover {
+    background-color: transparent;
+    opacity: 0.8;
+  }
+}
+
+.disabled {
+  color: var(--color-text-white);
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  opacity: 0.5;
+}

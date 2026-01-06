@@ -1,0 +1,96 @@
+._black {
+  color: var(--color-gray800);
+}
+
+._white {
+  color: var(--color-text-white);
+}
+
+._gray {
+  color: var(--color-gray400);
+}
+
+._darkGray {
+  color: var(--color-gray600);
+}
+
+._red {
+  color: var(--color-base-red);
+}
+
+.headingText {
+  line-height: 1.25;
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: bold;
+}
+
+.labelText {
+  line-height: 1.25;
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+.paragraphText {
+  line-height: 1.5;
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+._size32 {
+  font-size: 32px;
+}
+
+._size24 {
+  font-size: 24px;
+}
+
+._size20 {
+  font-size: 20px;
+}
+
+._size16 {
+  font-size: 16px;
+}
+
+._size14 {
+  font-size: 14px;
+}
+
+._size12 {
+  font-size: 12px;
+}
+
+._bold {
+  font-weight: bold;
+}
+
+._normal {
+  font-weight: normal;
+}
+
+._left {
+  text-align: left;
+}
+
+._center {
+  text-align: center;
+}
+
+._right {
+  text-align: right;
+}
+
+.resultText {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+._WIN {
+  color: var(--color-win);
+}
+
+._LOSE {
+  color: var(--color-lose);
+}
+
+._DRAW {
+  color: #00ff00;
+}

@@ -1,0 +1,33 @@
+.publicLayout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & > .headerWrapper {
+    position: fixed;
+    top: -2px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+
+    & > .spWindow {
+      width: 500px;
+      max-width: 500px;
+    }
+  }
+
+  & > .main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    padding: 48px 0 0;
+    max-height: 100vh;
+  }
+}

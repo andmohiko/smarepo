@@ -1,0 +1,16 @@
+.matchListContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+
+  .matchListFooterContainer {
+    position: fixed;
+    bottom: 28px;
+    transform: translateY(-50%);
+    width: 100%;
+    max-width: 500px;
+  }
+}

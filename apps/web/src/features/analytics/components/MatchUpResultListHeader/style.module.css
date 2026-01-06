@@ -1,0 +1,28 @@
+.matchUpResultListHeader {
+  width: 100%;
+  padding: 0 16px;
+  background-color: var(--color-gray50);
+  display: flex;
+  justify-content: center;
+
+  .matchUpResultListHeaderContent {
+    width: 100%;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    grid-template-columns: 80px 80px 120px 60px;
+    gap: 8px;
+    padding-block: 4px;
+
+    .result {
+      justify-self: flex-end;
+      padding-right: 8px;
+    }
+
+    .rate {
+      justify-self: flex-end;
+      padding-right: 8px;
+    }
+  }
+}
