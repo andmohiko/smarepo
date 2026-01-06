@@ -55,7 +55,10 @@ export const AnalyticsContainer = (): React.ReactNode => {
             />
           </div>
           <MatchUpResultListHeader />
-          <TotalResultSummary matchUpResults={filteredMatchUpResults} />
+          <TotalResultSummary
+            myFighterId={myFighterId}
+            matchUpResults={filteredMatchUpResults}
+          />
           {filteredMatchUpResults.map((matchUpResult) => (
             <MatchUpResultCard
               key={matchUpResult.matchUpResultId}

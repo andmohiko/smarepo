@@ -3,7 +3,7 @@
  * @description マッチアップ結果の合計勝ち数、負け数、勝率を表示する
  */
 
-import type { MatchUpResult } from '@smarepo/common'
+import type { FighterId, MatchUpResult } from '@smarepo/common'
 import { FighterIcon } from '~/components/Displays/FighterIcon'
 import { WinLoseResult } from '~/components/Displays/WinLoseResult'
 import { LabelText } from '~/components/Typography/LabelText'
@@ -13,6 +13,7 @@ import styles from './style.module.css'
  * TotalResultSummaryコンポーネントのProps型定義
  */
 type Props = {
+  myFighterId: FighterId | undefined
   matchUpResults: Array<MatchUpResult>
 }
 
@@ -23,6 +24,7 @@ type Props = {
  * @returns {React.ReactNode} 合計勝敗数サマリーUI
  */
 export const TotalResultSummary = ({
+  myFighterId,
   matchUpResults,
 }: Props): React.ReactNode => {
   const totalMatches = matchUpResults.reduce(
@@ -38,7 +40,11 @@ export const TotalResultSummary = ({
   return (
     <div className={styles.matchUpResultCard}>
       <div className={styles.matchUpResultCardContent}>
-        <FighterIcon fighterId={matchUpResults[0].myFighterId} size="md" />
+        {myFighterId ? (
+          <FighterIcon fighterId={matchUpResults[0].myFighterId} size="md" />
+        ) : (
+          <div />
+        )}
         <LabelText size="md" weight="bold">
           合計
         </LabelText>
