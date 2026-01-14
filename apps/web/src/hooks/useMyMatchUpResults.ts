@@ -25,16 +25,20 @@ export const useMyMatchUpResults = (): [
       setIsLoading(true)
       try {
         const matchUpResults = await fetchMyMatchUpResultsOperation(uid)
-        const sortedMatchUpResults = matchUpResults
-          .sort((a, b) =>
-            a.opponentFighterId.localeCompare(b.opponentFighterId),
-          )
-          .sort((a, b) => {
-            const aWinRate = a.wins / a.matches
-            const bWinRate = b.wins / b.matches
+        const sortedMatchUpResults = matchUpResults.sort((a, b) => {
+          // 1. 試合数の降順でソート
+          if (b.matches !== a.matches) {
+            return b.matches - a.matches
+          }
+          // 2. 試合数が同じ場合、勝率の降順でソート
+          const aWinRate = a.wins / a.matches
+          const bWinRate = b.wins / b.matches
+          if (bWinRate !== aWinRate) {
             return bWinRate - aWinRate
-          })
-          .sort((a, b) => b.matches - a.matches)
+          }
+          // 3. 勝率も同じ場合、対戦相手のファイターIDの辞書順でソート
+          return a.opponentFighterId.localeCompare(b.opponentFighterId)
+        })
         setMatchUpResults(sortedMatchUpResults)
       } catch (e) {
         setError(errorMessage(e))
