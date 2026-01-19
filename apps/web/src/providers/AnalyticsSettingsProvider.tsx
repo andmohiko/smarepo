@@ -1,11 +1,15 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext } from 'react'
+import { useLocalStorage } from '~/hooks/useLocalStorage'
 
 type AnalyticsSettings = {
   isGroupDashFighters: boolean
 }
 
+/** ローカルストレージのキー: 分析設定 */
+const STORAGE_KEY_ANALYTICS_SETTINGS = 'analytics_settings'
+
 const defaultAnalyticsSettings: AnalyticsSettings = {
-  isGroupDashFighters: true,
+  isGroupDashFighters: false,
 }
 
 const AnalyticsSettingsContext = createContext<{
@@ -21,9 +25,11 @@ const AnalyticsSettingsProvider = ({
 }: {
   children: React.ReactNode
 }): React.ReactNode => {
-  const [analyticsSettings, setAnalyticsSettings] = useState<AnalyticsSettings>(
-    defaultAnalyticsSettings,
-  )
+  const [analyticsSettings, setAnalyticsSettings] =
+    useLocalStorage<AnalyticsSettings>(
+      STORAGE_KEY_ANALYTICS_SETTINGS,
+      defaultAnalyticsSettings,
+    )
 
   return (
     <AnalyticsSettingsContext.Provider
