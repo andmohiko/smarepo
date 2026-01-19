@@ -16,6 +16,13 @@
     grid-template-columns: 80px 80px 120px 60px;
     gap: 8px;
 
+    .opponentFighters {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+    }
+
     .result {
       justify-self: flex-end;
     }
