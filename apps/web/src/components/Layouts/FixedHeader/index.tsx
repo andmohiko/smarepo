@@ -1,17 +1,18 @@
 import { useRouter } from 'next/router'
 import { FaChevronLeft } from 'react-icons/fa6'
-import { IoSettingsOutline } from 'react-icons/io5'
 import { IconButton } from '~/components/Buttons/IconButton'
 import styles from './style.module.css'
 
 type Props = {
   title: string
   isShowBackButton?: boolean
+  rightIcon?: React.ReactNode
 }
 
 export const FixedHeader = ({
   title,
   isShowBackButton = false,
+  rightIcon,
 }: Props): React.ReactNode => {
   const { pathname, push } = useRouter()
 
@@ -35,8 +36,6 @@ export const FixedHeader = ({
     push('/')
   }
 
-  const isShowSettingsButton = pathname === '/i/mypage'
-
   return (
     <header className={styles.fixedHeader}>
       {isShowBackButton ? (
@@ -47,13 +46,8 @@ export const FixedHeader = ({
         <div />
       )}
       <h1 className={styles.title}>{title}</h1>
-      {isShowSettingsButton ? (
-        <div className={styles.rightIcon}>
-          <IconButton
-            icon={<IoSettingsOutline size={24} />}
-            onClick={() => push('/i/settings')}
-          />
-        </div>
+      {rightIcon ? (
+        <div className={styles.rightIcon}>{rightIcon}</div>
       ) : (
         <div />
       )}
