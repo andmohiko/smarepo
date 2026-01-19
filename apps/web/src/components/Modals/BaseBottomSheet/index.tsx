@@ -1,8 +1,6 @@
 import { Modal, ScrollArea } from '@mantine/core'
-
-import styles from './style.module.css'
-
 import { HeadingText } from '~/components/Typography/HeadingText'
+import styles from './style.module.css'
 
 type Props = {
   children: React.ReactNode

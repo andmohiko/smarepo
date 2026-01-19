@@ -8,6 +8,7 @@
 }
 
 .mantineModalContent {
+  /* biome-ignore lint/complexity/noImportantStyles: <explanation> to override the default border radius */
   border-radius: 20px 20px 0 0 !important;
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.7);
   overflow: hidden;
