@@ -1,6 +1,6 @@
 import { FlexBox } from '~/components/Base/FlexBox'
-import { NavLink } from '~/components/Displays/NavLink'
 import { BasicButton } from '~/components/Buttons/BasicButton'
+import { NavLink } from '~/components/Displays/NavLink'
 import { HeadingText } from '~/components/Typography/HeadingText'
 import { useFirebaseAuthContext } from '~/providers/FirebaseAuthProvider'
 

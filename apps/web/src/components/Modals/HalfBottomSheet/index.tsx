@@ -1,4 +1,4 @@
-import { Modal, ScrollArea } from '@mantine/core'
+import { Modal } from '@mantine/core'
 import { HeadingText } from '~/components/Typography/HeadingText'
 import styles from './style.module.css'
 
@@ -9,7 +9,7 @@ type Props = {
   onClose: () => void
 }
 
-export const BaseBottomSheet = ({
+export const HalfBottomSheet = ({
   children,
   title,
   isOpen,
@@ -33,7 +33,6 @@ export const BaseBottomSheet = ({
         blur: 3,
       }}
       padding="lg"
-      scrollAreaComponent={ScrollArea.Autosize}
       classNames={{
         root: styles.mantineModalRoot,
         inner: styles.mantineModalInner,

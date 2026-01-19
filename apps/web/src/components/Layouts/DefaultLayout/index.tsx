@@ -9,11 +9,13 @@ import styles from './style.module.css'
 type Props = {
   children?: ReactNode
   title?: string
+  headerRightIcon?: React.ReactNode
 }
 
 export const DefaultLayout = ({
   children,
   title = 'スマレポ',
+  headerRightIcon,
 }: Props): ReactElement => {
   const { isLoading } = useLoadingContext()
 
@@ -22,7 +24,7 @@ export const DefaultLayout = ({
       <PageHead />
       <div className={styles.headerWrapper}>
         <div className={styles.spWindow}>
-          <FixedHeader title={title} />
+          <FixedHeader title={title} rightIcon={headerRightIcon} />
         </div>
       </div>
 
