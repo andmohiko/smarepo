@@ -22,7 +22,6 @@ export const AnalyticsSettingsModal = ({ isOpen, onClose }: Props) => {
       <FlexBox direction="row" justify="space-between">
         <LabelText weight="bold">
           ダッシュファイターをまとめて表示する
-          {`${analyticsSettings.isGroupDashFighters}`}
         </LabelText>
         <SwitchInput
           value={analyticsSettings.isGroupDashFighters}
