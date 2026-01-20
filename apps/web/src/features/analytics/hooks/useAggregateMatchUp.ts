@@ -85,7 +85,7 @@ export const useAggregateMatchUp = (matchUpResults: Array<MatchUpResult>) => {
       }
     }
 
-    return Array.from(groupedMap.values())
+    return Array.from(groupedMap.values()).sort((a, b) => b.matches - a.matches)
   }, [filteredMatchUpResults, analyticsSettings.isGroupDashFighters])
 
   return {
